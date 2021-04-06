@@ -183,6 +183,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\NewsItemController.cs" />
+    <Compile Include="Controllers\NewsItemDataController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -193,6 +195,10 @@
     <Compile Include="Migrations\202104061833032_NewsItemTable.cs" />
     <Compile Include="Migrations\202104061833032_NewsItemTable.Designer.cs">
       <DependentUpon>202104061833032_NewsItemTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104061905378_Test.cs" />
+    <Compile Include="Migrations\202104061905378_Test.Designer.cs">
+      <DependentUpon>202104061905378_Test.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -259,9 +265,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\NewsItem\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Models\ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -282,6 +290,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104061833032_NewsItemTable.resx">
       <DependentUpon>202104061833032_NewsItemTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104061905378_Test.resx">
+      <DependentUpon>202104061905378_Test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
