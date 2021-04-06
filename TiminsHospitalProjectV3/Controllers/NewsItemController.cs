@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.IO;
 using TiminsHospitalProjectV3.Models;
-//using TiminsHospitalProjectV3.Models.ViewModels;
+using TiminsHospitalProjectV3.Models.ViewModels;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Diagnostics;
@@ -48,5 +48,31 @@ namespace TiminsHospitalProjectV3.Controllers
                 return RedirectToAction("Error");
             }
         }
+        public ActionResult Details(int id)
+        {
+            ShowNewsItem ViewModel = new ShowNewsItem();
+            string url = "NewsItemData/FindNewsItem/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            Debug.WriteLine(response.StatusCode);
+            if (response.IsSuccessStatusCode)
+            {
+                //Put data into Hop data transfer object
+                NewsItemDto SelectedNewsItem = response.Content.ReadAsAsync<NewsItemDto>().Result;
+                ViewModel.newsItem = SelectedNewsItem;
+
+
+                /*url = "hopdata/findHopClassificationforHop/" + id;
+                response = client.GetAsync(url).Result;
+                HopClassificationDto SelectedHopClassification = response.Content.ReadAsAsync<HopClassificationDto>().Result;
+                ViewModel.hopClassification = SelectedHopClassification;*/
+
+                return View(ViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+
     }
 }

@@ -1,0 +1,66 @@
+﻿@model TiminsHospitalProjectV3.Models.ViewModels.ShowNewsItem
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>NewsItem</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.newsItem.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.newsItem.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.newsItem.NewsBody)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.newsItem.NewsBody)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.newsItem.NewItemDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.newsItem.NewItemDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.newsItem.NewsItemHasPic)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.newsItem.NewsItemHasPic)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.newsItem.NewsItemPicExtension)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.newsItem.NewsItemPicExtension)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.newsItem.UserID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.newsItem.UserID)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.newsItem.NewsItemID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
