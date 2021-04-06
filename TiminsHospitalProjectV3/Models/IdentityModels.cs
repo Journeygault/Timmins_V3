@@ -30,6 +30,8 @@ namespace TiminsHospitalProjectV3.Models
             return new ApplicationDbContext();
         }
         public DbSet<Class1> Class1s { get; set; }
+        public DbSet<NewsItem> NewsItems { get; set; }
+
 
     }
 }
