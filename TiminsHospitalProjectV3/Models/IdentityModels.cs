@@ -31,7 +31,7 @@ namespace TiminsHospitalProjectV3.Models
         }
         public DbSet<Class1> Class1s { get; set; }
         public DbSet<NewsItem> NewsItems { get; set; }
-
+        public DbSet<Faq> Faqs { get; set; }
 
     }
 }
