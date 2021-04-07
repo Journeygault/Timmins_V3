@@ -64,7 +64,7 @@ namespace TiminsHospitalProjectV3.Controllers
             return Ok(faqDto);
         }
         /// <summary>
-        /// 
+        ///     --
         /// </summary>
         /// <param name="id">FaqID</param>
         /// <param name="faq">Parameter from models.Faq</param>
@@ -109,7 +109,7 @@ namespace TiminsHospitalProjectV3.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
         /// <summary>
-        /// 
+        ///     --
         /// </summary>
         /// <param name="faq"></param>
         /// <returns></returns>
@@ -129,9 +129,9 @@ namespace TiminsHospitalProjectV3.Controllers
             return Ok(faq.FaqID);
         }
         /// <summary>
-        /// 
+        ///     --
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">FaqID</param>
         /// <returns></returns>
         //  POST: api/FaqData/DeleteFaq/1
         [HttpPost]
@@ -159,7 +159,7 @@ namespace TiminsHospitalProjectV3.Controllers
         /// <summary>
         ///     Finds a Faq in the system. Internal use only.
         /// </summary>
-        /// <param name="id">The Faq Id</param>
+        /// <param name="id">FaqID</param>
         /// <returns>TRUE if the Faq exists, false otherwise.</returns>
         private bool FaqExists(int id)
         {
