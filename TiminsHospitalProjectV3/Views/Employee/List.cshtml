@@ -1,0 +1,78 @@
+﻿@model IEnumerable<TiminsHospitalProjectV3.Models.EmployeeDto>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeFirstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeLastname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeePhone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeAddress)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeDes)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmployeeResume)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobID)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeFirstname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeLastname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeePhone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeEmail)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeAddress)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeDes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EmployeeResume)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobID)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.EmployeeID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.EmployeeID }) |
+                @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.EmployeeID })
+            </td>
+        </tr>
+    }
+
+</table>
+
+

@@ -181,6 +181,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\EmployeeController.cs" />
+    <Compile Include="Controllers\EmployeeDataController.cs" />
     <Compile Include="Controllers\FaqController.cs" />
     <Compile Include="Controllers\FaqDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -210,16 +212,25 @@
     <Compile Include="Migrations\202104081824299_updateNewsItemAddedToViewmodel.Designer.cs">
       <DependentUpon>202104081824299_updateNewsItemAddedToViewmodel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104082322527_Employee.cs" />
+    <Compile Include="Migrations\202104082322527_Employee.Designer.cs">
+      <DependentUpon>202104082322527_Employee.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Class1.cs" />
+    <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Faq.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Job_Posting.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NewsItem.cs" />
     <Compile Include="Models\ViewModels\ListFaqs.cs" />
+    <Compile Include="Models\ViewModels\ShowEmployee.cs" />
     <Compile Include="Models\ViewModels\ShowFaq.cs" />
+    <Compile Include="Models\ViewModels\ShowJob_Posting.cs" />
     <Compile Include="Models\ViewModels\ShowNewsItem.cs" />
+    <Compile Include="Models\ViewModels\UpdateEmployee.cs" />
     <Compile Include="Models\ViewModels\UpdateFaq.cs" />
     <Compile Include="Models\ViewModels\UpdateNewsItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -230,6 +241,7 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Employees\logo.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -291,6 +303,12 @@
     <Content Include="Views\Faq\Error.cshtml" />
     <Content Include="Views\NewsItem\Create.cshtml" />
     <Content Include="Views\NewsItem\DeleteConfirm.cshtml" />
+    <Content Include="Views\Employee\Create.cshtml" />
+    <Content Include="Views\Employee\DeleteConfirm.cshtml" />
+    <Content Include="Views\Employee\Details.cshtml" />
+    <Content Include="Views\Employee\Edit.cshtml" />
+    <Content Include="Views\Employee\Error.cshtml" />
+    <Content Include="Views\Employee\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -323,6 +341,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104081824299_updateNewsItemAddedToViewmodel.resx">
       <DependentUpon>202104081824299_updateNewsItemAddedToViewmodel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104082322527_Employee.resx">
+      <DependentUpon>202104082322527_Employee.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
