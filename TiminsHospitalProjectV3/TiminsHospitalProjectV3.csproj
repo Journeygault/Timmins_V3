@@ -284,6 +284,8 @@
     <Content Include="Views\Faq\Edit.cshtml" />
     <Content Include="Views\Faq\List.cshtml" />
     <Content Include="Views\Faq\Error.cshtml" />
+    <Content Include="Views\NewsItem\Create.cshtml" />
+    <Content Include="Views\NewsItem\DeleteConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

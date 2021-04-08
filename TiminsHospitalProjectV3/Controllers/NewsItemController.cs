@@ -36,12 +36,12 @@ namespace TiminsHospitalProjectV3.Controllers
         }
         public ActionResult List()
         {
-            string url = "NewsItemData/GetNewsItemss";
+            string url = "NewsItemData/GetNewsItems";
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
-                IEnumerable<NewsItemDto> SelectedHops = response.Content.ReadAsAsync<IEnumerable<NewsItemDto>>().Result;
-                return View(SelectedHops);
+                IEnumerable<NewsItemDto> SelectedNewsItems = response.Content.ReadAsAsync<IEnumerable<NewsItemDto>>().Result;
+                return View(SelectedNewsItems);
             }
             else
             {
@@ -73,6 +73,98 @@ namespace TiminsHospitalProjectV3.Controllers
                 return RedirectToAction("Error");
             }
         }
+        public ActionResult Create()
+        {
+            return View();
+        }
 
+        // POST: Hop/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public ActionResult Create(NewsItem NewsItemInfo)
+        {
+            //Debug.WriteLine(NewsItem.NewsItemID);
+            string url = "NewsItemData/AddNewsItem";//CHANGE
+            Debug.WriteLine(jss.Serialize(NewsItemInfo));
+            HttpContent content = new StringContent(jss.Serialize(NewsItemInfo));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+
+            if (response.IsSuccessStatusCode)
+            {
+                try
+                {
+                    int newsItemid = response.Content.ReadAsAsync<int>().Result;
+                    return RedirectToAction("Details", new
+                    {
+                        id = newsItemid
+                    });
+
+                }
+                catch (Exception e)
+                {
+                    Debug.WriteLine(NewsItemInfo);
+                    return RedirectToAction("List");
+                }
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+        [HttpGet]
+        public ActionResult DeleteConfirm(int id)
+        {
+            string url = "NewsItemData/FindNewsItem/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            //Can catch the status code (200 OK, 301 REDIRECT), etc.
+            //Debug.WriteLine(response.StatusCode);
+            if (response.IsSuccessStatusCode)
+            {
+                //Put data into Hop data transfer object
+                NewsItemDto SelectedNewsItem = response.Content.ReadAsAsync<NewsItemDto>().Result;
+                return View(SelectedNewsItem);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+        /// <summary>
+        /// Same as aboves security measures
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        // POST: Hop/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public ActionResult Delete(int id)
+        {
+            string url = "NewsItemData/DeleteNewsItem/" + id;
+            //post body is empty
+            HttpContent content = new StringContent("");
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+            //Can catch the status code (200 OK, 301 REDIRECT), etc.
+            //Debug.WriteLine(response.StatusCode);
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+
+        }
+        /// <summary>
+        /// Error message
+        /// </summary>
+        /// <returns>Returns Error messages</returns>
+        public ActionResult Error()
+        {
+            return View();
+        }
     }
 }

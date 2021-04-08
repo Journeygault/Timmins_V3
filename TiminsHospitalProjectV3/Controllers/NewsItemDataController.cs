@@ -10,6 +10,9 @@ using System.Data.Entity.Infrastructure;
 using System.Web.Http.Description;
 using TiminsHospitalProjectV3.Models;
 using System.Diagnostics;
+
+
+
 //Port Number:44346
 namespace TiminsHospitalProjectV3.Controllers
 {
@@ -71,6 +74,56 @@ namespace TiminsHospitalProjectV3.Controllers
             //pass along data as 200 status code OK response
             return Ok(NewsItemDto);
         }
+        [ResponseType(typeof(NewsItem))]
+        [HttpPost]
+        public IHttpActionResult AddNewsItem([FromBody] NewsItem newsItem)
+        {
+            //Just checks to see if the model is valid
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            db.NewsItems.Add(newsItem);
+            db.SaveChanges();
+
+            return Ok(newsItem.NewsItemID); ;
+        }
+        // GET: api/NewsItemData/DeleteNewsItem
+
+        [HttpPost]
+        public IHttpActionResult DeleteNewsItem(int id)
+        {
+
+            NewsItem newsItem = db.NewsItems.Find(id);
+            if (newsItem == null)
+            {
+                return NotFound();
+            }
+            Debug.WriteLine(newsItem);
+
+            db.NewsItems.Remove(newsItem);
+            db.SaveChanges();
+
+            return Ok();
+        }
+
+
+
+    protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private bool NewsItemExists(int id)
+        {
+            return db.NewsItems.Count(e => e.NewsItemID == id) > 0;
+        }
     }
+
        
 }
