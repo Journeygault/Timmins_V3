@@ -1,34 +1,23 @@
-﻿@model TiminsHospitalProjectV3.Models.Faq
+﻿@model TiminsHospitalProjectV3.Models.ViewModels.ShowFaq
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h1>FAQs</h1>
 
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<hr />
 <div>
-    <h4>Faq</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.FaqQuestion)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FaqQuestion)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.FaqAnswer)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.FaqAnswer)
-        </dd>
-
-    </dl>
+    <h2>@Html.DisplayFor(model => model.Faq.FaqQuestion)</h2>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Faq.FaqID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = Model.Faq.FaqID }) |
+    </p>
+    <p>@Html.DisplayFor(model => model.Faq.FaqAnswer)</p>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.FaqID }) |
     @Html.ActionLink("Back to List", "List")
 </p>

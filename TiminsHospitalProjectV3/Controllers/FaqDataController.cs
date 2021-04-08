@@ -47,7 +47,7 @@ namespace TiminsHospitalProjectV3.Controllers
         // GET: api/FaqData/FindFaq/1
         [HttpGet]
         [Route("api/FaqData/FindFaq/{id}")]
-        [ResponseType(typeof(Faq))]
+        [ResponseType(typeof(FaqDto))]
         public IHttpActionResult FindFaq(int id)
         {
             Faq faq = db.Faqs.Find(id);
@@ -73,6 +73,7 @@ namespace TiminsHospitalProjectV3.Controllers
         [HttpPost]
         [Route("api/FaqData/UpdateFaq/{id}")]
         [ResponseType(typeof(void))]
+        //[Authorize(Roles = "Admin")]
         public IHttpActionResult UpdateFaq(int id, [FromBody] Faq faq)
         {
             /*If the Model State is not 
@@ -117,6 +118,7 @@ namespace TiminsHospitalProjectV3.Controllers
         [HttpPost]
         [Route("api/FaqData/AddFaq")]
         [ResponseType(typeof(Faq))]
+        //[Authorize(Roles = "Admin")]
         public IHttpActionResult AddFaq([FromBody] Faq faq)
         {
             if (!ModelState.IsValid)
@@ -126,7 +128,7 @@ namespace TiminsHospitalProjectV3.Controllers
             db.Faqs.Add(faq);
             db.SaveChanges();
 
-            return Ok(faq.FaqID);
+            return CreatedAtRoute("DefaultApi", new { id = faq.FaqID }, faq);
         }
         /// <summary>
         ///     --
@@ -137,6 +139,7 @@ namespace TiminsHospitalProjectV3.Controllers
         [HttpPost]
         [Route("api/FaqData/DeleteFaq/{id}")]
         [ResponseType(typeof(Faq))]
+        //[Authorize(Roles = "Admin")]
         public IHttpActionResult DeleteFaq(int id)
         {
             Faq faq = db.Faqs.Find(id);
