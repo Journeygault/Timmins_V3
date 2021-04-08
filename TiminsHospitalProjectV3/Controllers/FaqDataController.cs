@@ -128,7 +128,7 @@ namespace TiminsHospitalProjectV3.Controllers
             db.Faqs.Add(faq);
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = faq.FaqID }, faq);
+            return Ok(faq.FaqID);
         }
         /// <summary>
         ///     --

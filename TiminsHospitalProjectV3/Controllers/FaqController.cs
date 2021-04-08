@@ -120,15 +120,15 @@ namespace TiminsHospitalProjectV3.Controllers
             //pass along authentication credential in http request
             //GetApplicationCookie();
 
-            Debug.WriteLine(faqInfo.FaqQuestion);
+            //Debug.WriteLine(faqInfo.FaqQuestion);
             string url = "FaqData/AddFaq";
-            Debug.WriteLine(jss.Serialize(faqInfo));
+            //Debug.WriteLine(jss.Serialize(faqInfo));
             HttpContent content = new StringContent(jss.Serialize(faqInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("List");
+                return RedirectToAction("List", "Faq");
             }
             else
             {
