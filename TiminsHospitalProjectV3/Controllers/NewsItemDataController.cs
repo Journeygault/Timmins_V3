@@ -108,9 +108,44 @@ namespace TiminsHospitalProjectV3.Controllers
             return Ok();
         }
 
+        [ResponseType(typeof(void))]
+        [HttpPost]
+        public IHttpActionResult UpdateNewsItem(int id, [FromBody] NewsItem newsItem)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
+            if (id != newsItem.NewsItemID)
+            {
+                return BadRequest();
+            }
 
-    protected override void Dispose(bool disposing)
+            db.Entry(newsItem).State = EntityState.Modified;
+
+            try
+            {
+            //    Debug.WriteLine(hop);
+            
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!NewsItemExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        protected override void Dispose(bool disposing)
         {
             if (disposing)
             {

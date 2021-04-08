@@ -206,6 +206,10 @@
     <Compile Include="Migrations\202104070212040_faq-table.Designer.cs">
       <DependentUpon>202104070212040_faq-table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104081824299_updateNewsItemAddedToViewmodel.cs" />
+    <Compile Include="Migrations\202104081824299_updateNewsItemAddedToViewmodel.Designer.cs">
+      <DependentUpon>202104081824299_updateNewsItemAddedToViewmodel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Class1.cs" />
@@ -217,6 +221,7 @@
     <Compile Include="Models\ViewModels\ShowFaq.cs" />
     <Compile Include="Models\ViewModels\ShowNewsItem.cs" />
     <Compile Include="Models\ViewModels\UpdateFaq.cs" />
+    <Compile Include="Models\ViewModels\UpdateNewsItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -315,6 +320,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104070212040_faq-table.resx">
       <DependentUpon>202104070212040_faq-table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104081824299_updateNewsItemAddedToViewmodel.resx">
+      <DependentUpon>202104081824299_updateNewsItemAddedToViewmodel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

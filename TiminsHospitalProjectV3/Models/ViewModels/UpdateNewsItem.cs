@@ -8,9 +8,7 @@ namespace TiminsHospitalProjectV3.Models.ViewModels
     public class UpdateNewsItem
     {
         public NewsItemDto newsItem { get; set; }
-        //Need The following to update wither userID's POTENTIALY
-        //public IEnumerable<HopClassificationDto> allhopclassifications { get; set; }
-
-
+        //information that is sent from the user table
+        //public User User { get; set; }
     }
 }
