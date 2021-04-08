@@ -135,6 +135,52 @@ namespace TiminsHospitalProjectV3.Controllers
                 return RedirectToAction("Error");
             }
         }
+        /// <returns>---</returns>
+        // GET: Faq/Edit/1
+        [HttpGet]
+        //[Authorize(Roles = "Admin")]
+        public ActionResult Edit(int id)
+        {
+            UpdateFaq ViewModel = new UpdateFaq();
+            string url = "FaqData/FindFaq/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            //Debug.WriteLine(response.StatusCode);
+            if (response.IsSuccessStatusCode)
+            {
+                FaqDto SelectedFaqs = response.Content.ReadAsAsync<FaqDto>().Result;
+                ViewModel.Faq = SelectedFaqs;
+                return View(ViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+        /// <returns>---</returns>
+        // POST: Faq/Edit/1
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        //[Authorize(Roles = "Admin")]
+        public ActionResult Edit(int id, Faq faqInfo)
+        {
+            //pass along authentication credential in http request
+            //GetApplicationCookie();
 
+            Debug.WriteLine(faqInfo.FaqQuestion);
+            string url = "FaqData/UpdateFaq/" + id;
+            Debug.WriteLine(jss.Serialize(faqInfo));
+            HttpContent content = new StringContent(jss.Serialize(faqInfo));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+            Debug.WriteLine(response.StatusCode);
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("List", new { id = id });
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
     }
 }
