@@ -13,8 +13,8 @@
     </p>
 }
 <form method="get" action="/Faq/List">
-    <input type="text" class="form-control" placeholder="Enter Search Keyword" name="SearchKey" id="SearchKey" />
-    <button type="submit" value="Search" class="btn btn-defaul">Search</button>
+    <input type="text" class="form-control" placeholder="Enter Search Keyword" name="FaqSearchKey"/>
+    <input type="submit" value="Search" class="btn btn-default"/>
 </form>
 <div style="padding-bottom: 1em; font-style: italic;">
     @Model.faqs.Count() result(s) found
@@ -33,7 +33,7 @@
                 @Html.ActionLink("Details", "Details", new { id = item.FaqID }, new { @class = "text-primary" })
             </p>
         }
-        <p>@Html.DisplayFor(modelItem => item.FaqAnswer)</p>
+        <p>@Html.Raw(item.FaqAnswer)</p>
         <br />
     </div>
 }

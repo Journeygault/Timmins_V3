@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 //Added for Data Types
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,9 +14,8 @@ namespace TiminsHospitalProjectV3.Models
     {
         [Key]
         public int FaqID { get; set; }
-        [DisplayName("Question")]
         public string FaqQuestion { get; set; }
-        [DisplayName("Answer")]
+        [AllowHtml]//For TinyEMC Usage 
         public string FaqAnswer { get; set; }
         //Foreign Key set on the Users id in the Users Table
         //[ForeignKey("Users")]

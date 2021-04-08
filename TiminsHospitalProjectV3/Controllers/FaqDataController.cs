@@ -19,14 +19,18 @@ namespace TiminsHospitalProjectV3.Controllers
         ///     --
         /// </summary>
         /// <returns>A list of all Faqs in the database</returns>(checked)
-        // GET: api/FaqData/GetFaqs
+        //Trying to use the search key to find individual FAQ's
+        // GET: api/FaqData/ListFaqs/{FaqSearchKey?}
         [HttpGet]
-        [Route("api/FaqData/GetFaqs")]
+        [Route("api/FaqData/ListFaqs/{FaqSearchKey?}")]
         [ResponseType(typeof(IEnumerable<FaqDto>))]
-        public IHttpActionResult GetFaqs()
+        public IHttpActionResult ListFaqs(string FaqSearchKey = null)
         {
-            List<Faq> faqs = db.Faqs.ToList();
+            List<Faq> faqs;
+            if (FaqSearchKey != null) { faqs = db.Faqs.Where(t => t.FaqQuestion.Contains(FaqSearchKey) || t.FaqAnswer.Contains(FaqSearchKey)).ToList(); }
+            else { faqs = db.Faqs.ToList(); }
             List<FaqDto> faqDtos = new List<FaqDto> { };
+            //Find to list everything and a way to read the search key!---
             foreach (var faq in faqs)
             {
                 FaqDto NewFaq = new FaqDto
