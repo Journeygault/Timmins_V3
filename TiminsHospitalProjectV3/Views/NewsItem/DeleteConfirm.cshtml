@@ -60,6 +60,7 @@
         </dd>
 
     </dl>
+    <div>
     @using (Html.BeginForm("Delete", "NewsItem", new { id = Model.NewsItemID }))
     {
         @Html.AntiForgeryToken()
