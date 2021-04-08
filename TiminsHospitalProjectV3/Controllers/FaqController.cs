@@ -41,8 +41,7 @@ namespace TiminsHospitalProjectV3.Controllers
         /// Here is a descriptive article which walks through the process of setting up authorization/authentication directly.
         /// https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/individual-accounts-in-web-api
         /// </summary>
-    
-        /*private void GetApplicationCookie()
+        private void GetApplicationCookie()
         {
             string token = "";
             //HTTP client is set up to be reused, otherwise it will exhaust server resources.
@@ -60,19 +59,22 @@ namespace TiminsHospitalProjectV3.Controllers
             if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
 
             return;
-        }*/
-
+        }
         /// <returns>All Faqs in the database if response is successfull -
         /// otherwise redirects to error page</returns>
         // GET: Faq/List
         public ActionResult List()
         {
+            ListFaqs ViewModel = new ListFaqs();
+            ViewModel.isadmin = User.IsInRole("Admin");
+
             string url = "FaqData/GetFaqs";
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
                 IEnumerable<FaqDto> SelectedFaqs = response.Content.ReadAsAsync<IEnumerable<FaqDto>>().Result;
-                return View(SelectedFaqs);
+                ViewModel.faqs = SelectedFaqs;
+                return View(ViewModel);
             }
             else
             {
@@ -86,7 +88,7 @@ namespace TiminsHospitalProjectV3.Controllers
         public ActionResult Details(int id)
         {
             ShowFaq ViewModel = new ShowFaq();
-            //ViewModel.isadmin = User.IsInRole("Admin");
+            ViewModel.isadmin = User.IsInRole("Admin");
             string url = "FaqData/FindFaq/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             //Debug.WriteLine(response.StatusCode);
@@ -104,7 +106,7 @@ namespace TiminsHospitalProjectV3.Controllers
         /// <returns>Creates an Faq and inputs it into the database</returns>
         // GET: Faq/Create
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             UpdateFaq ViewModel = new UpdateFaq();
@@ -114,11 +116,11 @@ namespace TiminsHospitalProjectV3.Controllers
         // POST: Faq/Create
         [HttpPost]
         [ValidateAntiForgeryToken()]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(Faq faqInfo)
         {
             //pass along authentication credential in http request
-            //GetApplicationCookie();
+            GetApplicationCookie();
 
             //Debug.WriteLine(faqInfo.FaqQuestion);
             string url = "FaqData/AddFaq";
@@ -138,7 +140,7 @@ namespace TiminsHospitalProjectV3.Controllers
         /// <returns>---</returns>
         // GET: Faq/Edit/1
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             UpdateFaq ViewModel = new UpdateFaq();
@@ -160,11 +162,11 @@ namespace TiminsHospitalProjectV3.Controllers
         // POST: Faq/Edit/1
         [HttpPost]
         [ValidateAntiForgeryToken()]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id, Faq faqInfo)
         {
             //pass along authentication credential in http request
-            //GetApplicationCookie();
+            GetApplicationCookie();
 
             Debug.WriteLine(faqInfo.FaqQuestion);
             string url = "FaqData/UpdateFaq/" + id;
@@ -185,7 +187,7 @@ namespace TiminsHospitalProjectV3.Controllers
         /// <returns>---</returns>
         // GET: Faq/Delete/1
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)
         {
             string url = "FaqData/FindFaq/" + id;
@@ -205,11 +207,11 @@ namespace TiminsHospitalProjectV3.Controllers
         // POST: Faq/Delete/1
         [HttpPost]
         [ValidateAntiForgeryToken()]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             //pass along authentication credential in http request
-            //GetApplicationCookie();
+            GetApplicationCookie();
 
             string url = "FaqData/DeleteFaq/" + id;
             HttpContent content = new StringContent("");

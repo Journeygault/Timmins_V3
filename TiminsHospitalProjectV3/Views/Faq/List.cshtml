@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TiminsHospitalProjectV3.Models.FaqDto>
+﻿@model TiminsHospitalProjectV3.Models.ViewModels.ListFaqs
 
 @{
     ViewBag.Title = "List";
@@ -6,32 +6,33 @@
 
 <h1>FAQs</h1>
 
-<!--if(User.IsInRole("Admin"){-->
-<p>
-    <a href="/Faq/Create" class="btn btn-default btn-success">Create A New FAQ</a>
-</p>
-<!--}-->
-<!--if(Request.IsAuthenticated){-->
+@if(User.IsInRole("Admin"))
+{
+    <p>
+        <a href="/Faq/Create" class="btn btn-default btn-success">Create A New FAQ</a>
+    </p>
+}
 <form method="get" action="/Faq/List">
     <input type="text" class="form-control" placeholder="Enter Search Keyword" name="SearchKey" id="SearchKey" />
     <button type="submit" value="Search" class="btn btn-defaul">Search</button>
 </form>
 <div style="padding-bottom: 1em; font-style: italic;">
-    @Model.Count() result(s) found
+    @Model.faqs.Count() result(s) found
 </div>
-<!--}-->
+
 <hr />
-@foreach (var item in Model)
+@foreach (var item in Model.faqs)
 {
     <div class="spacing">
         <h2>@Html.DisplayFor(modelItem => item.FaqQuestion)</h2>
-        <!--if(User.IsInRole("Admin"){-->
-        <p>
-            @Html.ActionLink("Edit", "Edit", new { id = item.FaqID }, new { @class = "text-warning" }) |
-            @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.FaqID }, new { @class = "text-danger" }) |
-            @Html.ActionLink("Details", "Details", new { id = item.FaqID }, new { @class = "text-primary" })
-        </p>
-        <!--}-->
+        @if(User.IsInRole("Admin"))
+        {
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = item.FaqID }, new { @class = "text-warning" }) |
+                @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.FaqID }, new { @class = "text-danger" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.FaqID }, new { @class = "text-primary" })
+            </p>
+        }
         <p>@Html.DisplayFor(modelItem => item.FaqAnswer)</p>
         <br />
     </div>
