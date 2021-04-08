@@ -6,14 +6,14 @@ namespace TiminsHospitalProjectV3.Migrations
     using System.Data.Entity.Migrations.Infrastructure;
     using System.Resources;
     
-    [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class faqtable : IMigrationMetadata
+    [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
+    public sealed partial class reviewed_appointment_class : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(faqtable));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(reviewed_appointment_class));
         
         string IMigrationMetadata.Id
         {
-            get { return "202104070212040_faq-table"; }
+            get { return "202104080406161_reviewed_appointment_class"; }
         }
         
         string IMigrationMetadata.Source

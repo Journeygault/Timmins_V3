@@ -3,20 +3,33 @@ namespace TiminsHospitalProjectV3.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class hellow : DbMigration
+    public partial class appoinment_table : DbMigration
     {
         public override void Up()
         {
             CreateTable(
-                "dbo.Class1",
+                "dbo.Faqs",
                 c => new
                     {
-                        PlayerID = c.Int(nullable: false, identity: true),
-                        PlayerFirstName = c.String(),
-                        PlayerLastName = c.String(),
-                        PlayerBio = c.String(),
+                        FaqID = c.Int(nullable: false, identity: true),
+                        FaqQuestion = c.String(),
+                        FaqAnswer = c.String(),
                     })
-                .PrimaryKey(t => t.PlayerID);
+                .PrimaryKey(t => t.FaqID);
+            
+            CreateTable(
+                "dbo.NewsItems",
+                c => new
+                    {
+                        NewsItemID = c.Int(nullable: false, identity: true),
+                        Title = c.String(),
+                        NewsBody = c.String(),
+                        NewItemDate = c.DateTime(nullable: false),
+                        NewsItemHasPic = c.Boolean(nullable: false),
+                        NewsItemPicExtension = c.String(),
+                        UserID = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.NewsItemID);
             
             CreateTable(
                 "dbo.AspNetRoles",
@@ -105,7 +118,8 @@ namespace TiminsHospitalProjectV3.Migrations
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetRoles");
-            DropTable("dbo.Class1");
+            DropTable("dbo.NewsItems");
+            DropTable("dbo.Faqs");
         }
     }
 }
