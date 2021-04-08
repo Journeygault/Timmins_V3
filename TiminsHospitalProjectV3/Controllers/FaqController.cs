@@ -182,5 +182,51 @@ namespace TiminsHospitalProjectV3.Controllers
                 return RedirectToAction("Error");
             }
         }
+        /// <returns>---</returns>
+        // GET: Faq/Delete/1
+        [HttpGet]
+        //[Authorize(Roles = "Admin")]
+        public ActionResult DeleteConfirm(int id)
+        {
+            string url = "FaqData/FindFaq/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            //Debug.WriteLine(response.StatusCode);
+            if (response.IsSuccessStatusCode)
+            {
+                FaqDto SelectedFaqs = response.Content.ReadAsAsync<FaqDto>().Result;
+                return View(SelectedFaqs);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+        /// <returns></returns>
+        // POST: Faq/Delete/1
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        //[Authorize(Roles = "Admin")]
+        public ActionResult Delete(int id)
+        {
+            //pass along authentication credential in http request
+            //GetApplicationCookie();
+
+            string url = "FaqData/DeleteFaq/" + id;
+            HttpContent content = new StringContent("");
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+            Debug.WriteLine(response.StatusCode);
+            if (response.IsSuccessStatusCode)
+            {
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+        public ActionResult Error()
+        {
+            return View();
+        }
     }
 }

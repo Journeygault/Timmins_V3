@@ -1,7 +1,8 @@
-﻿@model TiminsHospitalProjectV3.Models.Faq
+﻿@model TiminsHospitalProjectV3.Models.FaqDto
 
 @{
     ViewBag.Title = "DeleteConfirm";
+    //Layout = "~/Views/Shared/_AdminView.cshtml";
 }
 
 <h2>Delete</h2>
@@ -29,7 +30,7 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm("Delete", "Faq", new { id = Model.FaqID })) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
