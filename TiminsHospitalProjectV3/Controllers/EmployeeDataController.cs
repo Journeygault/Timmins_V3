@@ -86,7 +86,7 @@ namespace hospitalproject.Controllers
                 EmployeeDes = Employee.EmployeeDes,
                 EmployeeHasPic = Employee.EmployeeHasPic,
                 EmployeeResume = Employee.EmployeeResume,
-                //will change in the future
+                //will change in the future -test
                 JobID = Employee.JobID
             };
 
