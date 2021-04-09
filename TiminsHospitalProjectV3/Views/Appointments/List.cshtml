@@ -1,0 +1,102 @@
+﻿@model IEnumerable<TiminsHospitalProjectV3.Models.Appointment>
+
+@{
+    ViewBag.Title = "List";
+}
+
+
+<h2>List Of Appointment Requests </h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<div class="container">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">
+                    @Html.DisplayName("Patient")
+                </th>
+                <th scope="col">
+                    @Html.DisplayName("Physician")
+                </th>
+
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Subject)
+                </th>
+
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+                <th>
+                    @Html.DisplayName("Sent On")
+                </th>
+                <th scope="col">
+                    @Html.DisplayName("Decision Made On")
+                </th>
+                <th scope="col"></th>
+            </tr>
+        </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PatientUser.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhysicianUser.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Subject)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Status)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.SentOn)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DecisionMadeOn)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                            @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                            @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                        </td>
+                    </tr>
+                }
+            </tbody>
+    </table>
+    <div class="page-paginate">
+        @{
+            int PageNum = Convert.ToInt32(ViewData["PageNum"]);
+            int MaxPageNum = Convert.ToInt32(ViewData["MaxPageNum"]);
+        }
+        <ul>
+
+            @if (PageNum > 1)
+            {
+                int PrevPage = PageNum - 1;
+                <li>
+
+                    @Html.ActionLink("Prev", "List", new { pageNum = PrevPage, brandId = ViewBag.brandId, gender = ViewBag.gender })
+                </li>
+                <li>|</li>
+
+            }
+            <li>@ViewData["PageNum"] of @ViewData["MaxPageNum"]</li>
+
+            @if (PageNum < MaxPageNum)
+            {
+                <li>|</li>
+                int NextPage = PageNum + 1;
+                <li>
+                    @Html.ActionLink("Next", "List", new { pageNum = NextPage},null)
+                </li>
+            }
+
+        </ul>
+    </div>
+</div>

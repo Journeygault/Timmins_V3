@@ -11,6 +11,7 @@ using TiminsHospitalProjectV3.Models;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity;
 using TiminsHospitalProjectV3.Models.ViewModels;
+using System.Globalization;
 
 namespace TiminsHospitalProjectV3.Controllers
 {
@@ -34,7 +35,7 @@ namespace TiminsHospitalProjectV3.Controllers
 
             client = new HttpClient(handler);
             //change this to match your own local port number
-            client.BaseAddress = new Uri("https://localhost:44334/api/");
+            client.BaseAddress = new Uri("https://localhost:44346/api/");
             client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));
         }
@@ -86,6 +87,8 @@ namespace TiminsHospitalProjectV3.Controllers
 
             if(url != "")
             {
+                url = url + "/" + User.Identity.GetUserId();
+                paginatedUrl += "/" + User.Identity.GetUserId();
                 //sends http request and retrieves the response
                 HttpResponseMessage response = client.GetAsync(url).Result;
 
@@ -157,6 +160,50 @@ namespace TiminsHospitalProjectV3.Controllers
             }
             
         }
+        [HttpPost]
+        [Authorize(Roles = "Physician")]
+        [ValidateAntiForgeryToken()]
+        // POST: Appointments/ChangeStatus/5/Accepted
+        public ActionResult ChangeStatus(int id, AppointmentStatus status)
+        {
+            string url = "AppointmentsData/GetAppointment/" + id;
+            //sends http request and retrieves the response
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                Appointment appt = response.Content.ReadAsAsync<Appointment>().Result;
+                appt.Status = status;
+                //pass along authentication credential in http request
+                GetApplicationCookie();
+
+                //update the appointment
+                url = "AppointmentsData/UpdateAppointment/" + id;
+
+                HttpContent content = new StringContent(jss.Serialize(appt));
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                response = client.PostAsync(url, content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Details", new { id = id });
+
+                }
+                else
+                {
+                    return RedirectToAction("Error");
+
+                }
+
+
+            }
+            else
+            {
+                // If we reach here something went wrong with our list algorithm
+                return RedirectToAction("Error");
+            }
+
+        }
+
+
 
         [Authorize(Roles = "Patient,Physician")]
         // GET: Appointments/Create
@@ -168,6 +215,7 @@ namespace TiminsHospitalProjectV3.Controllers
             {
                 role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Physician");
                 ViewData["userRole"] = "Patient";
+                
             }
 
             else
@@ -175,11 +223,11 @@ namespace TiminsHospitalProjectV3.Controllers
                 role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Patient");
                 ViewData["userRole"] = "Physician";
             }
-                
-            var usersInRole = new ApplicationDbContext().Users.Where(m => m.Roles.Any(r => r.RoleId == role.Id)).ToList();
+            ViewAppointment viewModel = new ViewAppointment();    
+            viewModel.UsersInRole = new ApplicationDbContext().Users.Where(m => m.Roles.Any(r => r.RoleId == role.Id)).ToList();
             
             
-            return View(usersInRole);
+            return View(viewModel);
         }
 
         // POST: Appointments/Create
@@ -197,7 +245,11 @@ namespace TiminsHospitalProjectV3.Controllers
                 newAppointment.PatientID = User.Identity.GetUserId();
             else
                 newAppointment.PhysicianID = User.Identity.GetUserId();
-
+            //newAppointment.SentOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.CreateSpecificCulture("en-CA")); //set the datetime of the request of appointment
+            //newAppointment.SentOn = DateTime.Now; //set the datetime of the request of appointment
+            newAppointment.SentOn = DateTime.Now.ToString("yyyy/MM/dd hh:mm tt");
+            //newAppointment.RequestDatetime = DateTime.ParseExact(newAppointment.RequestDatetime.ToString("yyyy/MM/dd HH:mm"), "yyyy/MM/dd HH:mm", System.Globalization.CultureInfo.CreateSpecificCulture("en-CA"));
+            newAppointment.Status = AppointmentStatus.Pending;
             HttpContent content = new StringContent(jss.Serialize(newAppointment));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
@@ -228,7 +280,7 @@ namespace TiminsHospitalProjectV3.Controllers
             else
             {
                 role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Patient");
-                ViewData["userRole"] = "Physician";
+                ViewData["userRole"] = "Physician";                
             }
 
             var usersInRole = new ApplicationDbContext().Users.Where(m => m.Roles.Any(r => r.RoleId == role.Id)).ToList();
@@ -238,9 +290,10 @@ namespace TiminsHospitalProjectV3.Controllers
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
-                UpdateAppointment viewModel = new UpdateAppointment();
+                ViewAppointment viewModel = new ViewAppointment();
                 viewModel.Appointment = response.Content.ReadAsAsync<Appointment>().Result;
                 viewModel.UsersInRole = usersInRole;
+                
 
                 return View( viewModel);
 

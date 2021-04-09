@@ -50,6 +50,7 @@ namespace TiminsHospitalProjectV3.Controllers
         /// <example>GET: api/AppointmentsData/FindUserAppointments/4</example>
         [ResponseType(typeof(IEnumerable<Appointment>))]
         [Route("api/AppointmentsData/FindUserAppointments/{userId}")]
+        [HttpGet]
         public IHttpActionResult FindUserAppointments(string userId)
         {
             return Ok(db.Appointments.Where(p => p.PatientID == userId || p.PhysicianID == userId).OrderByDescending(p => p.SentOn).ToList());
@@ -62,6 +63,7 @@ namespace TiminsHospitalProjectV3.Controllers
         /// <param name="nberPerPage"> The number of records for each</param>
         /// <returns> a list of appointements</returns>
         /// <example>GET: api/AppointmentsData/FindUserAppointmentsPage/{userId}/{startIndex}/{nberPerPage}</example>
+        [HttpGet]
         [Route("api/AppointmentsData/FindUserAppointmentsPage/{userId}/{startIndex}/{nberPerPage}")]
         public IHttpActionResult FindUserAppointmentsPage(string userId, int startIndex, int nberPerPage)
         {

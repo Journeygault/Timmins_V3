@@ -4,17 +4,17 @@ using System.Linq;
 using System.Web;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel;
+
 
 namespace TiminsHospitalProjectV3.Models
 {
     public enum AppointmentStatus
     {
-        Cancelled,
-        Accepted,
-        Modified,
+       
+        Accepted,       
         Rejected,
-        Expired,
-        Past,
+        Expired,       
         Pending
     }
     public class Appointment
@@ -25,16 +25,18 @@ namespace TiminsHospitalProjectV3.Models
         [Key]
         public int ID { get; set; }
 
+        [DisplayName("Patient")]
         [ForeignKey("PatientUser")]
         public string PatientID { get; set; }
         public virtual ApplicationUser PatientUser { get; set; }
 
+        [DisplayName("Physician")]
         [ForeignKey("PhysicianUser")]
         public string PhysicianID { get; set; }
         public virtual ApplicationUser PhysicianUser { get; set; }
 
         [Required]
-        public DateTime RequestDatetime { get; set; }
+        public string RequestDatetime { get; set; }
         [Required]
         public string Subject { get; set; }
         [Required]
@@ -42,8 +44,8 @@ namespace TiminsHospitalProjectV3.Models
         [Required]
         public AppointmentStatus Status { get; set; }
         [Required]
-        public DateTime SentOn { get; set; }
-        public DateTime DecisionMadeOn { get; set; }
+        public string SentOn { get; set; }
+        public string DecisionMadeOn { get; set; }
 
 
 
