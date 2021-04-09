@@ -309,6 +309,7 @@
     <Content Include="Views\Employee\Edit.cshtml" />
     <Content Include="Views\Employee\Error.cshtml" />
     <Content Include="Views\Employee\List.cshtml" />
+    <Content Include="Views\NewsItem\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
