@@ -9,7 +9,7 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 
 - [x] CRUD completed for the appointments table. Can create, read, update, and delete records in the table
  through views.
-- [ ] validation of  date an time requested for an appointment
+- [ ] validation of  date and time requested for an appointment
 - [ ] Styling of the pages
 ## Extra features
 
