@@ -6,7 +6,8 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-
+    <script src="https://cdn.tiny.cloud/1/tv9jhfuvcrxn27q7ik7frfavq7cgztq82l7e2gvtishatz5v/tinymce/5/tinymce.min.js" 
+    referrerpolicy="origin"></script>
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -42,5 +43,12 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+    <script>
+        //rich text WYSIWYG editor
+        //documentation: https://www.tiny.cloud/docs/quick-start/
+        tinymce.init({
+            selector: 'textarea.admin'
+        });
+    </script>
 </body>
 </html>

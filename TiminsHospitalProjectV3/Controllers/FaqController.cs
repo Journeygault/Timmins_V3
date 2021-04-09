@@ -62,16 +62,18 @@ namespace TiminsHospitalProjectV3.Controllers
         }
         /// <returns>All Faqs in the database if response is successfull -
         /// otherwise redirects to error page</returns>
+        
         // GET: Faq/List
-        public ActionResult List()
+        public ActionResult List(string FaqSearchKey = null)
         {
             ListFaqs ViewModel = new ListFaqs();
             ViewModel.isadmin = User.IsInRole("Admin");
 
-            string url = "FaqData/GetFaqs";
+            string url = "FaqData/ListFaqs/" + FaqSearchKey;
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
+                
                 IEnumerable<FaqDto> SelectedFaqs = response.Content.ReadAsAsync<IEnumerable<FaqDto>>().Result;
                 ViewModel.faqs = SelectedFaqs;
                 return View(ViewModel);
