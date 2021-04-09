@@ -343,7 +343,13 @@ namespace TiminsHospitalProjectV3.Controllers
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
-                Appointment appointment = response.Content.ReadAsAsync<Appointment>().Result;          
+                Appointment appointment = response.Content.ReadAsAsync<Appointment>().Result;
+                appointment.PatientUser = new ApplicationDbContext().Users.Find(appointment.PatientID);
+                appointment.PhysicianUser = new ApplicationDbContext().Users.Find(appointment.PhysicianID);
+                if (User.IsInRole("Patient"))
+                    ViewData["recipientUsername"] = appointment.PhysicianUser.UserName;
+                else
+                    ViewData["recipientUsername"] = appointment.PatientUser.UserName;
 
                 return View(appointment);
 

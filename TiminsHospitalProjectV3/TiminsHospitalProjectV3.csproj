@@ -221,6 +221,10 @@
     <Compile Include="Migrations\202104090443492_reviewed_appointment_5.Designer.cs">
       <DependentUpon>202104090443492_reviewed_appointment_5.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104091452073_appointments_table_v6.cs" />
+    <Compile Include="Migrations\202104091452073_appointments_table_v6.designer.cs">
+      <DependentUpon>202104091452073_appointments_table_v6.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -403,6 +407,7 @@
     <Content Include="Scripts\jquery-3.6.0.slim.min.map" />
     <Content Include="Scripts\jquery-3.6.0.min.map" />
     <Content Include="Views\Appointments\Edit.cshtml" />
+    <Content Include="Views\Appointments\DeleteConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -428,6 +433,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104090443492_reviewed_appointment_5.resx">
       <DependentUpon>202104090443492_reviewed_appointment_5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104091452073_appointments_table_v6.resx">
+      <DependentUpon>202104091452073_appointments_table_v6.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
