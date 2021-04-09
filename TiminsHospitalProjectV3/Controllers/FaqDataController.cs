@@ -16,9 +16,9 @@ namespace TiminsHospitalProjectV3.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         /// <summary>
-        ///     --
+        ///     Lists out all the FAQs in the database -- SearchKey is used to find an FAQ that matches the input
         /// </summary>
-        /// <returns>A list of all Faqs in the database</returns>(checked)
+        /// <returns>A list of all Faqs in the database -or- A list of all Faqs in the database that match</returns>(checked)
         //Trying to use the search key to find individual FAQ's
         // GET: api/FaqData/ListFaqs/{FaqSearchKey?}
         [HttpGet]
@@ -44,10 +44,10 @@ namespace TiminsHospitalProjectV3.Controllers
             return Ok(faqDtos);
         }
         /// <summary>
-        ///     --
+        ///     Finding an FAQ by it's id
         /// </summary>
         /// <param name="id">FaqID</param>
-        /// <returns>An Faq</returns>(checked)
+        /// <returns>All the information of the Faq</returns>(checked)
         // GET: api/FaqData/FindFaq/1
         [HttpGet]
         [Route("api/FaqData/FindFaq/{id}")]
@@ -68,11 +68,11 @@ namespace TiminsHospitalProjectV3.Controllers
             return Ok(faqDto);
         }
         /// <summary>
-        ///     --
+        ///     Will Update the FAQ from the database by id.
         /// </summary>
         /// <param name="id">FaqID</param>
-        /// <param name="faq">Parameter from models.Faq</param>
-        /// <returns></returns>
+        /// <param name="faq">Faq Object</param>
+        /// <returns>Successful or Not Successful</returns>
         // POST: api/FaqData/UpdateFaq/1
         [HttpPost]
         [Route("api/FaqData/UpdateFaq/{id}")]
@@ -114,10 +114,10 @@ namespace TiminsHospitalProjectV3.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
         /// <summary>
-        ///     --
+        ///     Adds an FAQ to the database
         /// </summary>
-        /// <param name="faq"></param>
-        /// <returns></returns>
+        /// <param name="faq">Faq Object</param>
+        /// <returns>Successful or Not Successful</returns>
         // POST: api/FaqData/AddFaq
         [HttpPost]
         [Route("api/FaqData/AddFaq")]
@@ -135,10 +135,10 @@ namespace TiminsHospitalProjectV3.Controllers
             return Ok(faq.FaqID);
         }
         /// <summary>
-        ///     --
+        ///     Deletes an FAQ form the database by its id
         /// </summary>
         /// <param name="id">FaqID</param>
-        /// <returns></returns>
+        /// <returns>Successful or Not Successful</returns>
         //  POST: api/FaqData/DeleteFaq/1
         [HttpPost]
         [Route("api/FaqData/DeleteFaq/{id}")]

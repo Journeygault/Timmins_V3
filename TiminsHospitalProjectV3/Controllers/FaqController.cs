@@ -62,8 +62,7 @@ namespace TiminsHospitalProjectV3.Controllers
         }
         /// <returns>All Faqs in the database if response is successfull -
         /// otherwise redirects to error page</returns>
-        
-        // GET: Faq/List
+        // GET: Faq/List/{FaqSearchKey?)
         public ActionResult List(string FaqSearchKey = null)
         {
             ListFaqs ViewModel = new ListFaqs();
@@ -105,7 +104,7 @@ namespace TiminsHospitalProjectV3.Controllers
                 return RedirectToAction("Error");
             }
         }
-        /// <returns>Creates an Faq and inputs it into the database</returns>
+        /// <returns>Retrieves Data</returns>
         // GET: Faq/Create
         [HttpGet]
         [Authorize(Roles = "Admin")]
@@ -114,7 +113,7 @@ namespace TiminsHospitalProjectV3.Controllers
             UpdateFaq ViewModel = new UpdateFaq();
             return View(ViewModel);
         }
-        /// <returns>Seralizes the inputs</returns>
+        /// <returns>Seralizes the inputs and Adds</returns>
         // POST: Faq/Create
         [HttpPost]
         [ValidateAntiForgeryToken()]
@@ -139,7 +138,7 @@ namespace TiminsHospitalProjectV3.Controllers
                 return RedirectToAction("Error");
             }
         }
-        /// <returns>---</returns>
+        /// <returns>Retrieves Data</returns>
         // GET: Faq/Edit/1
         [HttpGet]
         [Authorize(Roles = "Admin")]
@@ -160,7 +159,7 @@ namespace TiminsHospitalProjectV3.Controllers
                 return RedirectToAction("Error");
             }
         }
-        /// <returns>---</returns>
+        /// <returns>Seralizes the inputs and Updates</returns>
         // POST: Faq/Edit/1
         [HttpPost]
         [ValidateAntiForgeryToken()]
@@ -186,7 +185,7 @@ namespace TiminsHospitalProjectV3.Controllers
                 return RedirectToAction("Error");
             }
         }
-        /// <returns>---</returns>
+        /// <returns>Retrieves Data</returns>
         // GET: Faq/Delete/1
         [HttpGet]
         [Authorize(Roles = "Admin")]
@@ -205,7 +204,7 @@ namespace TiminsHospitalProjectV3.Controllers
                 return RedirectToAction("Error");
             }
         }
-        /// <returns></returns>
+        /// <returns>Deletes the FAQ by FaqID</returns>
         // POST: Faq/Delete/1
         [HttpPost]
         [ValidateAntiForgeryToken()]
