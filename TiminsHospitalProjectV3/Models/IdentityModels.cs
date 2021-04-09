@@ -37,12 +37,9 @@ namespace TiminsHospitalProjectV3.Models
 
         public DbSet<NewsItem> NewsItems { get; set; }
         public DbSet<Faq> Faqs { get; set; }
-<<<<<<< HEAD
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Job_Posting> Job_Postings { get; set; }
-
-=======
         public DbSet<Appointment> Appointments { get; set; }
->>>>>>> appointments
+
     }
 }

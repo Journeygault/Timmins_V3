@@ -1,9 +1,9 @@
-namespace TiminsHospitalProjectV3.Migrations
+﻿namespace TiminsHospitalProjectV3.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Employee : DbMigration
+    public partial class merge_tables : DbMigration
     {
         public override void Up()
         {

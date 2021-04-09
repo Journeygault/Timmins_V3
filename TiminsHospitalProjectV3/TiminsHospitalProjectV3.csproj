@@ -186,13 +186,10 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
-<<<<<<< HEAD
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\EmployeeDataController.cs" />
-=======
     <Compile Include="Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\AppointmentsDataController.cs" />
->>>>>>> appointments
     <Compile Include="Controllers\FaqController.cs" />
     <Compile Include="Controllers\FaqDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -202,50 +199,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202104080137511_appoinment_table.cs" />
-    <Compile Include="Migrations\202104080137511_appoinment_table.Designer.cs">
-      <DependentUpon>202104080137511_appoinment_table.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104080150370_appoinment_table_V2.cs" />
-    <Compile Include="Migrations\202104080150370_appoinment_table_V2.Designer.cs">
-      <DependentUpon>202104080150370_appoinment_table_V2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104080406161_reviewed_appointment_class.cs" />
-    <Compile Include="Migrations\202104080406161_reviewed_appointment_class.Designer.cs">
-      <DependentUpon>202104080406161_reviewed_appointment_class.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104090322484_reviewed_appointment_3.cs" />
-    <Compile Include="Migrations\202104090322484_reviewed_appointment_3.Designer.cs">
-      <DependentUpon>202104090322484_reviewed_appointment_3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104090342472_reviewed_appointment_4.cs" />
-    <Compile Include="Migrations\202104090342472_reviewed_appointment_4.Designer.cs">
-      <DependentUpon>202104090342472_reviewed_appointment_4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104090443492_reviewed_appointment_5.cs" />
-    <Compile Include="Migrations\202104090443492_reviewed_appointment_5.Designer.cs">
-      <DependentUpon>202104090443492_reviewed_appointment_5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104091452073_appointments_table_v6.cs" />
-    <Compile Include="Migrations\202104091452073_appointments_table_v6.designer.cs">
-      <DependentUpon>202104091452073_appointments_table_v6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104081824299_updateNewsItemAddedToViewmodel.cs" />
-    <Compile Include="Migrations\202104081824299_updateNewsItemAddedToViewmodel.Designer.cs">
-      <DependentUpon>202104081824299_updateNewsItemAddedToViewmodel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104082322527_Employee.cs" />
-    <Compile Include="Migrations\202104082322527_Employee.Designer.cs">
-      <DependentUpon>202104082322527_Employee.cs</DependentUpon>
+    <Compile Include="Migrations\202104091606272_merge_tables.cs" />
+    <Compile Include="Migrations\202104091606272_merge_tables.designer.cs">
+      <DependentUpon>202104091606272_merge_tables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
-<<<<<<< HEAD
-    <Compile Include="Models\Class1.cs" />
     <Compile Include="Models\Employee.cs" />
-=======
     <Compile Include="Models\Appointment.cs" />
->>>>>>> appointments
     <Compile Include="Models\Faq.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Job_Posting.cs" />
@@ -256,13 +217,10 @@
     <Compile Include="Models\ViewModels\ShowFaq.cs" />
     <Compile Include="Models\ViewModels\ShowJob_Posting.cs" />
     <Compile Include="Models\ViewModels\ShowNewsItem.cs" />
-<<<<<<< HEAD
     <Compile Include="Models\ViewModels\UpdateEmployee.cs" />
     <Compile Include="Models\ViewModels\UpdateFaq.cs" />
     <Compile Include="Models\ViewModels\UpdateNewsItem.cs" />
-=======
     <Compile Include="Models\ViewModels\ViewAppointment.cs" />
->>>>>>> appointments
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -420,7 +378,6 @@
     <Content Include="Views\Faq\Edit.cshtml" />
     <Content Include="Views\Faq\List.cshtml" />
     <Content Include="Views\Faq\Error.cshtml" />
-<<<<<<< HEAD
     <Content Include="Views\NewsItem\Create.cshtml" />
     <Content Include="Views\NewsItem\DeleteConfirm.cshtml" />
     <Content Include="Views\Employee\Create.cshtml" />
@@ -430,7 +387,6 @@
     <Content Include="Views\Employee\Error.cshtml" />
     <Content Include="Views\Employee\List.cshtml" />
     <Content Include="Views\NewsItem\Edit.cshtml" />
-=======
     <Content Include="Views\Appointments\Error.cshtml" />
     <Content Include="Views\Appointments\List.cshtml" />
     <Content Include="Views\Appointments\Create.cshtml" />
@@ -449,7 +405,6 @@
     <Content Include="Scripts\jquery-3.6.0.min.map" />
     <Content Include="Views\Appointments\Edit.cshtml" />
     <Content Include="Views\Appointments\DeleteConfirm.cshtml" />
->>>>>>> appointments
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -458,42 +413,15 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202104080137511_appoinment_table.resx">
-      <DependentUpon>202104080137511_appoinment_table.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104080150370_appoinment_table_V2.resx">
-      <DependentUpon>202104080150370_appoinment_table_V2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104080406161_reviewed_appointment_class.resx">
-      <DependentUpon>202104080406161_reviewed_appointment_class.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104090322484_reviewed_appointment_3.resx">
-      <DependentUpon>202104090322484_reviewed_appointment_3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104090342472_reviewed_appointment_4.resx">
-      <DependentUpon>202104090342472_reviewed_appointment_4.cs</DependentUpon>
-    </EmbeddedResource>
-<<<<<<< HEAD
-    <EmbeddedResource Include="Migrations\202104081824299_updateNewsItemAddedToViewmodel.resx">
-      <DependentUpon>202104081824299_updateNewsItemAddedToViewmodel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104082322527_Employee.resx">
-      <DependentUpon>202104082322527_Employee.cs</DependentUpon>
-    </EmbeddedResource>
-=======
-    <EmbeddedResource Include="Migrations\202104090443492_reviewed_appointment_5.resx">
-      <DependentUpon>202104090443492_reviewed_appointment_5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104091452073_appointments_table_v6.resx">
-      <DependentUpon>202104091452073_appointments_table_v6.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
->>>>>>> appointments
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\202104091606272_merge_tables.resx">
+      <DependentUpon>202104091606272_merge_tables.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
