@@ -89,7 +89,22 @@ namespace TiminsHospitalProjectV3.Controllers
 
             return Ok(@event.EventId); ;
         }
+        [HttpPost]
+        public IHttpActionResult DeleteEvent(int id)
+        {
 
+            Event @event = db.Events.Find(id);
+            if (@event == null)
+            {
+                return NotFound();
+            }
+            Debug.WriteLine(@event);
+
+            db.Events.Remove(@event);
+            db.SaveChanges();
+
+            return Ok();
+        }
     }
     
 }

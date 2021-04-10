@@ -96,10 +96,10 @@ namespace TiminsHospitalProjectV3.Controllers
             {
                 try
                 {
-                    int newsItemid = response.Content.ReadAsAsync<int>().Result;
+                    int eventid = response.Content.ReadAsAsync<int>().Result;
                     return RedirectToAction("Details", new
                     {
-                        id = newsItemid
+                        id = eventid
                     });
 
                 }
@@ -114,5 +114,51 @@ namespace TiminsHospitalProjectV3.Controllers
                 return RedirectToAction("Error");
             }
         }
+        [HttpGet]
+        public ActionResult DeleteConfirm(int id)
+        {
+            string url = "EventData/FindEvent/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            //Can catch the status code (200 OK, 301 REDIRECT), etc.
+            //Debug.WriteLine(response.StatusCode);
+            if (response.IsSuccessStatusCode)
+            {
+                //Put data into Hop data transfer object
+                EventDto SelectedEvent = response.Content.ReadAsAsync<EventDto>().Result;
+                return View(SelectedEvent);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+        /// <summary>
+        /// Same as aboves security measures
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        // POST: Hop/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public ActionResult Delete(int id)
+        {
+            string url = "EventData/DeleteEvent/" + id;
+            //post body is empty
+            HttpContent content = new StringContent("");
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+            //Can catch the status code (200 OK, 301 REDIRECT), etc.
+            //Debug.WriteLine(response.StatusCode);
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+
+        }
     }
-    }
+   }
