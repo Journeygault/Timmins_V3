@@ -190,6 +190,8 @@
     <Compile Include="Controllers\EmployeeDataController.cs" />
     <Compile Include="Controllers\AppointmentsController.cs" />
     <Compile Include="Controllers\AppointmentsDataController.cs" />
+    <Compile Include="Controllers\EventController.cs" />
+    <Compile Include="Controllers\EventDataController.cs" />
     <Compile Include="Controllers\FaqController.cs" />
     <Compile Include="Controllers\FaqDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -203,6 +205,30 @@
     <Compile Include="Migrations\202104091606272_merge_tables.designer.cs">
       <DependentUpon>202104091606272_merge_tables.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104101423233_addingBackInfo.cs" />
+    <Compile Include="Migrations\202104101423233_addingBackInfo.designer.cs">
+      <DependentUpon>202104101423233_addingBackInfo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104101429032_EventTableAdded.cs" />
+    <Compile Include="Migrations\202104101429032_EventTableAdded.designer.cs">
+      <DependentUpon>202104101429032_EventTableAdded.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104101443412_AddedAnSToEvent.cs" />
+    <Compile Include="Migrations\202104101443412_AddedAnSToEvent.designer.cs">
+      <DependentUpon>202104101443412_AddedAnSToEvent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104101451500_addedEventHasOCcuredToEvent.cs" />
+    <Compile Include="Migrations\202104101451500_addedEventHasOCcuredToEvent.designer.cs">
+      <DependentUpon>202104101451500_addedEventHasOCcuredToEvent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104101454425_AddedToDto.cs" />
+    <Compile Include="Migrations\202104101454425_AddedToDto.designer.cs">
+      <DependentUpon>202104101454425_AddedToDto.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104101522487_ShowEvent.cs" />
+    <Compile Include="Migrations\202104101522487_ShowEvent.designer.cs">
+      <DependentUpon>202104101522487_ShowEvent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Employee.cs" />
@@ -212,8 +238,10 @@
     <Compile Include="Models\Job_Posting.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NewsItem.cs" />
+    <Compile Include="Models\Event.cs" />
     <Compile Include="Models\ViewModels\ListFaqs.cs" />
     <Compile Include="Models\ViewModels\ShowEmployee.cs" />
+    <Compile Include="Models\ViewModels\ShowEvent.cs" />
     <Compile Include="Models\ViewModels\ShowFaq.cs" />
     <Compile Include="Models\ViewModels\ShowJob_Posting.cs" />
     <Compile Include="Models\ViewModels\ShowNewsItem.cs" />
@@ -225,15 +253,18 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Employees\logo.png" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
@@ -245,14 +276,16 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <None Include="Scripts\jquery-3.6.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
@@ -405,9 +438,13 @@
     <Content Include="Scripts\jquery-3.6.0.min.map" />
     <Content Include="Views\Appointments\Edit.cshtml" />
     <Content Include="Views\Appointments\DeleteConfirm.cshtml" />
+    <Content Include="Views\Event\List.cshtml" />
+    <Content Include="Views\Event\Details.cshtml" />
+    <Content Include="Views\Event\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\EventData\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -421,6 +458,24 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202104091606272_merge_tables.resx">
       <DependentUpon>202104091606272_merge_tables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104101423233_addingBackInfo.resx">
+      <DependentUpon>202104101423233_addingBackInfo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104101429032_EventTableAdded.resx">
+      <DependentUpon>202104101429032_EventTableAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104101443412_AddedAnSToEvent.resx">
+      <DependentUpon>202104101443412_AddedAnSToEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104101451500_addedEventHasOCcuredToEvent.resx">
+      <DependentUpon>202104101451500_addedEventHasOCcuredToEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104101454425_AddedToDto.resx">
+      <DependentUpon>202104101454425_AddedToDto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104101522487_ShowEvent.resx">
+      <DependentUpon>202104101522487_ShowEvent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
