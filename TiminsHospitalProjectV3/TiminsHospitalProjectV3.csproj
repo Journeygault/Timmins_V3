@@ -201,33 +201,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202104091606272_merge_tables.cs" />
-    <Compile Include="Migrations\202104091606272_merge_tables.designer.cs">
-      <DependentUpon>202104091606272_merge_tables.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104101423233_addingBackInfo.cs" />
-    <Compile Include="Migrations\202104101423233_addingBackInfo.designer.cs">
-      <DependentUpon>202104101423233_addingBackInfo.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104101429032_EventTableAdded.cs" />
-    <Compile Include="Migrations\202104101429032_EventTableAdded.designer.cs">
-      <DependentUpon>202104101429032_EventTableAdded.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104101443412_AddedAnSToEvent.cs" />
-    <Compile Include="Migrations\202104101443412_AddedAnSToEvent.designer.cs">
-      <DependentUpon>202104101443412_AddedAnSToEvent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104101451500_addedEventHasOCcuredToEvent.cs" />
-    <Compile Include="Migrations\202104101451500_addedEventHasOCcuredToEvent.designer.cs">
-      <DependentUpon>202104101451500_addedEventHasOCcuredToEvent.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104101454425_AddedToDto.cs" />
-    <Compile Include="Migrations\202104101454425_AddedToDto.designer.cs">
-      <DependentUpon>202104101454425_AddedToDto.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104101522487_ShowEvent.cs" />
-    <Compile Include="Migrations\202104101522487_ShowEvent.designer.cs">
-      <DependentUpon>202104101522487_ShowEvent.cs</DependentUpon>
+    <Compile Include="Migrations\202104101814239_createtables.cs" />
+    <Compile Include="Migrations\202104101814239_createtables.designer.cs">
+      <DependentUpon>202104101814239_createtables.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -456,26 +432,8 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202104091606272_merge_tables.resx">
-      <DependentUpon>202104091606272_merge_tables.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104101423233_addingBackInfo.resx">
-      <DependentUpon>202104101423233_addingBackInfo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104101429032_EventTableAdded.resx">
-      <DependentUpon>202104101429032_EventTableAdded.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104101443412_AddedAnSToEvent.resx">
-      <DependentUpon>202104101443412_AddedAnSToEvent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104101451500_addedEventHasOCcuredToEvent.resx">
-      <DependentUpon>202104101451500_addedEventHasOCcuredToEvent.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104101454425_AddedToDto.resx">
-      <DependentUpon>202104101454425_AddedToDto.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104101522487_ShowEvent.resx">
-      <DependentUpon>202104101522487_ShowEvent.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202104101814239_createtables.resx">
+      <DependentUpon>202104101814239_createtables.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
