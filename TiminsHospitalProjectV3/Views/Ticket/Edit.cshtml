@@ -1,0 +1,56 @@
+﻿@model TiminsHospitalProjectV3.Models.ViewModels.UpdateTicket
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm("Edit", "Ticket", new { id = Model.Ticket.TicketId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        <h4>Ticket</h4>
+        <hr />
+
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Ticket.TicketId, new { Name = "TicketId" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ticket.TicketTitle, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Ticket.TicketTitle, new { htmlAttributes = new { @class = "form-control", Name = "Title" } })
+                @Html.ValidationMessageFor(model => model.Ticket.TicketTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ticket.TicketBody, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Ticket.TicketBody, new { htmlAttributes = new { @class = "form-control", Name = "NewsBody" } })
+                @Html.ValidationMessageFor(model => model.Ticket.TicketBody, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Ticket.TicketDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Ticket.TicketDate, new { htmlAttributes = new { @class = "form-control", Name = "NewItemDate" } })
+                @Html.ValidationMessageFor(model => model.Ticket.TicketDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "list")
+</div>

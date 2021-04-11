@@ -74,5 +74,65 @@ namespace TiminsHospitalProjectV3.Controllers
             };
             return Ok(ticketDTO);
         }
+
+        // GET: api/TicketData/DeleteTicket
+
+        [HttpPost]
+        public IHttpActionResult DeleteTicket(int id)
+        {
+
+            Ticket ticket = db.Tickets.Find(id);
+            if (ticket == null)
+            {
+                return NotFound();
+            }
+            Debug.WriteLine(ticket);
+
+            db.Tickets.Remove(ticket);
+            db.SaveChanges();
+
+            return Ok();
+        }
+
+        [ResponseType(typeof(void))]
+        [HttpPost]
+        public IHttpActionResult UpdateTicket(int id, [FromBody] Ticket ticket)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (id != ticket.TicketId)
+            {
+                return BadRequest();
+            }
+
+            db.Entry(ticket).State = EntityState.Modified;
+
+            try
+            {
+
+                db.SaveChanges();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TicketExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        private bool TicketExists(int id)
+        {
+            return db.Tickets.Count(e => e.TicketId == id) > 0;
+        }
     }
 }

@@ -111,5 +111,90 @@ namespace TiminsHospitalProjectV3.Controllers
                 return RedirectToAction("Error");
             }
         }
+
+        [HttpGet]
+        public ActionResult DeleteConfirm(int id)
+        {
+            string url = "TicketData/FindTicket/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            //Can catch the status code (200 OK, 301 REDIRECT), etc.
+            //Debug.WriteLine(response.StatusCode);
+            if (response.IsSuccessStatusCode)
+            {
+                //Put data into Hop data transfer object
+                TicketDTO SelectedTicket = response.Content.ReadAsAsync<TicketDTO>().Result;
+                return View(SelectedTicket);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public ActionResult Delete(int id)
+        {
+            string url = "TicketData/DeleteTicket/" + id;
+            //post body is empty
+            HttpContent content = new StringContent("");
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+            //Can catch the status code (200 OK, 301 REDIRECT), etc.
+            //Debug.WriteLine(response.StatusCode);
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+
+        }
+
+        public ActionResult Edit(int id)
+        {
+            UpdateTicket ViewModel = new UpdateTicket();
+
+            string url = "TicketData/FindTicket/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                TicketDTO SelectedTicket = response.Content.ReadAsAsync<TicketDTO>().Result;
+                ViewModel.Ticket = SelectedTicket;
+
+                return View(ViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+
+        // POST: Ticket/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+
+        public ActionResult Edit(int id, Ticket TicketInfo)
+        {
+
+            string url = "TicketData/UpdateTicket/" + id;
+            Debug.WriteLine(jss.Serialize(TicketInfo));
+            HttpContent content = new StringContent(jss.Serialize(TicketInfo));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+            Debug.WriteLine(response.StatusCode);
+            if (response.IsSuccessStatusCode)
+            {
+
+                return RedirectToAction("Details", new { id = id });
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
     }
 }
