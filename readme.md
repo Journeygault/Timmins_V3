@@ -47,3 +47,16 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 - [ ] Image upload
 - [ ] User Id functioning as forign key
 
+## Adam Galek
+
+### Ticket Feature:
+
+#### Basic Crud
+- [x] Users can create on the Ticket table
+- [x] Users can read on the Ticket table
+- [ ] Users can update on the Ticket table
+- [x] Users can delete on the Ticket table
+
+#### Qualitative
+- [ ] Pages are styled and responsive
+- [ ] Code is commented
