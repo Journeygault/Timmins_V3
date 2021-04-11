@@ -60,3 +60,6 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 #### Qualitative
 - [ ] Pages are styled and responsive
 - [ ] Code is commented
+
+#### To Add
+- [ ] Different Priviledges for admins and users for Tickets
