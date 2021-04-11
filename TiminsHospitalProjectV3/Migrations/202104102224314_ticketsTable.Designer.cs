@@ -7,13 +7,13 @@ namespace TiminsHospitalProjectV3.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class EventTableAdded : IMigrationMetadata
+    public sealed partial class ticketsTable : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(EventTableAdded));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(ticketsTable));
         
         string IMigrationMetadata.Id
         {
-            get { return "202104101429032_EventTableAdded"; }
+            get { return "202104102224314_ticketsTable"; }
         }
         
         string IMigrationMetadata.Source

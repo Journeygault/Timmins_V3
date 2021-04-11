@@ -7,13 +7,13 @@ namespace TiminsHospitalProjectV3.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.4.4")]
-    public sealed partial class merge_tables : IMigrationMetadata
+    public sealed partial class createtables : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(merge_tables));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(createtables));
         
         string IMigrationMetadata.Id
         {
-            get { return "202104091606272_merge_tables"; }
+            get { return "202104101814239_createtables"; }
         }
         
         string IMigrationMetadata.Source

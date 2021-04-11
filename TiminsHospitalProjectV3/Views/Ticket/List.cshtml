@@ -1,0 +1,45 @@
+﻿@model IEnumerable<TiminsHospitalProjectV3.Models.TicketDTO>
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TicketTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TicketBody)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TicketDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TicketTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TicketBody)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TicketDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TicketId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TicketId }) |
+            @Html.ActionLink("Delete", "DeleteConfirm", new { id=item.TicketId })
+        </td>
+    </tr>
+}
+
+</table>
