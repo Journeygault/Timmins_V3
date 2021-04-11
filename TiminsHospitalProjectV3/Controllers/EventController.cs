@@ -96,10 +96,10 @@ namespace TiminsHospitalProjectV3.Controllers
             {
                 try
                 {
-                    int newsItemid = response.Content.ReadAsAsync<int>().Result;
+                    int eventid = response.Content.ReadAsAsync<int>().Result;
                     return RedirectToAction("Details", new
                     {
-                        id = newsItemid
+                        id = eventid
                     });
 
                 }
@@ -114,5 +114,117 @@ namespace TiminsHospitalProjectV3.Controllers
                 return RedirectToAction("Error");
             }
         }
+        [HttpGet]
+        public ActionResult DeleteConfirm(int id)
+        {
+            string url = "EventData/FindEvent/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            //Can catch the status code (200 OK, 301 REDIRECT), etc.
+            //Debug.WriteLine(response.StatusCode);
+            if (response.IsSuccessStatusCode)
+            {
+                //Put data into Hop data transfer object
+                EventDto SelectedEvent = response.Content.ReadAsAsync<EventDto>().Result;
+                return View(SelectedEvent);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+        /// <summary>
+        /// Same as aboves security measures
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        // POST: Hop/Delete/5
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+        public ActionResult Delete(int id)
+        {
+            string url = "EventData/DeleteEvent/" + id;
+            //post body is empty
+            HttpContent content = new StringContent("");
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+            //Can catch the status code (200 OK, 301 REDIRECT), etc.
+            //Debug.WriteLine(response.StatusCode);
+
+            if (response.IsSuccessStatusCode)
+            {
+
+                return RedirectToAction("List");
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+
+        }
+        public ActionResult Edit(int id)
+        {
+            UpdateEvent ViewModel = new UpdateEvent();
+
+            string url = "EventData/FindEvent/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                //Put data into Hop data transfer object
+                EventDto SelectedEvent = response.Content.ReadAsAsync<EventDto>().Result;
+                ViewModel.Event = SelectedEvent;//CHECK FOR CAPITAL
+                //The following is for a forign key
+                /*url = "HopClassificationdata/getHopClassifications";
+                response = client.GetAsync(url).Result;
+                IEnumerable<HopClassificationDto> PotentialHops = response.Content.ReadAsAsync<IEnumerable<HopClassificationDto>>().Result;
+                ViewModel.allhopclassifications = PotentialHops;
+                */
+                return View(ViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+        ///<results>Edits a specific hop</results>
+
+
+        /// <summary>
+        /// The following is for security reasons as i understand it,
+        /// The validantiforgerytoken helps to protect the database, though 
+        /// the specifics of how it acomplishes that is beond me
+        /// </summary>
+        /// <param name="id">specific hop id</param>
+        /// <param name="HopInfo">The information on a hop</param>
+        /// <returns></returns>
+        // POST: Hop/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+
+        public ActionResult Edit(int id, NewsItem NewsItemInfo)
+        {
+
+            string url = "NewsItemData/UpdateNewsItem/" + id;
+            Debug.WriteLine(jss.Serialize(NewsItemInfo));
+            HttpContent content = new StringContent(jss.Serialize(NewsItemInfo));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+            Debug.WriteLine(response.StatusCode);
+            if (response.IsSuccessStatusCode)
+            {
+
+                return RedirectToAction("Details", new { id = id });
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+        /// <summary>
+        /// Error message
+        /// </summary>
+        /// <returns>Returns Error messages</returns>
+        public ActionResult Error()
+        {
+            return View();
+        }
     }
-    }
+}
