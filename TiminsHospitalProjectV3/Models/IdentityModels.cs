@@ -41,6 +41,8 @@ namespace TiminsHospitalProjectV3.Models
         public DbSet<Job_Posting> Job_Postings { get; set; }
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Event> Events { get; set; }
+        public DbSet<Ticket> Tickets { get; set; }
+
 
 
     }
