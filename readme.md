@@ -54,7 +54,7 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 #### Basic Crud
 - [x] Users can create on the Ticket table
 - [x] Users can read on the Ticket table
-- [ ] Users can update on the Ticket table
+- [x] Users can update on the Ticket table
 - [x] Users can delete on the Ticket table
 
 #### Qualitative
