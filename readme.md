@@ -31,3 +31,19 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 - [x] Can View the details about the specific data.
 - [x] Can Edit new data into the database.
 - [x] Can Delete data from the database.
+
+### NewsItem(Journey Gault):
+
+- [x] Can see all the data that is retrieved from the database.
+- [x] Basic Crud
+- [ ] Image upload
+- [ ] User Id functioning as forign key
+
+
+### Events(Journey Gault):
+
+- [x] Can see all the data that is retrieved from the database.
+- [x] Basic Crud
+- [ ] Image upload
+- [ ] User Id functioning as forign key
+
