@@ -160,5 +160,71 @@ namespace TiminsHospitalProjectV3.Controllers
             }
 
         }
+        public ActionResult Edit(int id)
+        {
+            UpdateEvent ViewModel = new UpdateEvent();
+
+            string url = "EventData/FindEvent/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            if (response.IsSuccessStatusCode)
+            {
+                //Put data into Hop data transfer object
+                EventDto SelectedEvent = response.Content.ReadAsAsync<EventDto>().Result;
+                ViewModel.Event = SelectedEvent;//CHECK FOR CAPITAL
+                //The following is for a forign key
+                /*url = "HopClassificationdata/getHopClassifications";
+                response = client.GetAsync(url).Result;
+                IEnumerable<HopClassificationDto> PotentialHops = response.Content.ReadAsAsync<IEnumerable<HopClassificationDto>>().Result;
+                ViewModel.allhopclassifications = PotentialHops;
+                */
+                return View(ViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+        ///<results>Edits a specific hop</results>
+
+
+        /// <summary>
+        /// The following is for security reasons as i understand it,
+        /// The validantiforgerytoken helps to protect the database, though 
+        /// the specifics of how it acomplishes that is beond me
+        /// </summary>
+        /// <param name="id">specific hop id</param>
+        /// <param name="HopInfo">The information on a hop</param>
+        /// <returns></returns>
+        // POST: Hop/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken()]
+
+        public ActionResult Edit(int id, NewsItem NewsItemInfo)
+        {
+
+            string url = "NewsItemData/UpdateNewsItem/" + id;
+            Debug.WriteLine(jss.Serialize(NewsItemInfo));
+            HttpContent content = new StringContent(jss.Serialize(NewsItemInfo));
+            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+            HttpResponseMessage response = client.PostAsync(url, content).Result;
+            Debug.WriteLine(response.StatusCode);
+            if (response.IsSuccessStatusCode)
+            {
+
+                return RedirectToAction("Details", new { id = id });
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+        /// <summary>
+        /// Error message
+        /// </summary>
+        /// <returns>Returns Error messages</returns>
+        public ActionResult Error()
+        {
+            return View();
+        }
     }
-   }
+}

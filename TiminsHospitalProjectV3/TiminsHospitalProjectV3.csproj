@@ -229,6 +229,10 @@
     <Compile Include="Migrations\202104101522487_ShowEvent.designer.cs">
       <DependentUpon>202104101522487_ShowEvent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104102036377_addedUpdateEvent.cs" />
+    <Compile Include="Migrations\202104102036377_addedUpdateEvent.designer.cs">
+      <DependentUpon>202104102036377_addedUpdateEvent.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Employee.cs" />
@@ -246,6 +250,7 @@
     <Compile Include="Models\ViewModels\ShowJob_Posting.cs" />
     <Compile Include="Models\ViewModels\ShowNewsItem.cs" />
     <Compile Include="Models\ViewModels\UpdateEmployee.cs" />
+    <Compile Include="Models\ViewModels\UpdateEvent.cs" />
     <Compile Include="Models\ViewModels\UpdateFaq.cs" />
     <Compile Include="Models\ViewModels\UpdateNewsItem.cs" />
     <Compile Include="Models\ViewModels\ViewAppointment.cs" />
@@ -442,6 +447,7 @@
     <Content Include="Views\Event\Details.cshtml" />
     <Content Include="Views\Event\Create.cshtml" />
     <Content Include="Views\Event\DeleteConfirm.cshtml" />
+    <Content Include="Views\Event\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -477,6 +483,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104101522487_ShowEvent.resx">
       <DependentUpon>202104101522487_ShowEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104102036377_addedUpdateEvent.resx">
+      <DependentUpon>202104102036377_addedUpdateEvent.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
