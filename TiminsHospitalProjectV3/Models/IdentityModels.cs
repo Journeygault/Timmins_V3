@@ -42,6 +42,12 @@ namespace TiminsHospitalProjectV3.Models
         public DbSet<Appointment> Appointments { get; set; }
         public DbSet<Event> Events { get; set; }
 
+        public DbSet<Review> Reviews { get; set; }
 
+        public DbSet<Bill> Bills { get; set; }
+
+        public DbSet<BillPayment> BillPayments { get; set; }
+
+        public System.Data.Entity.DbSet<TiminsHospitalProjectV3.Models.ReviewDto> ReviewDtoes { get; set; }
     }
 }
