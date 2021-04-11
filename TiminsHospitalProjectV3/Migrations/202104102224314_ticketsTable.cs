@@ -1,4 +1,5 @@
-﻿namespace TiminsHospitalProjectV3.Migrations
+﻿
+namespace TiminsHospitalProjectV3.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;

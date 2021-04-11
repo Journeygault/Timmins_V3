@@ -22,7 +22,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Ticket.TicketTitle, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Ticket.TicketTitle, new { htmlAttributes = new { @class = "form-control", Name = "Title" } })
+                @Html.EditorFor(model => model.Ticket.TicketTitle, new { htmlAttributes = new { @class = "form-control", Name = "TicketTitle" } })
                 @Html.ValidationMessageFor(model => model.Ticket.TicketTitle, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -30,7 +30,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Ticket.TicketBody, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Ticket.TicketBody, new { htmlAttributes = new { @class = "form-control", Name = "NewsBody" } })
+                @Html.EditorFor(model => model.Ticket.TicketBody, new { htmlAttributes = new { @class = "form-control", Name = "TicketBody" } })
                 @Html.ValidationMessageFor(model => model.Ticket.TicketBody, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -38,7 +38,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Ticket.TicketDate, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Ticket.TicketDate, new { htmlAttributes = new { @class = "form-control", Name = "NewItemDate" } })
+                @Html.EditorFor(model => model.Ticket.TicketDate, new { htmlAttributes = new { @class = "form-control", Name = "TicketDate" } })
                 @Html.ValidationMessageFor(model => model.Ticket.TicketDate, "", new { @class = "text-danger" })
             </div>
         </div>
