@@ -60,3 +60,21 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 #### Qualitative
 - [ ] Pages are styled and responsive
 - [ ] Code is commented
+
+
+## Nisarg Chauhan
+
+### Job Posting
+- [x] Admins can create a job post
+- [x] Admins can read a job post
+- [x] Admins can update a job post
+- [x] Admins can delete a job post
+- [ ] Department ID as foreign key
+- [ ] Style the page
+
+### Department
+- [x] Admins can create a department
+- [x] Admins can read department details
+- [x] Admins can update department details
+- [x] Admins can delete a department
+- [ ] Style the page
