@@ -185,6 +185,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\DepartmentDataController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\EmployeeDataController.cs" />
     <Compile Include="Controllers\AppointmentsController.cs" />
@@ -194,6 +196,8 @@
     <Compile Include="Controllers\FaqController.cs" />
     <Compile Include="Controllers\FaqDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JobPostingController.cs" />
+    <Compile Include="Controllers\JobPostingDataController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NewsItemController.cs" />
     <Compile Include="Controllers\NewsItemDataController.cs" />
@@ -214,12 +218,22 @@
     <Compile Include="Migrations\202104102036377_addedUpdateEvent.designer.cs">
       <DependentUpon>202104102036377_addedUpdateEvent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104112110203_newTables.cs" />
+    <Compile Include="Migrations\202104112110203_newTables.Designer.cs">
+      <DependentUpon>202104112110203_newTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104112128476_newTables2.cs" />
+    <Compile Include="Migrations\202104112128476_newTables2.Designer.cs">
+      <DependentUpon>202104112128476_newTables2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Faq.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\JobPosting.cs" />
     <Compile Include="Models\Job_Posting.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NewsItem.cs" />
@@ -437,7 +451,16 @@
     <Content Include="Views\Ticket\Edit.cshtml" />
     <Content Include="Views\Event\DeleteConfirm.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
-
+    <Content Include="Views\Department\Create.cshtml" />
+    <Content Include="Views\Department\DeleteConfirm.cshtml" />
+    <Content Include="Views\Department\Details.cshtml" />
+    <Content Include="Views\Department\Edit.cshtml" />
+    <Content Include="Views\Department\List.cshtml" />
+    <Content Include="Views\JobPosting\Create.cshtml" />
+    <Content Include="Views\JobPosting\Details.cshtml" />
+    <Content Include="Views\JobPosting\List.cshtml" />
+    <Content Include="Views\JobPosting\Edit.cshtml" />
+    <Content Include="Views\JobPosting\DeleteConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -462,6 +485,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104102036377_addedUpdateEvent.resx">
       <DependentUpon>202104102036377_addedUpdateEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104112110203_newTables.resx">
+      <DependentUpon>202104112110203_newTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104112128476_newTables2.resx">
+      <DependentUpon>202104112128476_newTables2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
