@@ -82,3 +82,22 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 - [x] Admins can delete a department
 - [ ] Style the page
 
+## Steven Le
+
+### Review Feature
+- [x] User can see reviews
+- [x] User can create a review
+- [x] User can update review
+- [x] User can delete a review
+- [ ] Styling
+
+To do:
+- [] Change permissions so that only admin can delete a review
+
+
+
+
+
+
+
+
