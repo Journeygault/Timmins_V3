@@ -16,21 +16,29 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 - [x] pagination for the list of appointments.
 - [ ] add a javascript libary to select date and time requested for an appointment.
 
-## Alexis Arevalo: FAQ Feature
+## Alexis Arevalo:
 
-### Patients:
+### FAQ Feature:
 
-- [x] Can see all the data that is retrieved from the database.
-- [x] Are able to search for data that matches the input by Question or Answer.
+- [x] Users Can see all the data that is retrieved from the database.
+- [x] Users Are able to search for data that matches the input by Question or Answer.
+- [x] Admin Can see all the data that is retrieved from the database.
+- [x] Admin Are able to search for data that matches the input by Question or Answer.
+- [x] Admin Can Add new data into the database.
+- [x] Admin Can View the details about the specific data.
+- [x] Admin Can Edit new data into the database.
+- [x] Admin Can Delete data from the database.
 
-### Admins:
+### Category Feature:
 
-- [x] Can see all the data that is retrieved from the database.
-- [x] Are able to search for data that matches the input by Question or Answer.
-- [x] Can Add new data into the database.
-- [x] Can View the details about the specific data.
-- [x] Can Edit new data into the database.
-- [x] Can Delete data from the database.
+- [] Users Can see all the data that is retrieved from the database.
+- [] Users Are able to search for data that matches the input by Category.
+- [] Can see all the data that is retrieved from the database.
+- [] Are able to search for data that matches the input by Category.
+- [] Can Add new data into the database.
+- [] Can View the details about the specific data.
+- [] Can Edit new data into the database.
+- [] Can Delete data from the database.
 
 ### NewsItem(Journey Gault):
 
