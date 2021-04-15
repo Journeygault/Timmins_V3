@@ -214,8 +214,13 @@
     <Compile Include="Migrations\202104102036377_addedUpdateEvent.designer.cs">
       <DependentUpon>202104102036377_addedUpdateEvent.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104152105136_AddCatagoryTbl.cs" />
+    <Compile Include="Migrations\202104152105136_AddCatagoryTbl.Designer.cs">
+      <DependentUpon>202104152105136_AddCatagoryTbl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Category.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Faq.cs" />
@@ -437,7 +442,6 @@
     <Content Include="Views\Ticket\Edit.cshtml" />
     <Content Include="Views\Event\DeleteConfirm.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
-
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -462,6 +466,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104102036377_addedUpdateEvent.resx">
       <DependentUpon>202104102036377_addedUpdateEvent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104152105136_AddCatagoryTbl.resx">
+      <DependentUpon>202104152105136_AddCatagoryTbl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
