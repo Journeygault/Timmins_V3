@@ -17,11 +17,11 @@ namespace TiminsHospitalProjectV3.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         /// <summary>
-        /// Gets a list or customers in the database alongside a status code (200 OK).
+        /// Gets a list or job posts in the database alongside a status code (200 OK).
         /// </summary>
-        /// <returns>A list of customers including their details.</returns>
+        /// <returns>A list of job posts including their details.</returns>
         /// <example>
-        /// GET : api/customersdata/getcustomers
+        /// GET : api/jobpostingdata/getjobposts
         /// </example>
         [ResponseType(typeof(IEnumerable<JobPostingDto>))]
         [Route("api/jobpostingdata/getjobposts")]
@@ -42,7 +42,7 @@ namespace TiminsHospitalProjectV3.Controllers
                     JobLocation = JobPost.JobLocation,
                     PositionType = JobPost.PositionType,
                     SalaryRange = JobPost.SalaryRange,
-                    DatePosted = JobPost.DatePosted,
+                    DatePosted = JobPost.DatePosted.Date,
                     Email = JobPost.Email
                 };
                 JobPostsDtos.Add(NewJobPost);
@@ -51,57 +51,14 @@ namespace TiminsHospitalProjectV3.Controllers
             return Ok(JobPostsDtos);
         }
 
-        // PUT: api/JobPostingData/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutJobPosting(int id, JobPosting jobPosting)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            if (id != jobPosting.JobId)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(jobPosting).State = EntityState.Modified;
-
-            try
-            {
-                db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!JobPostingExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
-        }
-
-        // POST: api/JobPostingData
-        [ResponseType(typeof(JobPosting))]
-        public IHttpActionResult PostJobPosting(JobPosting jobPosting)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
-            db.JobPostings.Add(jobPosting);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = jobPosting.JobId }, jobPosting);
-        }
-
-        // DELETE: api/JobPostingData/5
+        /// <summary>
+        /// Deletes a post in the database
+        /// </summary>
+        /// <param name="id">The id of the post to delete.</param>
+        /// <returns>200 if successful. 404 if not successful.</returns>
+        /// <example>
+        /// POST: api/jobpostingdata/DeleteJobPosting/5
+        /// </example>
         [HttpPost]
         [ResponseType(typeof(JobPosting))]
         public IHttpActionResult DeleteJobPosting(int id)
@@ -118,29 +75,16 @@ namespace TiminsHospitalProjectV3.Controllers
             return Ok(jobPosting);
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
-
-        private bool JobPostingExists(int id)
-        {
-            return db.JobPostings.Count(e => e.JobId == id) > 0;
-        }
-
+   
 
         /// <summary>
-        /// Adds a customer to the database.
+        /// Adds a post to the database.
         /// </summary>
-        /// <param name="customer">A player object. Sent as POST form data.</param>
+        /// <param name="jobPosting">A post object. Sent as POST form data.</param>
         /// <returns>status code 200 if successful. 400 if unsuccessful</returns>
         /// <example>
-        /// POST: api/CustomersData/AddCustomer
-        ///  FORM DATA: Player JSON Object
+        /// POST: api/jobpostingdata/AddJobPost
+        ///  FORM DATA: JobPosting JSON Object
         /// </example>
         [ResponseType(typeof(JobPosting))]
         [HttpPost]
@@ -161,12 +105,12 @@ namespace TiminsHospitalProjectV3.Controllers
 
 
         /// <summary>
-        /// Finds a particular Team in the database with a 200 status code. If the Team is not found, return 404.
+        /// Finds a particular post in the database with a 200 status code. If the post is not found, return 404.
         /// </summary>
-        /// <param name="id">The Team id</param>
-        /// <returns>Information about the Team, including Team id, bio, first and last name, and teamid</returns>
+        /// <param name="id">The post id</param>
+        /// <returns>Information about the post, including job id, title, description, category, location, position type, salary range, date posted, email</returns>
         // <example>
-        // GET: api/TeamData/FindTeam/5
+        // GET: api/jobpostingdata/FindPost/5
         // </example>
         [HttpGet]
         [ResponseType(typeof(JobPostingDto))]
@@ -190,7 +134,7 @@ namespace TiminsHospitalProjectV3.Controllers
                 JobLocation = jobPosting.JobLocation,
                 PositionType = jobPosting.PositionType,
                 SalaryRange = jobPosting.SalaryRange,
-                DatePosted = jobPosting.DatePosted,
+                DatePosted = jobPosting.DatePosted.Date,
                 Email = jobPosting.Email
             };
 
@@ -200,14 +144,14 @@ namespace TiminsHospitalProjectV3.Controllers
         }
 
         /// <summary>
-        /// Updates a Team in the database given information about the Team.
+        /// Updates a post in the database given information about the post.
         /// </summary>
-        /// <param name="id">The Team id</param>
-        /// <param name="Team">A Team object. Received as POST data.</param>
+        /// <param name="id">The jobPosting id</param>
+        /// <param name="jobPosting">A jobPosting object. Received as POST data.</param>
         /// <returns></returns>
         /// <example>
-        /// POST: api/TeamData/UpdateTeam/5
-        /// FORM DATA: Team JSON Object
+        /// POST: api/jobpostingdata/UpdatePost/5
+        /// FORM DATA: JobPosting JSON Object
         /// </example>
         [ResponseType(typeof(void))]
         [HttpPost]
@@ -243,5 +187,20 @@ namespace TiminsHospitalProjectV3.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                db.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        private bool JobPostingExists(int id)
+        {
+            return db.JobPostings.Count(e => e.JobId == id) > 0;
+        }
+
     }
 }

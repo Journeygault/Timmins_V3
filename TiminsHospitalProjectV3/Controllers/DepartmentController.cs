@@ -13,11 +13,13 @@ namespace TiminsHospitalProjectV3.Controllers
 {
     public class DepartmentController : Controller
     {
-
+        //Http Client is the proper way to connect to a webapi
         private static readonly HttpClient client;
         private JavaScriptSerializer jss = new JavaScriptSerializer();
 
-
+        /// <summary>
+        /// This allows us to access a pre-defined C# HttpClient 'client' variable for sending POST and GET requests to the data access layer.
+        /// </summary>
         static DepartmentController()
         {
             HttpClientHandler handler = new HttpClientHandler()
@@ -32,7 +34,8 @@ namespace TiminsHospitalProjectV3.Controllers
 
         }
 
-
+        
+        // GET: Department/Create
         [HttpPost]
         [ValidateAntiForgeryToken()]
         public ActionResult Create(Department DepartmentInfo)
@@ -66,13 +69,11 @@ namespace TiminsHospitalProjectV3.Controllers
             return View();
         }
 
-        // GET: Team/Details/5
+        // GET: Department/Details/5
         public ActionResult Details(int id)
         {
             string url = "departmentdata/finddepartment/" + id;
-            // Send off an HTTP request
-            // GET : /api/playerdata/getplayers
-            // Retrieve response
+
             HttpResponseMessage response = client.GetAsync(url).Result;
             // If the response is a success, proceed
             if (response.IsSuccessStatusCode)
@@ -88,19 +89,19 @@ namespace TiminsHospitalProjectV3.Controllers
             }
         }
 
-        // GET: Customers/List?{PageNum}
+        // GET: Department/List
         public ActionResult List()
         {
-            // Grab all players
+            // Grab all departments
             string url = "departmentdata/getdepartments";
             // Send off an HTTP request
-            // GET : /api/playerdata/getplayers
+            // GET : /api/departmentdata/getdepartments
             // Retrieve response
             HttpResponseMessage response = client.GetAsync(url).Result;
             // If the response is a success, proceed
             if (response.IsSuccessStatusCode)
             {
-                // Fetch the response content into IEnumerable<PlayerDto>
+                // Fetch the response content into IEnumerable<DepartmentDto>
                 IEnumerable<DepartmentDto> SelectedDepartment = response.Content.ReadAsAsync<IEnumerable<DepartmentDto>>().Result;
                 return View(SelectedDepartment);
             }
@@ -127,7 +128,7 @@ namespace TiminsHospitalProjectV3.Controllers
             //Debug.WriteLine(response.StatusCode);
             if (response.IsSuccessStatusCode)
             {
-                //Put data into Team data transfer object
+                //Put data into department data transfer object
                 DepartmentDto SelectedDepartment = response.Content.ReadAsAsync<DepartmentDto>().Result;
                 return View(SelectedDepartment);
             }
@@ -158,7 +159,7 @@ namespace TiminsHospitalProjectV3.Controllers
             }
         }
 
-        // GET: Customer/Delete/5
+        // GET: Department/Delete/5
         [HttpGet]
         public ActionResult DeleteConfirm(int id)
         {
@@ -168,7 +169,7 @@ namespace TiminsHospitalProjectV3.Controllers
             //Debug.WriteLine(response.StatusCode);
             if (response.IsSuccessStatusCode)
             {
-                //Put data into player data transfer object
+                //Put data into department data transfer object
                 DepartmentDto SelectedDepartment = response.Content.ReadAsAsync<DepartmentDto>().Result;
                 return View(SelectedDepartment);
             }
@@ -178,7 +179,7 @@ namespace TiminsHospitalProjectV3.Controllers
             }
         }
 
-        // POST: Customer/Delete/5
+        // POST: Department/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
         public ActionResult Delete(int id)

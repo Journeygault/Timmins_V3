@@ -192,7 +192,8 @@ namespace TiminsHospitalProjectV3.Controllers
             }
 
             return StatusCode(HttpStatusCode.NoContent);
-        }
-
+        } 
+        //GetJobPostings for the department In- departmentID, op- JobPostings
     }
 }
+

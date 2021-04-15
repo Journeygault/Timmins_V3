@@ -1,18 +1,16 @@
 ﻿@model TiminsHospitalProjectV3.Models.JobPosting
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create a new post";
 }
-
-<h2>Create</h2>
-
+<h2>Create a new post</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>JobPosting</h4>
+       
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
