@@ -31,14 +31,14 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 
 ### Category Feature:
 
-- [] Users Can see all the data that is retrieved from the database.
-- [] Users Are able to search for data that matches the input by Category.
-- [] Can see all the data that is retrieved from the database.
-- [] Are able to search for data that matches the input by Category.
-- [] Can Add new data into the database.
-- [] Can View the details about the specific data.
-- [] Can Edit new data into the database.
-- [] Can Delete data from the database.
+- [ ] Users Can see all the data that is retrieved from the database.
+- [ ] Users Are able to search for data that matches the input by Category.
+- [ ] Can see all the data that is retrieved from the database.
+- [ ] Are able to search for data that matches the input by Category.
+- [ ] Can Add new data into the database.
+- [ ] Can View the details about the specific data.
+- [ ] Can Edit new data into the database.
+- [ ] Can Delete data from the database.
 
 ### NewsItem(Journey Gault):
 
