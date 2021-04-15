@@ -151,6 +151,7 @@ namespace TiminsHospitalProjectV3.Controllers
                 Appointment appt = response.Content.ReadAsAsync<Appointment>().Result;
                 appt.PatientUser = new ApplicationDbContext().Users.Find(appt.PatientID);
                 appt.PhysicianUser = new ApplicationDbContext().Users.Find(appt.PhysicianID);
+                ViewData["listStatus"] = Enum.GetValues(typeof(AppointmentStatus));
                 return View(appt);
             }
             else
@@ -173,6 +174,7 @@ namespace TiminsHospitalProjectV3.Controllers
             {
                 Appointment appt = response.Content.ReadAsAsync<Appointment>().Result;
                 appt.Status = status;
+                appt.DecisionMadeOn = DateTime.Now.ToString("yyyy/MM/dd hh:mm tt");
                 //pass along authentication credential in http request
                 GetApplicationCookie();
 
@@ -213,15 +215,13 @@ namespace TiminsHospitalProjectV3.Controllers
             //if user's role is 'patient' fetch the users with 'Doctor' role and vice versa
             if (User.IsInRole("Patient"))
             {
-                role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Physician");
-                ViewData["userRole"] = "Patient";
+                role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Physician");    
                 
             }
 
             else
             {
-                role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Patient");
-                ViewData["userRole"] = "Physician";
+                role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Patient");                
             }
             ViewAppointment viewModel = new ViewAppointment();    
             viewModel.UsersInRole = new ApplicationDbContext().Users.Where(m => m.Roles.Any(r => r.RoleId == role.Id)).ToList();
@@ -274,13 +274,13 @@ namespace TiminsHospitalProjectV3.Controllers
             if (User.IsInRole("Patient"))
             {
                 role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Physician");
-                ViewData["userRole"] = "Patient";
+               
             }
 
             else
             {
                 role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Patient");
-                ViewData["userRole"] = "Physician";                
+                               
             }
 
             var usersInRole = new ApplicationDbContext().Users.Where(m => m.Roles.Any(r => r.RoleId == role.Id)).ToList();

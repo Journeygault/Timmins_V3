@@ -19,7 +19,7 @@
     <h4>New Request Of Appointment</h4>
     <hr />
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @if (String.Equals(ViewData["userRole"], "Physician"))
+    @if (User.IsInRole("Physician"))
     {
         <div class="form-group">
             @Html.LabelFor(model => model.Appointment.PatientID, "Patient", htmlAttributes: new { @class = "control-label col-md-2" })

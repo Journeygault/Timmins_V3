@@ -2,6 +2,7 @@
 
 @{
     ViewBag.Title = "Details";
+    Array statuses = (TiminsHospitalProjectV3.Models.AppointmentStatus[])ViewData["listStatus"];
 }
 
 <h2> Appointment Details</h2>
@@ -10,7 +11,7 @@
 
     <table class="table">
         <thead class="thead-dark">
-            
+
         </thead>
         <tbody>
             <tr>
@@ -47,8 +48,48 @@
             </tr>
 
         </tbody>
-    </table>            
-</div>
+    </table>
+    @if (User.IsInRole("Physician") && string.Equals("Pending",Model.Status.ToString()))
+    {
+        using (Html.BeginForm("ChangeStatus", "Appointments", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <h2>Update the status</h2>
+            @Html.HiddenFor(modelItem => modelItem.ID, new { Name = "id" })
+            <div class="form-group">
+                @Html.LabelFor(modelItem => modelItem.Status, htmlAttributes: new { @class = "control-label col-md-4" })
+                <div class="col-md-4">
+
+                    <select name="status" class="form-control">
+
+                        @foreach (var s in statuses)
+                        {
+                            if (Model.Status.ToString() == s.ToString())
+                            {
+                                <option value="@s.ToString()" selected>@s.ToString()</option>
+                            }
+                            else
+                            {
+                                <option value="@s.ToString()">@s.ToString()</option>
+                            }
+                        }
+                    </select>
+
+                    @Html.ValidationMessage("Status", "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-4">
+                    <input type="submit" value="Update the status" class="btn btn-default" />
+                </div>
+
+
+            </div>
+
+        }
+     }
+
+    </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "List")

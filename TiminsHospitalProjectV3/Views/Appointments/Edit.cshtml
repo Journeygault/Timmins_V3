@@ -21,7 +21,7 @@
 
 
 
-    @if (String.Equals(ViewData["userRole"], "Physician"))
+    @if (User.IsInRole("Physician"))
     {
 <div class="form-group">
     @Html.HiddenFor(model => model.Appointment.PhysicianID, new { Name = "PhysicianID" })

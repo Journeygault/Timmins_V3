@@ -24,7 +24,7 @@ namespace TiminsHospitalProjectV3.Controllers
         [ResponseType(typeof(IEnumerable<Appointment>))]
         public IHttpActionResult GetAppointments()
         {
-            return Ok(db.Appointments.OrderByDescending(p => p.SentOn).ToList());
+            return Ok(db.Appointments.OrderByDescending(a => a.SentOn).ToList());
         }
         /// <summary>
         /// Gets a list of appointments in the database alongside a status code (200 OK). Skips the first {startindex} records and takes {nberPerPage} records.
@@ -38,7 +38,7 @@ namespace TiminsHospitalProjectV3.Controllers
 
         public IHttpActionResult GetAppointmentsPage(int startIndex, int nberPerPage)
         {
-            return Ok(db.Appointments.OrderByDescending(i => i.SentOn).Skip(startIndex).Take(nberPerPage).ToList());
+            return Ok(db.Appointments.OrderByDescending(a => a.SentOn).Skip(startIndex).Take(nberPerPage).ToList());
         }
 
 
@@ -53,7 +53,7 @@ namespace TiminsHospitalProjectV3.Controllers
         [HttpGet]
         public IHttpActionResult FindUserAppointments(string userId)
         {
-            return Ok(db.Appointments.Where(p => p.PatientID == userId || p.PhysicianID == userId).OrderByDescending(p => p.SentOn).ToList());
+            return Ok(db.Appointments.Where(a => a.PatientID == userId || a.PhysicianID == userId).OrderByDescending(a => a.SentOn).ToList());
         }
         /// <summary>
         /// Gets a list of appointments associated with a user in the database alongside a status code (200 OK). Skips the first {startindex} records and takes {nberPerPage} records.
@@ -67,7 +67,7 @@ namespace TiminsHospitalProjectV3.Controllers
         [Route("api/AppointmentsData/FindUserAppointmentsPage/{userId}/{startIndex}/{nberPerPage}")]
         public IHttpActionResult FindUserAppointmentsPage(string userId, int startIndex, int nberPerPage)
         {
-            return Ok(db.Appointments.Where(p => p.PatientID == userId || p.PhysicianID == userId).OrderByDescending(p => p.SentOn)
+            return Ok(db.Appointments.Where(a => a.PatientID == userId || a.PhysicianID == userId).OrderByDescending(a => a.SentOn)
                 .Skip(startIndex).Take(nberPerPage).ToList());
         }
 
