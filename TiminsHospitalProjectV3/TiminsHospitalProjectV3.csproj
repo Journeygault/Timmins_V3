@@ -229,6 +229,14 @@
     <Compile Include="Migrations\202104151901225_appointments_v7.designer.cs">
       <DependentUpon>202104151901225_appointments_v7.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104160717134_users_v1.cs" />
+    <Compile Include="Migrations\202104160717134_users_v1.designer.cs">
+      <DependentUpon>202104160717134_users_v1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104160724310_users_v2.cs" />
+    <Compile Include="Migrations\202104160724310_users_v2.designer.cs">
+      <DependentUpon>202104160724310_users_v2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Appointment.cs" />
@@ -250,6 +258,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Scripts\Appointments\create.js" />
+    <Content Include="Scripts\Appointments\edit.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
@@ -443,6 +453,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104151901225_appointments_v7.resx">
       <DependentUpon>202104151901225_appointments_v7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104160717134_users_v1.resx">
+      <DependentUpon>202104160717134_users_v1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104160724310_users_v2.resx">
+      <DependentUpon>202104160724310_users_v2.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

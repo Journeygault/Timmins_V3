@@ -49,7 +49,7 @@
 
         </tbody>
     </table>
-    @if (User.IsInRole("Physician") && string.Equals("Pending",Model.Status.ToString()))
+    @if (User.IsInRole("Physician") && string.Equals("Pending", Model.Status.ToString()))
     {
         using (Html.BeginForm("ChangeStatus", "Appointments", FormMethod.Post))
         {
@@ -58,8 +58,8 @@
             <h2>Update the status</h2>
             @Html.HiddenFor(modelItem => modelItem.ID, new { Name = "id" })
             <div class="form-group">
-                @Html.LabelFor(modelItem => modelItem.Status, htmlAttributes: new { @class = "control-label col-md-4" })
-                <div class="col-md-4">
+                
+                <div class="col-md-5">
 
                     <select name="status" class="form-control">
 
@@ -80,16 +80,16 @@
                 </div>
 
                 <div class="col-md-4">
-                    <input type="submit" value="Update the status" class="btn btn-default" />
+                    <input type="submit" value="Change the status" class="btn btn-default" />
                 </div>
 
 
             </div>
 
         }
-     }
+    }
 
-    </div>
+</div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
     @Html.ActionLink("Back to List", "List")

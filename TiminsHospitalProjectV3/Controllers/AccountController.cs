@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using TiminsHospitalProjectV3.Models;
+using System.Collections.Generic;
 
 namespace TiminsHospitalProjectV3.Controllers
 {
@@ -75,7 +76,7 @@ namespace TiminsHospitalProjectV3.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = await SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -139,6 +140,8 @@ namespace TiminsHospitalProjectV3.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole> roles = new ApplicationDbContext().Roles.ToList();
+            ViewData["roles"] = roles;
             return View();
         }
 
@@ -151,10 +154,15 @@ namespace TiminsHospitalProjectV3.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { 
+                    UserName = model.UserName, 
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    UserManager.AddToRole(user.Id, model.role);
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
@@ -167,7 +175,8 @@ namespace TiminsHospitalProjectV3.Controllers
                 }
                 AddErrors(result);
             }
-
+            IEnumerable<Microsoft.AspNet.Identity.EntityFramework.IdentityRole> roles = new ApplicationDbContext().Roles.ToList();
+            ViewData["roles"] = roles;
             // If we got this far, something failed, redisplay form
             return View(model);
         }

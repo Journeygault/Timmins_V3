@@ -247,6 +247,9 @@ namespace TiminsHospitalProjectV3.Controllers
                 newAppointment.PhysicianID = User.Identity.GetUserId();
             //newAppointment.SentOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.CreateSpecificCulture("en-CA")); //set the datetime of the request of appointment
             //newAppointment.SentOn = DateTime.Now; //set the datetime of the request of appointment
+            var cultureInfo = new CultureInfo("en-CA");            
+            DateTime requestedDateTime= DateTime.Parse(newAppointment.RequestDatetime, cultureInfo);
+            newAppointment.RequestDatetime = requestedDateTime.ToString("yyyy/MM/dd hh:mm tt");
             newAppointment.SentOn = DateTime.Now.ToString("yyyy/MM/dd hh:mm tt");
             //newAppointment.RequestDatetime = DateTime.ParseExact(newAppointment.RequestDatetime.ToString("yyyy/MM/dd HH:mm"), "yyyy/MM/dd HH:mm", System.Globalization.CultureInfo.CreateSpecificCulture("en-CA"));
             newAppointment.Status = AppointmentStatus.Pending;
@@ -269,9 +272,9 @@ namespace TiminsHospitalProjectV3.Controllers
         // GET: Appointments/Edit/5
         public ActionResult Edit(int id)
         {
-            IdentityRole role = null;
+            //IdentityRole role = null;
             //if user's role is 'patient' fetch the users with 'Doctor' role and vice versa
-            if (User.IsInRole("Patient"))
+           /* if (User.IsInRole("Patient"))
             {
                 role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Physician");
                
@@ -281,9 +284,9 @@ namespace TiminsHospitalProjectV3.Controllers
             {
                 role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Patient");
                                
-            }
+            }*/
 
-            var usersInRole = new ApplicationDbContext().Users.Where(m => m.Roles.Any(r => r.RoleId == role.Id)).ToList();
+           // var usersInRole = new ApplicationDbContext().Users.Where(m => m.Roles.Any(r => r.RoleId == role.Id)).ToList();
 
             string url = "AppointmentsData/GetAppointment/" + id;
             //sends http request and retrieves the response
@@ -292,8 +295,11 @@ namespace TiminsHospitalProjectV3.Controllers
             {
                 ViewAppointment viewModel = new ViewAppointment();
                 viewModel.Appointment = response.Content.ReadAsAsync<Appointment>().Result;
-                viewModel.UsersInRole = usersInRole;
-                
+                var cultureInfo = new CultureInfo("en-CA");
+                DateTime requestedDateTime = DateTime.Parse(viewModel.Appointment.RequestDatetime, cultureInfo);
+                viewModel.Appointment.RequestDatetime = requestedDateTime.ToString("yyyy/MM/dd HH:mm ");
+                viewModel.Appointment.PatientUser = new ApplicationDbContext().Users.Find(viewModel.Appointment.PatientID);
+                viewModel.Appointment.PhysicianUser = new ApplicationDbContext().Users.Find(viewModel.Appointment.PhysicianID);
 
                 return View( viewModel);
 
@@ -318,6 +324,9 @@ namespace TiminsHospitalProjectV3.Controllers
 
             //update the appointment
             string url = "AppointmentsData/UpdateAppointment/"+id;
+            var cultureInfo = new CultureInfo("en-CA");
+            DateTime requestedDateTime = DateTime.Parse(appointment.RequestDatetime, cultureInfo);
+            appointment.RequestDatetime = requestedDateTime.ToString("yyyy/MM/dd hh:mm tt");
 
             HttpContent content = new StringContent(jss.Serialize(appointment));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");

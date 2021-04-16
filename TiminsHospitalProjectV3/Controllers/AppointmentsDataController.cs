@@ -100,6 +100,8 @@ namespace TiminsHospitalProjectV3.Controllers
         /// <example>POST: api/AppointmentsData/UpdateAppointment/5</example>
         [ResponseType(typeof(void))]
         [HttpPost]
+        [Authorize(Roles = "Patient,Physician")]
+
         public IHttpActionResult UpdateAppointment(int id, Appointment appointment)
         {
             if (!ModelState.IsValid)
@@ -142,6 +144,8 @@ namespace TiminsHospitalProjectV3.Controllers
         /// <example>POST: api/AppointmentsData/AddAppointment</example>
         [ResponseType(typeof(Appointment))]
         [HttpPost]
+        [Authorize(Roles = "Patient,Physician")]
+
         public IHttpActionResult AddAppointment(Appointment appointment)
         {
             if (!ModelState.IsValid)
@@ -164,6 +168,8 @@ namespace TiminsHospitalProjectV3.Controllers
         /// <example>DELETE: api/AppointmentsData/DeleteAppointment/5</example>
         [ResponseType(typeof(Appointment))]
         [HttpPost]
+        [Authorize(Roles = "Patient,Physician")]
+
         public IHttpActionResult DeleteAppointment(int id)
         {
             Appointment appointment = db.Appointments.Find(id);
