@@ -14,5 +14,5 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 ## Extra features
 
 - [x] pagination for the list of appointments.
-- [x] add a javascript libary to select date and time requested for an appointment.
+- [x] use the javascript libary [flatpickr](https://flatpickr.js.org/) to select date and time requested for an appointment.
 
