@@ -10,102 +10,73 @@
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
 
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.Appointment.ID, new { Name = "id" })
-    @Html.HiddenFor(model => model.Appointment.SentOn, new { Name = "SentOn" })
-    @Html.HiddenFor(model => model.Appointment.Status, new { Name = "Status" })
+    <div class="form-horizontal">
 
-
-
-    @if (String.Equals(ViewData["userRole"], "Physician"))
-    {
-<div class="form-group">
-    @Html.HiddenFor(model => model.Appointment.PhysicianID, new { Name = "PhysicianID" })
-    @Html.LabelFor(model => model.Appointment.PatientID, "Patient", htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        <select name="PatientID" id="PatientID" class="form-control">
-            @foreach (var patient in Model.UsersInRole)
-            {
-                if (Model.Appointment.PatientID == patient.Id)
-                {
-                    <option value="@patient.Id" selected>@patient.UserName</option>
-                }
-                else
-                {
-                    <option value="@patient.Id">@patient.UserName</option>
-                }
-            }
-
-        </select>
-        @* @Html.DropDownListFor(model => model.Appointment.PatientID, new SelectList(Model.UsersInRole), "Select a physician")
-        *@
-        @Html.ValidationMessage("PatientID", "", new { @class = "text-danger" })
-    </div>
-</div>
-    }
-    else
-    {
-<div class="form-group">
-    @Html.HiddenFor(model => model.Appointment.PatientID, new { Name = "PatientID" })
-    @Html.LabelFor(model => model.Appointment.PhysicianID, "Physician", htmlAttributes: new { @class = "control-label col-md-2" })
-    <div class="col-md-10">
-        <select name="PhysicianID" id="PhysicianID" class="form-control">
-            @foreach (var physician in Model.UsersInRole)
-            {
-                if (Model.Appointment.PhysicianID == physician.Id)
-                {
-                    <option value="@physician.Id" selected>@physician.UserName</option>
-                }
-                else
-                {
-                    <option value="@physician.Id">@physician.UserName</option>
-                }
-            }
-
-        </select>
-        @* @Html.DropDownListFor(model => model.Appointment.PatientID, new SelectList(Model.UsersInRole), "Select a physician")
-        *@
-        @Html.ValidationMessage("Physician", "", new { @class = "text-danger" })
-    </div>
-</div>
-
-    }
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Appointment.ID, new { Name = "id" })
+        @Html.HiddenFor(model => model.Appointment.SentOn, new { Name = "SentOn" })
+        @Html.HiddenFor(model => model.Appointment.Status, new { Name = "Status" })
+        @Html.HiddenFor(model => model.Appointment.PatientID, new { Name = "PatientID" })
+        @Html.HiddenFor(model => model.Appointment.PhysicianID, new { Name = "PhysicianID" })
 
 
-    <div class="form-group">
-        @Html.Label("RequestDatetime", "Request Date and Time", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <input type="text" name="RequestDatetime" id="RequestDatetime" value="@Model.Appointment.RequestDatetime" class="form-control" />
-            @Html.ValidationMessage("RequestDatetime", "", new { @class = "text-danger" })
+
+        @if (User.IsInRole("Physician"))
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Appointment.PatientID, "Patient", htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.TextBoxFor(model => model.Appointment.PatientUser.UserName, new { @class = "form-control", disabled = "disabled", @readonly = "readonly" })
+
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.Appointment.PhysicianID, "Physician", htmlAttributes: new { @class = "control-label col-md-3" })
+                <div class="col-md-9">
+                    @Html.TextBoxFor(model => model.Appointment.PhysicianUser.UserName, new { @class = "form-control", disabled = "disabled", @readonly = "readonly" })
+
+
+                </div>
+            </div>
+
+        }
+
+
+        <div class="form-group">
+            @Html.Label("RequestDatetime", "Requested Date and Time", htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                <input type="text" name="RequestDatetime" id="RequestDatetime" value="@Model.Appointment.RequestDatetime" class="form-control" />
+                @Html.ValidationMessage("RequestDatetime", "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Appointment.Subject, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                <input type="text" name="Subject" id="Subject" value="@Model.Appointment.Subject" class="form-control" />
+                @Html.ValidationMessage("Subject", "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Appointment.Message, htmlAttributes: new { @class = "control-label col-md-3" })
+            <div class="col-md-9">
+                <textarea class="form-control" id="Message" name="Message" cols="12" rows="6" placeholder="enter your message here.">@Model.Appointment.Message</textarea>
+                @Html.ValidationMessage("Message", "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-3 col-md-9">
+                <input type="submit" value="Update" class="btn btn-default" />
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Appointment.Subject, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <input type="text" name="Subject" id="Subject" value="@Model.Appointment.Subject" class="form-control" />
-            @Html.ValidationMessage("Subject", "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.Appointment.Message, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            <textarea class="form-control" id="Message" name="Message" cols="12" rows="6" placeholder="enter your message here.">@Model.Appointment.Message</textarea>
-            @Html.ValidationMessage("Message", "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Update" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
 
 <div>
@@ -114,4 +85,5 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Scripts/Appointments/edit.js")
 }

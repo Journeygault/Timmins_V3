@@ -17,10 +17,10 @@ namespace TiminsHospitalProjectV3.Models
         public string FaqQuestion { get; set; }
         [AllowHtml]//For TinyEMC Usage 
         public string FaqAnswer { get; set; }
-        //Foreign Key set on the Users id in the Users Table
-        //[ForeignKey("Users")]
-        //public int UserID { get; set; }
-        //public virtual Users Users { get; set; }
+        //Foreign Key set on the Category id in the Categories Table
+        [ForeignKey("Categories")]
+        public int CategoryID { get; set; }
+        public virtual Category Categories { get; set; }
     }
 
     public class FaqDto
@@ -30,6 +30,6 @@ namespace TiminsHospitalProjectV3.Models
         public string FaqQuestion { get; set; }
         [DisplayName("Answer")]
         public string FaqAnswer { get; set; }
-        //public int UserID { get; set; }
+        public int CategoryID { get; set; }
     }
 }

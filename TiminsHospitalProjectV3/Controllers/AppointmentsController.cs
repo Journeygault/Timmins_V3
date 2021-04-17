@@ -68,27 +68,29 @@ namespace TiminsHospitalProjectV3.Controllers
         }
         [Authorize(Roles = "Patient,Physician,Admin")]
         // GET: Appointments/List?{pageNum}
-        public ActionResult List(int pageNum=1)
+        public ActionResult List(int pageNum = 1, string searchStatus = "all")
         {
-            string url="" ,paginatedUrl= "";
+            string url = "", paginatedUrl = "";
             //grab all appointments
             if (User.IsInRole("Admin"))
             {
-                paginatedUrl = "AppointmentsData/GetAppointmentsPage/";
-                url = "AppointmentsData/GetAppointments/";
+                paginatedUrl = "AppointmentsData/GetAppointmentsPage";
+                url = "AppointmentsData/GetAppointments";
             }
-                
-            else if(User.IsInRole("Patient") || User.IsInRole("Physician"))
+
+            else if (User.IsInRole("Patient") || User.IsInRole("Physician"))
             {
                 paginatedUrl = "AppointmentsData/FindUserAppointmentsPage";
                 url = "AppointmentsData/FindUserAppointments";
-            }
-                
-
-            if(url != "")
-            {
                 url = url + "/" + User.Identity.GetUserId();
                 paginatedUrl += "/" + User.Identity.GetUserId();
+            }
+
+
+            if (url != "")
+            {
+                url += "?searchStatus=" + searchStatus;
+
                 //sends http request and retrieves the response
                 HttpResponseMessage response = client.GetAsync(url).Result;
 
@@ -111,12 +113,13 @@ namespace TiminsHospitalProjectV3.Controllers
                     //Helps us generate the HTML which shows "Page 1 of ..." on the list view
                     ViewData["PageNum"] = pageNum;
                     ViewData["MaxPageNum"] = maxPageNber;
+                    ViewData["searchStatus"] = searchStatus;
 
                     //get the list of appoinments according to pagination
-                    paginatedUrl += "/" + startIndex + "/" + perPage;
+                    paginatedUrl += "/" + startIndex + "/" + perPage + "?searchStatus=" + searchStatus; ;
                     response = client.GetAsync(paginatedUrl).Result;
                     appointments = response.Content.ReadAsAsync<IEnumerable<Appointment>>().Result;
-                    foreach(Appointment appt in appointments)
+                    foreach (Appointment appt in appointments)
                     {
                         appt.PatientUser = new ApplicationDbContext().Users.Find(appt.PatientID);
                         appt.PhysicianUser = new ApplicationDbContext().Users.Find(appt.PhysicianID);
@@ -136,14 +139,14 @@ namespace TiminsHospitalProjectV3.Controllers
                 return RedirectToAction("Error");
             }
 
-            
+
         }
 
-        [Authorize(Roles = "Patient,Physician")]
+        [Authorize(Roles = "Patient,Physician,Admin")]
         // GET: Appointments/Details/5
         public ActionResult Details(int id)
         {
-            string url = "AppointmentsData/GetAppointment/"+id;
+            string url = "AppointmentsData/GetAppointment/" + id;
             //sends http request and retrieves the response
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
@@ -151,6 +154,7 @@ namespace TiminsHospitalProjectV3.Controllers
                 Appointment appt = response.Content.ReadAsAsync<Appointment>().Result;
                 appt.PatientUser = new ApplicationDbContext().Users.Find(appt.PatientID);
                 appt.PhysicianUser = new ApplicationDbContext().Users.Find(appt.PhysicianID);
+                ViewData["listStatus"] = Enum.GetValues(typeof(AppointmentStatus));
                 return View(appt);
             }
             else
@@ -158,7 +162,7 @@ namespace TiminsHospitalProjectV3.Controllers
                 // If we reach here something went wrong with our list algorithm
                 return RedirectToAction("Error");
             }
-            
+
         }
         [HttpPost]
         [Authorize(Roles = "Physician")]
@@ -173,6 +177,7 @@ namespace TiminsHospitalProjectV3.Controllers
             {
                 Appointment appt = response.Content.ReadAsAsync<Appointment>().Result;
                 appt.Status = status;
+                appt.DecisionMadeOn = DateTime.Now.ToString("yyyy/MM/dd hh:mm tt");
                 //pass along authentication credential in http request
                 GetApplicationCookie();
 
@@ -209,24 +214,22 @@ namespace TiminsHospitalProjectV3.Controllers
         // GET: Appointments/Create
         public ActionResult Create()
         {
-            IdentityRole role = null ;
+            IdentityRole role = null;
             //if user's role is 'patient' fetch the users with 'Doctor' role and vice versa
             if (User.IsInRole("Patient"))
             {
                 role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Physician");
-                ViewData["userRole"] = "Patient";
-                
+
             }
 
             else
             {
                 role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Patient");
-                ViewData["userRole"] = "Physician";
             }
-            ViewAppointment viewModel = new ViewAppointment();    
+            ViewAppointment viewModel = new ViewAppointment();
             viewModel.UsersInRole = new ApplicationDbContext().Users.Where(m => m.Roles.Any(r => r.RoleId == role.Id)).ToList();
-            
-            
+
+
             return View(viewModel);
         }
 
@@ -247,6 +250,9 @@ namespace TiminsHospitalProjectV3.Controllers
                 newAppointment.PhysicianID = User.Identity.GetUserId();
             //newAppointment.SentOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.CreateSpecificCulture("en-CA")); //set the datetime of the request of appointment
             //newAppointment.SentOn = DateTime.Now; //set the datetime of the request of appointment
+            var cultureInfo = new CultureInfo("en-CA");
+            DateTime requestedDateTime = DateTime.Parse(newAppointment.RequestDatetime, cultureInfo);
+            newAppointment.RequestDatetime = requestedDateTime.ToString("yyyy/MM/dd hh:mm tt");
             newAppointment.SentOn = DateTime.Now.ToString("yyyy/MM/dd hh:mm tt");
             //newAppointment.RequestDatetime = DateTime.ParseExact(newAppointment.RequestDatetime.ToString("yyyy/MM/dd HH:mm"), "yyyy/MM/dd HH:mm", System.Globalization.CultureInfo.CreateSpecificCulture("en-CA"));
             newAppointment.Status = AppointmentStatus.Pending;
@@ -255,7 +261,7 @@ namespace TiminsHospitalProjectV3.Controllers
             HttpResponseMessage response = client.PostAsync(url, content).Result;
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("List", new { pageNum = 1 } );
+                return RedirectToAction("List", new { pageNum = 1 });
 
             }
             else
@@ -269,21 +275,21 @@ namespace TiminsHospitalProjectV3.Controllers
         // GET: Appointments/Edit/5
         public ActionResult Edit(int id)
         {
-            IdentityRole role = null;
+            //IdentityRole role = null;
             //if user's role is 'patient' fetch the users with 'Doctor' role and vice versa
-            if (User.IsInRole("Patient"))
-            {
-                role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Physician");
-                ViewData["userRole"] = "Patient";
-            }
+            /* if (User.IsInRole("Patient"))
+             {
+                 role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Physician");
 
-            else
-            {
-                role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Patient");
-                ViewData["userRole"] = "Physician";                
-            }
+             }
 
-            var usersInRole = new ApplicationDbContext().Users.Where(m => m.Roles.Any(r => r.RoleId == role.Id)).ToList();
+             else
+             {
+                 role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Patient");
+
+             }*/
+
+            // var usersInRole = new ApplicationDbContext().Users.Where(m => m.Roles.Any(r => r.RoleId == role.Id)).ToList();
 
             string url = "AppointmentsData/GetAppointment/" + id;
             //sends http request and retrieves the response
@@ -292,10 +298,13 @@ namespace TiminsHospitalProjectV3.Controllers
             {
                 ViewAppointment viewModel = new ViewAppointment();
                 viewModel.Appointment = response.Content.ReadAsAsync<Appointment>().Result;
-                viewModel.UsersInRole = usersInRole;
-                
+                var cultureInfo = new CultureInfo("en-CA");
+                DateTime requestedDateTime = DateTime.Parse(viewModel.Appointment.RequestDatetime, cultureInfo);
+                viewModel.Appointment.RequestDatetime = requestedDateTime.ToString("yyyy/MM/dd HH:mm ");
+                viewModel.Appointment.PatientUser = new ApplicationDbContext().Users.Find(viewModel.Appointment.PatientID);
+                viewModel.Appointment.PhysicianUser = new ApplicationDbContext().Users.Find(viewModel.Appointment.PhysicianID);
 
-                return View( viewModel);
+                return View(viewModel);
 
             }
             else
@@ -317,7 +326,10 @@ namespace TiminsHospitalProjectV3.Controllers
             GetApplicationCookie();
 
             //update the appointment
-            string url = "AppointmentsData/UpdateAppointment/"+id;
+            string url = "AppointmentsData/UpdateAppointment/" + id;
+            var cultureInfo = new CultureInfo("en-CA");
+            DateTime requestedDateTime = DateTime.Parse(appointment.RequestDatetime, cultureInfo);
+            appointment.RequestDatetime = requestedDateTime.ToString("yyyy/MM/dd hh:mm tt");
 
             HttpContent content = new StringContent(jss.Serialize(appointment));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
@@ -333,7 +345,7 @@ namespace TiminsHospitalProjectV3.Controllers
 
             }
         }
-        
+
         [Authorize(Roles = "Patient,Physician")]
         // GET: Appointments/Delete/5
         public ActionResult DeleteConfirm(int id)

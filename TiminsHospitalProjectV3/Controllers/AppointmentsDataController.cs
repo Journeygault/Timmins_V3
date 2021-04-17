@@ -19,26 +19,36 @@ namespace TiminsHospitalProjectV3.Controllers
         /// <summary>
         /// gets the list of appointments in the database
         /// </summary>
+        /// <param name="searchStatus">appointment status to search for</param>
         /// <returns>The list of appointments in the database</returns>
-        /// <example>GET: api/AppointmentsData/GetAppointments</example>
+        /// <example>GET: api/AppointmentsData/GetAppointments?searchStatus=all</example>
         [ResponseType(typeof(IEnumerable<Appointment>))]
-        public IHttpActionResult GetAppointments()
+        public IHttpActionResult GetAppointments(string searchStatus = "all")
         {
-            return Ok(db.Appointments.OrderByDescending(p => p.SentOn).ToList());
+            if (string.Equals(searchStatus, "all"))
+                return Ok(db.Appointments.OrderByDescending(a => a.SentOn).ToList());
+
+            int status = Int32.Parse(searchStatus);
+            return Ok(db.Appointments.Where(a => a.Status == (AppointmentStatus)status).OrderByDescending(a => a.SentOn).ToList());
+
         }
         /// <summary>
         /// Gets a list of appointments in the database alongside a status code (200 OK). Skips the first {startindex} records and takes {nberPerPage} records.
         /// </summary>
         /// <param name="startIndex">The number of records to skip through</param>
         /// <param name="nberPerPage"> The number of records for each</param>
+        /// <param name="searchStatus">appointment status to search for</param>
         /// <returns> a list of appointements</returns>
-        /// <example>GET: api/AppointmentsData/GetAppointmentsPage/5/10</example>
+        /// <example>GET: api/AppointmentsData/GetAppointmentsPage/5/10?searchStatus=all</example>
         [ResponseType(typeof(IEnumerable<Appointment>))]
         [Route("api/AppointmentsData/GetAppointmentsPage/{startIndex}/{nberPerPage}")]
 
-        public IHttpActionResult GetAppointmentsPage(int startIndex, int nberPerPage)
+        public IHttpActionResult GetAppointmentsPage(int startIndex, int nberPerPage, string searchStatus = "all")
         {
-            return Ok(db.Appointments.OrderByDescending(i => i.SentOn).Skip(startIndex).Take(nberPerPage).ToList());
+            if (string.Equals(searchStatus, "all"))
+                return Ok(db.Appointments.OrderByDescending(a => a.SentOn).Skip(startIndex).Take(nberPerPage).ToList());
+            int status = Int32.Parse(searchStatus);
+            return Ok(db.Appointments.Where(a => a.Status == (AppointmentStatus)status).OrderByDescending(a => a.SentOn).Skip(startIndex).Take(nberPerPage).ToList());
         }
 
 
@@ -46,28 +56,40 @@ namespace TiminsHospitalProjectV3.Controllers
         /// gets a user's list of appointments in the database
         /// </summary>
         /// <param name="userId">a user id</param>
+        /// <param name="searchStatus">appointment status to search for</param>
         /// <returns>The list of a user's appointments in the database</returns>
-        /// <example>GET: api/AppointmentsData/FindUserAppointments/4</example>
+        /// <example>GET: api/AppointmentsData/FindUserAppointments/4?searchStatus=all</example>
         [ResponseType(typeof(IEnumerable<Appointment>))]
         [Route("api/AppointmentsData/FindUserAppointments/{userId}")]
         [HttpGet]
-        public IHttpActionResult FindUserAppointments(string userId)
+        public IHttpActionResult FindUserAppointments(string userId, string searchStatus = "all")
         {
-            return Ok(db.Appointments.Where(p => p.PatientID == userId || p.PhysicianID == userId).OrderByDescending(p => p.SentOn).ToList());
+            if (string.Equals(searchStatus, "all"))
+                return Ok(db.Appointments.Where(a => a.PatientID == userId || a.PhysicianID == userId).OrderByDescending(a => a.SentOn).ToList());
+            int status = Int32.Parse(searchStatus);
+            return Ok(db.Appointments.Where(a => (a.PatientID == userId || a.PhysicianID == userId) && a.Status == (AppointmentStatus)status)
+                .OrderByDescending(a => a.SentOn).ToList());
+
         }
         /// <summary>
         /// Gets a list of appointments associated with a user in the database alongside a status code (200 OK). Skips the first {startindex} records and takes {nberPerPage} records.
         /// </summary>
         /// <param name="userId">a user id</param>
+        /// <param name="searchStatus">appointment status to search for</param>
         /// <param name="startIndex">The number of records to skip through</param>
         /// <param name="nberPerPage"> The number of records for each</param>
         /// <returns> a list of appointements</returns>
-        /// <example>GET: api/AppointmentsData/FindUserAppointmentsPage/{userId}/{startIndex}/{nberPerPage}</example>
+        /// <example>GET: api/AppointmentsData/FindUserAppointmentsPage/{userId}/{startIndex}/{nberPerPage}?searchStatus=all</example>
         [HttpGet]
         [Route("api/AppointmentsData/FindUserAppointmentsPage/{userId}/{startIndex}/{nberPerPage}")]
-        public IHttpActionResult FindUserAppointmentsPage(string userId, int startIndex, int nberPerPage)
+        public IHttpActionResult FindUserAppointmentsPage(string userId, int startIndex, int nberPerPage, string searchStatus = "all")
         {
-            return Ok(db.Appointments.Where(p => p.PatientID == userId || p.PhysicianID == userId).OrderByDescending(p => p.SentOn)
+            if (string.Equals(searchStatus, "all"))
+                return Ok(db.Appointments.Where(a => a.PatientID == userId || a.PhysicianID == userId).OrderByDescending(a => a.SentOn)
+                .Skip(startIndex).Take(nberPerPage).ToList());
+
+            int status = Int32.Parse(searchStatus);
+            return Ok(db.Appointments.Where(a => (a.PatientID == userId || a.PhysicianID == userId) && a.Status == (AppointmentStatus)status).OrderByDescending(a => a.SentOn)
                 .Skip(startIndex).Take(nberPerPage).ToList());
         }
 
@@ -100,6 +122,8 @@ namespace TiminsHospitalProjectV3.Controllers
         /// <example>POST: api/AppointmentsData/UpdateAppointment/5</example>
         [ResponseType(typeof(void))]
         [HttpPost]
+        [Authorize(Roles = "Patient,Physician")]
+
         public IHttpActionResult UpdateAppointment(int id, Appointment appointment)
         {
             if (!ModelState.IsValid)
@@ -142,6 +166,8 @@ namespace TiminsHospitalProjectV3.Controllers
         /// <example>POST: api/AppointmentsData/AddAppointment</example>
         [ResponseType(typeof(Appointment))]
         [HttpPost]
+        [Authorize(Roles = "Patient,Physician")]
+
         public IHttpActionResult AddAppointment(Appointment appointment)
         {
             if (!ModelState.IsValid)
@@ -164,6 +190,8 @@ namespace TiminsHospitalProjectV3.Controllers
         /// <example>DELETE: api/AppointmentsData/DeleteAppointment/5</example>
         [ResponseType(typeof(Appointment))]
         [HttpPost]
+        [Authorize(Roles = "Patient,Physician")]
+
         public IHttpActionResult DeleteAppointment(int id)
         {
             Appointment appointment = db.Appointments.Find(id);
