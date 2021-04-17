@@ -437,7 +437,7 @@
     <Content Include="Views\Ticket\Edit.cshtml" />
     <Content Include="Views\Event\DeleteConfirm.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
-
+    <Content Include="Views\Ticket\View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
