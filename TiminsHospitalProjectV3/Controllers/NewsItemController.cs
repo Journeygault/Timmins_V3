@@ -10,6 +10,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Diagnostics;
 using System.Web.Script.Serialization;
+//The following Using statement allows for access of logged in users credentials
+using Microsoft.AspNet.Identity;
+
 
 namespace TiminsHospitalProjectV3.Controllers
 {
@@ -85,6 +88,8 @@ namespace TiminsHospitalProjectV3.Controllers
         {
             //Debug.WriteLine(NewsItem.NewsItemID);
             string url = "NewsItemData/AddNewsItem";//CHANGE
+            NewsItemInfo.UserID = User.Identity.GetUserId();
+
             Debug.WriteLine(jss.Serialize(NewsItemInfo));
             HttpContent content = new StringContent(jss.Serialize(NewsItemInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
@@ -201,6 +206,8 @@ namespace TiminsHospitalProjectV3.Controllers
         {
 
             string url = "NewsItemData/UpdateNewsItem/" + id;
+            NewsItemInfo.UserID = User.Identity.GetUserId();
+
             Debug.WriteLine(jss.Serialize(NewsItemInfo));
             HttpContent content = new StringContent(jss.Serialize(NewsItemInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
