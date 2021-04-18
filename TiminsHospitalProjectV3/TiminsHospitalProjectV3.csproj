@@ -467,6 +467,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Events\" />
     <Folder Include="Views\EventData\" />
     <Folder Include="Views\TicketData\" />
   </ItemGroup>

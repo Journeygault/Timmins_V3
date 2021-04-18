@@ -206,7 +206,7 @@ namespace TiminsHospitalProjectV3.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken()]
 
-        public ActionResult Edit(int id, Event EventInfo)
+        public ActionResult Edit(int id, Event EventInfo, HttpPostedFileBase EventImage) 
         {
 
             string url = "EventData/UpdateEvent/" + id;
@@ -219,6 +219,19 @@ namespace TiminsHospitalProjectV3.Controllers
             Debug.WriteLine(response.StatusCode);
             if (response.IsSuccessStatusCode)
             {
+                //only attempt to send player picture data if we have it
+                if (EventImage != null)
+                {
+                    Debug.WriteLine("Calling Update Image method.");
+                    //Send over image data for player
+                    url = "EventData/UpdateEventImage/" + id;
+                    Debug.WriteLine("Received player picture "+ EventImage.FileName);
+
+                    MultipartFormDataContent requestcontent = new MultipartFormDataContent();
+                    HttpContent imagecontent = new StreamContent(EventImage.InputStream);
+                    requestcontent.Add(imagecontent, "EventImage", EventImage.FileName);
+                    response = client.PostAsync(url, requestcontent).Result;
+                }
 
                 return RedirectToAction("Details", new { id = id });
             }
