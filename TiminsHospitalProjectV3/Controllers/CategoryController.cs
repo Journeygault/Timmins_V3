@@ -16,13 +16,12 @@ using System.Net.Http;
 
 namespace TiminsHospitalProjectV3.Controllers
 {
-    public class FaqController : Controller
+    public class CategoryController : Controller
     {
         private JavaScriptSerializer jss = new JavaScriptSerializer();
-        private string id;
         private static readonly HttpClient client;
 
-        static FaqController()
+        static CategoryController()
         {
             HttpClientHandler handler = new HttpClientHandler()
             {
@@ -61,21 +60,19 @@ namespace TiminsHospitalProjectV3.Controllers
 
             return;
         }
-        /// <returns>All Faqs in the database if response is successfull -
-        /// otherwise redirects to error page</returns>
-        // GET: Faq/List/{FaqSearchKey?)
-        public ActionResult List(string FaqSearchKey = null)
+        /// <return>---</return>
+        // GET: Category/List
+        public ActionResult List()
         {
-            ListFaqs ViewModel = new ListFaqs();
+            ListCategories ViewModel = new ListCategories();
             ViewModel.isadmin = User.IsInRole("Admin");
 
-            string url = "FaqData/ListFaqs/" + FaqSearchKey;
+            string url = "CategoryData/GetCategories";
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
-                IEnumerable<FaqDto> SelectedFaqs = response.Content.ReadAsAsync<IEnumerable<FaqDto>>().Result;
-                ViewModel.faqs = SelectedFaqs;
-
+                IEnumerable<CategoryDto> SelectedCategories = response.Content.ReadAsAsync<IEnumerable<CategoryDto>>().Result;
+                ViewModel.categories = SelectedCategories;
                 return View(ViewModel);
             }
             else
@@ -83,28 +80,30 @@ namespace TiminsHospitalProjectV3.Controllers
                 return RedirectToAction("Error");
             }
         }
-        /// <returns>Individual Faq found by its id if response is successfull -
-        /// otherwise redirects to error page</returns>
-        // GET: Faq/Details/1
+        /// <return>---</return>
+        // GET: Category/Details/1
         [HttpGet]
         public ActionResult Details(int id)
         {
-            ShowFaq ViewModel = new ShowFaq();
+            ShowCategory ViewModel = new ShowCategory();
             ViewModel.isadmin = User.IsInRole("Admin");
-            string url = "FaqData/FindFaq/" + id;
+
+            string url = "CategoryData/FindCategory/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
-            //Debug.WriteLine(response.StatusCode);
+            //Can catch the status code (200 OK, 301 REDIRECT), etc.
+            Debug.WriteLine(response.StatusCode);
             if (response.IsSuccessStatusCode)
             {
-                FaqDto SelectedFaqs = response.Content.ReadAsAsync<FaqDto>().Result;
-                ViewModel.Faq = SelectedFaqs;
-
-                //Find the Category for Project by Id
-                url = "CategoryData/FindCategoryForFaq/" + id;
-                response = client.GetAsync(url).Result;
-                Debug.WriteLine(response.StatusCode);
+                //Put data into Category Data Transfer Object
                 CategoryDto SelectedCategory = response.Content.ReadAsAsync<CategoryDto>().Result;
-                ViewModel.Categories = SelectedCategory;
+                ViewModel.Category = SelectedCategory;//Seen in the ViewModel Folder
+
+                //Get All Faqs for specific Category
+                url = "CategoryData/GetFaqsForCategory/" + id;
+                response = client.GetAsync(url).Result;
+                //Debug.WriteLine(response.StatusCode);
+                IEnumerable<FaqDto> SelectedFaqs = response.Content.ReadAsAsync<IEnumerable<FaqDto>>().Result;
+                ViewModel.CategoryFaqs = SelectedFaqs;//Seen in the ViewModel Folder
 
                 return View(ViewModel);
             }
@@ -113,112 +112,108 @@ namespace TiminsHospitalProjectV3.Controllers
                 return RedirectToAction("Error");
             }
         }
-        /// <returns>Retrieves Data</returns>
-        // GET: Faq/Create
+        /// <return>---</return>
+        // GET: Category/Create
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-            UpdateFaq ViewModel = new UpdateFaq();
-            string url = "CategoryData/GetCategories";
-            HttpResponseMessage response = client.GetAsync(url).Result;
-            IEnumerable<CategoryDto> PotetnialCategories = response.Content.ReadAsAsync<IEnumerable<CategoryDto>>().Result;
-            ViewModel.Allcategories = PotetnialCategories;
-            return View(ViewModel);
+            return View();
         }
-        /// <returns>Seralizes the inputs and Adds</returns>
-        // POST: Faq/Create
+        /// <return>---</return>
+        // POST: Category/Create
         [HttpPost]
-        [ValidateAntiForgeryToken()]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create(Faq faqInfo)
+        [ValidateAntiForgeryToken()]
+        public ActionResult Create(Category CategoryInfo)
         {
             //pass along authentication credential in http request
             GetApplicationCookie();
 
-            //Debug.WriteLine(faqInfo.FaqQuestion);
-            string url = "FaqData/AddFaq";
-            //Debug.WriteLine(jss.Serialize(faqInfo));
-            HttpContent content = new StringContent(jss.Serialize(faqInfo));
+            Debug.WriteLine(CategoryInfo.CategoryName);
+            string url = "CategoryData/AddCategory";
+            HttpContent content = new StringContent(jss.Serialize(CategoryInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
+
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("List", "Faq");
+                return RedirectToAction("List");
             }
             else
             {
                 return RedirectToAction("Error");
             }
         }
-        /// <returns>Retrieves Data</returns>
-        // GET: Faq/Edit/1
+        /// <return>---</return>
+        // GET: Category/Edit/1
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
-            UpdateFaq ViewModel = new UpdateFaq();
-            string url = "FaqData/FindFaq/" + id;
+            string url = "CategoryData/FindCategory/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
-            //Debug.WriteLine(response.StatusCode);
+            //Can catch the status code (200 OK, 301 REDIRECT), etc.
+            Debug.WriteLine(response.StatusCode);
             if (response.IsSuccessStatusCode)
             {
-                FaqDto SelectedFaqs = response.Content.ReadAsAsync<FaqDto>().Result;
-                ViewModel.Faq = SelectedFaqs;
-                return View(ViewModel);
+                //Put data into Category data transfer object
+                CategoryDto SelectedCategory = response.Content.ReadAsAsync<CategoryDto>().Result;
+                return View(SelectedCategory);
             }
             else
             {
                 return RedirectToAction("Error");
             }
         }
-        /// <returns>Seralizes the inputs and Updates</returns>
-        // POST: Faq/Edit/1
+        /// <return>---</return>
+        // POST: Category/Edit/1
         [HttpPost]
         [ValidateAntiForgeryToken()]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit(int id, Faq faqInfo)
+        public ActionResult Edit(int id, Category CategoryInfo)
         {
             //pass along authentication credential in http request
             GetApplicationCookie();
 
-            Debug.WriteLine(faqInfo.FaqQuestion);
-            string url = "FaqData/UpdateFaq/" + id;
-            Debug.WriteLine(jss.Serialize(faqInfo));
-            HttpContent content = new StringContent(jss.Serialize(faqInfo));
+            Debug.WriteLine(CategoryInfo.CategoryName);
+            string url = "CategoryData/UpdateCategory/" + id;
+            Debug.WriteLine(jss.Serialize(CategoryInfo));
+            HttpContent content = new StringContent(jss.Serialize(CategoryInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
-            Debug.WriteLine(response.StatusCode);
+
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("List", new { id = id });
+                return RedirectToAction("Details", new { Id = id });
             }
             else
             {
                 return RedirectToAction("Error");
             }
         }
-        /// <returns>Retrieves Data</returns>
-        // GET: Faq/Delete/1
+        /// <return>---</return>
+        // GET: Category/DeleteConfirm/1
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)
         {
-            string url = "FaqData/FindFaq/" + id;
+            string url = "CategoryData/FindCategory/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
-            //Debug.WriteLine(response.StatusCode);
+            //Can catch the status code (200 OK, 301 REDIRECT), etc.
+            Debug.WriteLine(response.StatusCode);
             if (response.IsSuccessStatusCode)
             {
-                FaqDto SelectedFaqs = response.Content.ReadAsAsync<FaqDto>().Result;
-                return View(SelectedFaqs);
+                CategoryDto SelectedCategory = response.Content.ReadAsAsync<CategoryDto>().Result;
+                return View(SelectedCategory);
             }
             else
             {
                 return RedirectToAction("Error");
             }
         }
-        /// <returns>Deletes the FAQ by FaqID</returns>
-        // POST: Faq/Delete/1
+        /// <return>---</return>
+        // POST: Category/Delete/1
         [HttpPost]
         [ValidateAntiForgeryToken()]
         [Authorize(Roles = "Admin")]
@@ -227,9 +222,11 @@ namespace TiminsHospitalProjectV3.Controllers
             //pass along authentication credential in http request
             GetApplicationCookie();
 
-            string url = "FaqData/DeleteFaq/" + id;
+            string url = "CategoryData/DeleteCategory/" + id;
+            //post body is empty
             HttpContent content = new StringContent("");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
+            //Can catch the status code (200 OK, 301 REDIRECT), etc.
             Debug.WriteLine(response.StatusCode);
             if (response.IsSuccessStatusCode)
             {

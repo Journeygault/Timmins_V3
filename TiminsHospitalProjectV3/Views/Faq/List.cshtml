@@ -6,15 +6,15 @@
 
 <h1>FAQs</h1>
 
-@if(User.IsInRole("Admin"))
+@if (User.IsInRole("Admin"))
 {
     <p>
         <a href="/Faq/Create" class="btn btn-default btn-success">Create A New FAQ</a>
     </p>
 }
 <form method="get" action="/Faq/List">
-    <input type="text" class="form-control" placeholder="Enter Search Keyword" name="FaqSearchKey"/>
-    <input type="submit" value="Search" class="btn btn-default"/>
+    <input type="text" class="form-control" placeholder="Enter Search Keyword" name="FaqSearchKey" />
+    <input type="submit" value="Search" class="btn btn-default" />
 </form>
 <div style="padding-bottom: 1em; font-style: italic;">
     @Model.faqs.Count() result(s) found
@@ -25,7 +25,7 @@
 {
     <div class="spacing">
         <h2>@Html.DisplayFor(modelItem => item.FaqQuestion)</h2>
-        @if(User.IsInRole("Admin"))
+        @if (User.IsInRole("Admin"))
         {
             <p>
                 @Html.ActionLink("Edit", "Edit", new { id = item.FaqID }, new { @class = "text-warning" }) |

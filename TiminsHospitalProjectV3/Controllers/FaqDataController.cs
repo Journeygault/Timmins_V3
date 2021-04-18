@@ -37,7 +37,8 @@ namespace TiminsHospitalProjectV3.Controllers
                 {
                     FaqID = faq.FaqID,
                     FaqQuestion = faq.FaqQuestion,
-                    FaqAnswer = faq.FaqAnswer
+                    FaqAnswer = faq.FaqAnswer,
+                    CategoryID = faq.CategoryID
                 };
                 faqDtos.Add(NewFaq);
             }
@@ -63,9 +64,39 @@ namespace TiminsHospitalProjectV3.Controllers
             {
                 FaqID = faq.FaqID,
                 FaqQuestion = faq.FaqQuestion,
-                FaqAnswer = faq.FaqAnswer
+                FaqAnswer = faq.FaqAnswer,
+                CategoryID = faq.CategoryID
             };
             return Ok(faqDto);
+        }
+        /// <summary>
+        ///     This Finds the Category for an Faq by the Project Id.
+        /// </summary>
+        /// <param name="id">Faq Id</param>
+        /// <returns>All the information of the Category</returns> (CHECKED)
+        // GET: api/CategoryData/FindCategoryForFaq/1
+        [HttpGet]
+        [Route("api/CategoryData/FindCategoryForFaq/{id}")]
+        [ResponseType(typeof(CategoryDto))]
+        public IHttpActionResult FindCategoryForFaq(int id)
+        {
+            //Finds the first Category which has any Projects that match the inputed Project Id.
+            Category Category = db.Categories
+                .Where(t => t.Faqs.Any(p => p.FaqID == id))
+                .FirstOrDefault();
+            //if not found, return 404 status code.
+            if (Category == null)
+            {
+                return NotFound();
+            }
+            //put into a 'Data Transfer Object'
+            CategoryDto CategoryDto = new CategoryDto
+            {
+                CategoryID = Category.CategoryID,
+                CategoryName = Category.CategoryName
+            };
+            //pass along data as 200 status code OK response
+            return Ok(CategoryDto);
         }
         /// <summary>
         ///     Will Update the FAQ from the database by id.
@@ -164,7 +195,7 @@ namespace TiminsHospitalProjectV3.Controllers
             base.Dispose(disposing);
         }
         /// <summary>
-        ///     Finds a Faq in the system. Internal use only.
+        ///     Finds an Faq in the system. Internal use only.
         /// </summary>
         /// <param name="id">FaqID</param>
         /// <returns>TRUE if the Faq exists, false otherwise.</returns>

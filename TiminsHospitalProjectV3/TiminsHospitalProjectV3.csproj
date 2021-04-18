@@ -185,6 +185,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\CategoryDataController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\EmployeeDataController.cs" />
     <Compile Include="Controllers\AppointmentsController.cs" />
@@ -246,7 +248,9 @@
     <Compile Include="Models\NewsItem.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Ticket.cs" />
+    <Compile Include="Models\ViewModels\ListCategories.cs" />
     <Compile Include="Models\ViewModels\ListFaqs.cs" />
+    <Compile Include="Models\ViewModels\ShowCategory.cs" />
     <Compile Include="Models\ViewModels\ShowEmployee.cs" />
     <Compile Include="Models\ViewModels\ShowEvent.cs" />
     <Compile Include="Models\ViewModels\ShowFaq.cs" />
@@ -455,6 +459,11 @@
     <Content Include="Views\Ticket\Edit.cshtml" />
     <Content Include="Views\Event\DeleteConfirm.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
+    <Content Include="Views\Category\Create.cshtml" />
+    <Content Include="Views\Category\Delete.cshtml" />
+    <Content Include="Views\Category\Details.cshtml" />
+    <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Category\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
