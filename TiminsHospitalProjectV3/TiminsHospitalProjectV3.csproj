@@ -187,6 +187,8 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CategoryDataController.cs" />
+    <Compile Include="Controllers\DonationController.cs" />
+    <Compile Include="Controllers\DonationDataController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\EmployeeDataController.cs" />
     <Compile Include="Controllers\AppointmentsController.cs" />
@@ -258,14 +260,17 @@
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Ticket.cs" />
     <Compile Include="Models\ViewModels\ListCategories.cs" />
+    <Compile Include="Models\ViewModels\ListDonations.cs" />
     <Compile Include="Models\ViewModels\ListFaqs.cs" />
     <Compile Include="Models\ViewModels\ShowCategory.cs" />
+    <Compile Include="Models\ViewModels\ShowDonation.cs" />
     <Compile Include="Models\ViewModels\ShowEmployee.cs" />
     <Compile Include="Models\ViewModels\ShowEvent.cs" />
     <Compile Include="Models\ViewModels\ShowFaq.cs" />
     <Compile Include="Models\ViewModels\ShowJob_Posting.cs" />
     <Compile Include="Models\ViewModels\ShowNewsItem.cs" />
     <Compile Include="Models\ViewModels\ShowTicket.cs" />
+    <Compile Include="Models\ViewModels\UpdateDonation.cs" />
     <Compile Include="Models\ViewModels\UpdateEmployee.cs" />
     <Compile Include="Models\ViewModels\UpdateEvent.cs" />
     <Compile Include="Models\ViewModels\UpdateFaq.cs" />
@@ -473,6 +478,11 @@
     <Content Include="Views\Category\Details.cshtml" />
     <Content Include="Views\Category\Edit.cshtml" />
     <Content Include="Views\Category\List.cshtml" />
+    <Content Include="Views\Donation\Create.cshtml" />
+    <Content Include="Views\Donation\DeleteConfirm.cshtml" />
+    <Content Include="Views\Donation\Details.cshtml" />
+    <Content Include="Views\Donation\Edit.cshtml" />
+    <Content Include="Views\Donation\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
