@@ -8,6 +8,17 @@
 
 <div>
     <h4>Event</h4>
+    @{
+        //Use server rendering to determine an image
+        string pic = "/Content/Events/default.jpg";
+        string alt = "No Profile Picture Provided.";
+        if (Model.Event.EventHasImage)
+        {
+            pic = "/Content/Events/" + Model.Event.EventId + "." + Model.Event.PicExtension;
+            alt = "Picture Of Event ";
+        }
+    }
+    <img src="@pic" alt="@alt" width="200" />
     <hr />
     <dl class="dl-horizontal">
         <dt>
