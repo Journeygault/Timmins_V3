@@ -202,7 +202,7 @@ namespace TiminsHospitalProjectV3.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken()]
 
-        public ActionResult Edit(int id, NewsItem NewsItemInfo)
+        public ActionResult Edit(int id, NewsItem NewsItemInfo, HttpPostedFileBase NewsItemImage)
         {
 
             string url = "NewsItemData/UpdateNewsItem/" + id;
@@ -214,8 +214,19 @@ namespace TiminsHospitalProjectV3.Controllers
             HttpResponseMessage response = client.PostAsync(url, content).Result;
             Debug.WriteLine(response.StatusCode);
             if (response.IsSuccessStatusCode)
-            {
+            {///UPDATE BELLOW
+                if (NewsItemImage != null)
+                {
+                    Debug.WriteLine("Calling Update Image method.");
+                    //Send over image data for player
+                    url = "NewsItemData/UpdateNewsItemImage/" + id;
+                    //Debug.WriteLine("Received player picture "+PlayerPic.FileName);
 
+                    MultipartFormDataContent requestcontent = new MultipartFormDataContent();
+                    HttpContent imagecontent = new StreamContent(NewsItemImage.InputStream);
+                    requestcontent.Add(imagecontent, "NewsItemImage", NewsItemImage.FileName);
+                    response = client.PostAsync(url, requestcontent).Result;
+                }
                 return RedirectToAction("Details", new { id = id });
             }
             else

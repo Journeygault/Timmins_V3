@@ -102,7 +102,16 @@ namespace TiminsHospitalProjectV3.Controllers
             {
                 return NotFound();
             }
-            Debug.WriteLine(@event);
+            if (@event.EventHasImage && @event.PicExtension != "")
+            {
+                //also delete image from path
+                string path = HttpContext.Current.Server.MapPath("~/Content/Events/" + id + "." + @event.PicExtension);
+                if (System.IO.File.Exists(path))
+                {
+                    Debug.WriteLine("File exists... preparing to delete!");
+                    System.IO.File.Delete(path);
+                }
+            }
 
             db.Events.Remove(@event);
             db.SaveChanges();
