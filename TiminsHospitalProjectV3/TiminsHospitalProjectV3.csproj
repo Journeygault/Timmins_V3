@@ -236,9 +236,14 @@
     <Compile Include="Migrations\202104181405466_Indicate ForignKey in newsItem.Designer.cs">
       <DependentUpon>202104181405466_Indicate ForignKey in newsItem.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104190638371_addedDonationnsTbl.cs" />
+    <Compile Include="Migrations\202104190638371_addedDonationnsTbl.Designer.cs">
+      <DependentUpon>202104190638371_addedDonationnsTbl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Donation.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Faq.cs" />
@@ -504,6 +509,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104181405466_Indicate ForignKey in newsItem.resx">
       <DependentUpon>202104181405466_Indicate ForignKey in newsItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104190638371_addedDonationnsTbl.resx">
+      <DependentUpon>202104190638371_addedDonationnsTbl.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
