@@ -240,6 +240,10 @@
     <Compile Include="Migrations\202104190638371_addedDonationnsTbl.Designer.cs">
       <DependentUpon>202104190638371_addedDonationnsTbl.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104190715531_donationTypeChange.cs" />
+    <Compile Include="Migrations\202104190715531_donationTypeChange.Designer.cs">
+      <DependentUpon>202104190715531_donationTypeChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -512,6 +516,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104190638371_addedDonationnsTbl.resx">
       <DependentUpon>202104190638371_addedDonationnsTbl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104190715531_donationTypeChange.resx">
+      <DependentUpon>202104190715531_donationTypeChange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

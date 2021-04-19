@@ -27,7 +27,7 @@ namespace TiminsHospitalProjectV3.Models
         public decimal Amount { get; set; }
         public DateTime Date { get; set; }//Validate Date
         public string CardName { get; set; }
-        public string CardNumber { get; set; }
+        public int CardNumber { get; set; }
         public DateTime ExpiryDate { get; set; }//Validate Date
         public int CVV { get; set; }
         public string CardType { get; set; }
