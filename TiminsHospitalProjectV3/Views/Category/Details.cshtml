@@ -1,4 +1,4 @@
-﻿@model TiminsHospitalProjectV3.Models.Category
+﻿@model TiminsHospitalProjectV3.Models.ViewModels.ShowCategory
 
 @{
     ViewBag.Title = "Details";
@@ -11,16 +11,16 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.CategoryName)
+            @Html.DisplayNameFor(model => model.Category.CategoryName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CategoryName)
+            @Html.DisplayFor(model => model.Category.CategoryName)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.CategoryID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Category.CategoryID }) |
+    @Html.ActionLink("Back to List", "List")
 </p>

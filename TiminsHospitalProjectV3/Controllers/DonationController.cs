@@ -16,13 +16,13 @@ using System.Net.Http;
 
 namespace TiminsHospitalProjectV3.Controllers
 {
-    public class FaqController : Controller
+    public class DonationController : Controller
     {
         private JavaScriptSerializer jss = new JavaScriptSerializer();
         private string id;
         private static readonly HttpClient client;
 
-        static FaqController()
+        static DonationController()
         {
             HttpClientHandler handler = new HttpClientHandler()
             {
@@ -61,20 +61,20 @@ namespace TiminsHospitalProjectV3.Controllers
 
             return;
         }
-        /// <returns>All Faqs in the database if response is successfull -
+        /// <returns>All Donations in the database if response is successfull -
         /// otherwise redirects to error page</returns>
-        // GET: Faq/List/{FaqSearchKey?)
-        public ActionResult List(string FaqSearchKey = null)
+        // GET: Donation/List
+        public ActionResult List()
         {
-            ListFaqs ViewModel = new ListFaqs();
+            ListDonations ViewModel = new ListDonations();
             ViewModel.isadmin = User.IsInRole("Admin");
 
-            string url = "FaqData/ListFaqs/" + FaqSearchKey;
+            string url = "DonationData/GetDonations";
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
-                IEnumerable<FaqDto> SelectedFaqs = response.Content.ReadAsAsync<IEnumerable<FaqDto>>().Result;
-                ViewModel.faqs = SelectedFaqs;
+                IEnumerable<DonationDto> SelectedDonations = response.Content.ReadAsAsync<IEnumerable<DonationDto>>().Result;
+                ViewModel.donations = SelectedDonations;
 
                 return View(ViewModel);
             }
@@ -83,28 +83,28 @@ namespace TiminsHospitalProjectV3.Controllers
                 return RedirectToAction("Error");
             }
         }
-        /// <returns>Individual Faq found by its id if response is successfull -
+        /// <returns>Individual Donation found by its id if response is successfull -
         /// otherwise redirects to error page</returns>
-        // GET: Faq/Details/1
+        // GET: Donation/Details/1
         [HttpGet]
         public ActionResult Details(int id)
         {
-            ShowFaq ViewModel = new ShowFaq();
+            ShowDonation ViewModel = new ShowDonation();
             ViewModel.isadmin = User.IsInRole("Admin");
-            string url = "FaqData/FindFaq/" + id;
+            string url = "DonationData/FindDonation/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             //Debug.WriteLine(response.StatusCode);
             if (response.IsSuccessStatusCode)
             {
-                FaqDto SelectedFaqs = response.Content.ReadAsAsync<FaqDto>().Result;
-                ViewModel.Faq = SelectedFaqs;
+                DonationDto SelectedDonations = response.Content.ReadAsAsync<DonationDto>().Result;
+                ViewModel.Donation = SelectedDonations;
 
-                //Find the Category for Project by Id
-                url = "CategoryData/FindCategoryForFaq/" + id;
+                //Find the Event for Project by Id
+                url = "EventData/FindEventForDonation/" + id;
                 response = client.GetAsync(url).Result;
                 Debug.WriteLine(response.StatusCode);
-                CategoryDto SelectedCategory = response.Content.ReadAsAsync<CategoryDto>().Result;
-                ViewModel.Categories = SelectedCategory;
+                EventDto SelectedEvent = response.Content.ReadAsAsync<EventDto>().Result;
+                ViewModel.events = SelectedEvent;
 
                 return View(ViewModel);
             }
@@ -114,37 +114,37 @@ namespace TiminsHospitalProjectV3.Controllers
             }
         }
         /// <returns>Retrieves Data</returns>
-        // GET: Faq/Create
+        // GET: Donation/Create
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
-            UpdateFaq ViewModel = new UpdateFaq();
-            string url = "CategoryData/GetCategories";
+            UpdateDonation ViewModel = new UpdateDonation();
+            string url = "EventData/GetCategories";
             HttpResponseMessage response = client.GetAsync(url).Result;
-            IEnumerable<CategoryDto> PotetnialCategories = response.Content.ReadAsAsync<IEnumerable<CategoryDto>>().Result;
-            ViewModel.Allcategories = PotetnialCategories;
+            IEnumerable<EventDto> PotetnialCategories = response.Content.ReadAsAsync<IEnumerable<EventDto>>().Result;
+            ViewModel.Allevents = PotetnialCategories;
             return View(ViewModel);
         }
         /// <returns>Seralizes the inputs and Adds</returns>
-        // POST: Faq/Create
+        // POST: Donation/Create
         [HttpPost]
         [ValidateAntiForgeryToken()]
         [Authorize(Roles = "Admin")]
-        public ActionResult Create(Faq faqInfo)
+        public ActionResult Create(Donation DonationInfo)
         {
             //pass along authentication credential in http request
             GetApplicationCookie();
 
-            //Debug.WriteLine(faqInfo.FaqQuestion);
-            string url = "FaqData/AddFaq";
-            //Debug.WriteLine(jss.Serialize(faqInfo));
-            HttpContent content = new StringContent(jss.Serialize(faqInfo));
+            //Debug.WriteLine(DonationInfo.DonationQuestion);
+            string url = "DonationData/AddDonation";
+            //Debug.WriteLine(jss.Serialize(DonationInfo));
+            HttpContent content = new StringContent(jss.Serialize(DonationInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("List", "Faq");
+                return RedirectToAction("List", "Donation");
             }
             else
             {
@@ -152,24 +152,24 @@ namespace TiminsHospitalProjectV3.Controllers
             }
         }
         /// <returns>Retrieves Data</returns>
-        // GET: Faq/Edit/1
+        // GET: Donation/Edit/1
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
-            UpdateFaq ViewModel = new UpdateFaq();
-            string url = "FaqData/FindFaq/" + id;
+            UpdateDonation ViewModel = new UpdateDonation();
+            string url = "DonationData/FindDonation/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             //Debug.WriteLine(response.StatusCode);
             if (response.IsSuccessStatusCode)
             {
-                FaqDto SelectedFaqs = response.Content.ReadAsAsync<FaqDto>().Result;
-                ViewModel.Faq = SelectedFaqs;
+                DonationDto SelectedDonations = response.Content.ReadAsAsync<DonationDto>().Result;
+                ViewModel.Donation = SelectedDonations;
 
-                url = "CategoryData/GetCategories";
+                url = "EventData/GetCategories";
                 response = client.GetAsync(url).Result;
-                IEnumerable<CategoryDto> FaqsCategory = response.Content.ReadAsAsync<IEnumerable<CategoryDto>>().Result;
-                ViewModel.Allcategories = FaqsCategory;
+                IEnumerable<EventDto> DonationsEvent = response.Content.ReadAsAsync<IEnumerable<EventDto>>().Result;
+                ViewModel.Allevents = DonationsEvent;
 
                 return View(ViewModel);
             }
@@ -179,19 +179,19 @@ namespace TiminsHospitalProjectV3.Controllers
             }
         }
         /// <returns>Seralizes the inputs and Updates</returns>
-        // POST: Faq/Edit/1
+        // POST: Donation/Edit/1
         [HttpPost]
         [ValidateAntiForgeryToken()]
         [Authorize(Roles = "Admin")]
-        public ActionResult Edit(int id, Faq faqInfo)
+        public ActionResult Edit(int id, Donation DonationInfo)
         {
             //pass along authentication credential in http request
             GetApplicationCookie();
 
-            Debug.WriteLine(faqInfo.FaqQuestion);
-            string url = "FaqData/UpdateFaq/" + id;
-            Debug.WriteLine(jss.Serialize(faqInfo));
-            HttpContent content = new StringContent(jss.Serialize(faqInfo));
+            Debug.WriteLine(DonationInfo.FistName);
+            string url = "DonationData/UpdateDonation/" + id;
+            Debug.WriteLine(jss.Serialize(DonationInfo));
+            HttpContent content = new StringContent(jss.Serialize(DonationInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
             Debug.WriteLine(response.StatusCode);
@@ -205,26 +205,26 @@ namespace TiminsHospitalProjectV3.Controllers
             }
         }
         /// <returns>Retrieves Data</returns>
-        // GET: Faq/DeleteConfim/1
+        // GET: Donation/DeleteConfim/1
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)
         {
-            string url = "FaqData/FindFaq/" + id;
+            string url = "DonationData/FindDonation/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             //Debug.WriteLine(response.StatusCode);
             if (response.IsSuccessStatusCode)
             {
-                FaqDto SelectedFaqs = response.Content.ReadAsAsync<FaqDto>().Result;
-                return View(SelectedFaqs);
+                DonationDto SelectedDonations = response.Content.ReadAsAsync<DonationDto>().Result;
+                return View(SelectedDonations);
             }
             else
             {
                 return RedirectToAction("Error");
             }
         }
-        /// <returns>Deletes the FAQ by FaqID</returns>
-        // POST: Faq/Delete/1
+        /// <returns>Deletes the Donation by DonationID</returns>
+        // POST: Donation/Delete/1
         [HttpPost]
         [ValidateAntiForgeryToken()]
         [Authorize(Roles = "Admin")]
@@ -233,7 +233,7 @@ namespace TiminsHospitalProjectV3.Controllers
             //pass along authentication credential in http request
             GetApplicationCookie();
 
-            string url = "FaqData/DeleteFaq/" + id;
+            string url = "DonationData/DeleteDonation/" + id;
             HttpContent content = new StringContent("");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
             Debug.WriteLine(response.StatusCode);

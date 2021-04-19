@@ -200,7 +200,6 @@ namespace TiminsHospitalProjectV3.Controllers
         {
             string url = "CategoryData/FindCategory/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
-            //Can catch the status code (200 OK, 301 REDIRECT), etc.
             Debug.WriteLine(response.StatusCode);
             if (response.IsSuccessStatusCode)
             {
@@ -223,10 +222,8 @@ namespace TiminsHospitalProjectV3.Controllers
             GetApplicationCookie();
 
             string url = "CategoryData/DeleteCategory/" + id;
-            //post body is empty
             HttpContent content = new StringContent("");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
-            //Can catch the status code (200 OK, 301 REDIRECT), etc.
             Debug.WriteLine(response.StatusCode);
             if (response.IsSuccessStatusCode)
             {
