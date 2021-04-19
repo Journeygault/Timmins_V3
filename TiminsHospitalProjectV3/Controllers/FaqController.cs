@@ -165,6 +165,12 @@ namespace TiminsHospitalProjectV3.Controllers
             {
                 FaqDto SelectedFaqs = response.Content.ReadAsAsync<FaqDto>().Result;
                 ViewModel.Faq = SelectedFaqs;
+
+                url = "CategoryData/GetCategories";
+                response = client.GetAsync(url).Result;
+                IEnumerable<CategoryDto> FaqsCategory = response.Content.ReadAsAsync<IEnumerable<CategoryDto>>().Result;
+                ViewModel.Allcategories = FaqsCategory;
+
                 return View(ViewModel);
             }
             else
@@ -199,7 +205,7 @@ namespace TiminsHospitalProjectV3.Controllers
             }
         }
         /// <returns>Retrieves Data</returns>
-        // GET: Faq/Delete/1
+        // GET: Faq/DeleteConfim/1
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)

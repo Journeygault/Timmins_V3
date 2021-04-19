@@ -1,10 +1,10 @@
-﻿@model IEnumerable<TiminsHospitalProjectV3.Models.Category>
+﻿@model TiminsHospitalProjectV3.Models.ViewModels.ListCategories
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "List";
 }
 
-<h2>Index</h2>
+<h2>List</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,12 +12,12 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.CategoryName)
+            Catagory Name
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (var item in Model.categories) {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.CategoryName)
@@ -25,7 +25,7 @@
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.CategoryID }) |
             @Html.ActionLink("Details", "Details", new { id=item.CategoryID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CategoryID })
+            @Html.ActionLink("Delete", "DeleteConfirm", new { id=item.CategoryID })
         </td>
     </tr>
 }

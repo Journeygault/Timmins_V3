@@ -1,7 +1,7 @@
-﻿@model TiminsHospitalProjectV3.Models.Category
+﻿@model TiminsHospitalProjectV3.Models.CategoryDto
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "DeleteConfirm";
 }
 
 <h2>Delete</h2>
@@ -21,12 +21,12 @@
 
     </dl>
 
-    @using (Html.BeginForm()) {
+    @using (Html.BeginForm("Delete", "Category", new { id = Model.CategoryID })) {
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back to List", "List")
         </div>
     }
 </div>
