@@ -79,6 +79,23 @@
 
     </dl>
 </div>
+<div>
+    <h4>Event Sponsers:</h4>
+    <div>
+        @foreach (var donation in Model.DonationToEvent)
+        {
+
+            @Html.ActionLink(
+                     donation.FistName,
+                     "Details",
+                     "donation",
+                     new { id = donation.EventId },
+                     new { })
+            <br />
+
+        }
+    </div>
+</div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Event.EventId }) |
     @Html.ActionLink("Back to List", "List")

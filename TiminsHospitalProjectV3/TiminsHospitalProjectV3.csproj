@@ -246,6 +246,14 @@
     <Compile Include="Migrations\202104190715531_donationTypeChange.Designer.cs">
       <DependentUpon>202104190715531_donationTypeChange.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104191548200_Added Donations foringkey to Event.cs" />
+    <Compile Include="Migrations\202104191548200_Added Donations foringkey to Event.Designer.cs">
+      <DependentUpon>202104191548200_Added Donations foringkey to Event.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104191848363_updateEventViewModelShow.cs" />
+    <Compile Include="Migrations\202104191848363_updateEventViewModelShow.Designer.cs">
+      <DependentUpon>202104191848363_updateEventViewModelShow.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -530,6 +538,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104190715531_donationTypeChange.resx">
       <DependentUpon>202104190715531_donationTypeChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104191548200_Added Donations foringkey to Event.resx">
+      <DependentUpon>202104191548200_Added Donations foringkey to Event.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104191848363_updateEventViewModelShow.resx">
+      <DependentUpon>202104191848363_updateEventViewModelShow.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

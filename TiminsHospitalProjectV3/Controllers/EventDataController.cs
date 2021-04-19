@@ -219,7 +219,32 @@ namespace TiminsHospitalProjectV3.Controllers
 
             return Ok();
         }
+        [ResponseType(typeof(IEnumerable<DonationDto>))]
+        public IHttpActionResult GetDonationsForEvent(int id)
+        {
+            //ERROR IN CONTROLLER
+            List<Donation> Donations = db.Donations.Where(p => p.EventId == id).ToList();
 
+            List<DonationDto> DonationDtos = new List<DonationDto> { };
+
+            //Here you can choose which information is exposed to the API
+            foreach (var Donation in Donations)
+            {
+                DonationDto NewDonation = new DonationDto
+                {
+                    FistName = Donation.FistName,
+                    LastName = Donation.LastName
+
+
+
+                    // public string FistName { get; set; }
+                    // public string LastName { get; set; }
+                };
+                DonationDtos.Add(NewDonation);
+            }
+
+            return Ok(DonationDtos);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
