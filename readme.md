@@ -101,7 +101,14 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 - [ ] Styling
 
 To do:
-- [] Change permissions so that only admin can delete a review
+- [ ] Change permissions so that only admin can delete a review
+
+
+### Bill Payment Feature
+- [] Basic CRUD for Table
+- [] Permissions for User + Admin
+- [] Connection to Users Table
+- [] Styling
 
 
 
