@@ -22,10 +22,11 @@ namespace TiminsHospitalProjectV3.Models
         public bool EventHasOcured { get; set; }
 
 
-        // [ForeignKey("UserID")]
+        [ForeignKey("User")]
+        public string UserID { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
-        public int UserID { get; set; }
-
+        
         //ADD PUBLIC VIRTUAL FOR USER ID
     }
     public class EventDto
@@ -42,6 +43,6 @@ namespace TiminsHospitalProjectV3.Models
 
         // [ForeignKey("UserID")]
 
-        public int UserID { get; set; }
+        public string UserID { get; set; }
     }
 }

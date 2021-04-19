@@ -10,6 +10,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Diagnostics;
 using System.Web.Script.Serialization;
+using Microsoft.AspNet.Identity;
 
 namespace TiminsHospitalProjectV3.Controllers
 {
@@ -87,7 +88,9 @@ namespace TiminsHospitalProjectV3.Controllers
         {
             //Debug.WriteLine(NewsItem.NewsItemID);
             string url = "EventData/AddEvent";
-            Debug.WriteLine(jss.Serialize(EventInfo));
+            EventInfo.UserID = User.Identity.GetUserId();
+            //USERID
+            Debug.WriteLine(jss.Serialize(EventInfo.UserID));
             HttpContent content = new StringContent(jss.Serialize(EventInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
@@ -99,8 +102,12 @@ namespace TiminsHospitalProjectV3.Controllers
                     int eventid = response.Content.ReadAsAsync<int>().Result;
                     return RedirectToAction("Details", new
                     {
-                        id = eventid
-                    });
+                        id = eventid,
+                        ///THE FOLLOWING LINE
+                       
+
+
+                    }) ;
 
                 }
                 catch (Exception e)
@@ -199,17 +206,32 @@ namespace TiminsHospitalProjectV3.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken()]
 
-        public ActionResult Edit(int id, NewsItem NewsItemInfo)
+        public ActionResult Edit(int id, Event EventInfo, HttpPostedFileBase EventImage) 
         {
 
-            string url = "NewsItemData/UpdateNewsItem/" + id;
-            Debug.WriteLine(jss.Serialize(NewsItemInfo));
-            HttpContent content = new StringContent(jss.Serialize(NewsItemInfo));
+            string url = "EventData/UpdateEvent/" + id;
+            EventInfo.UserID = User.Identity.GetUserId();
+
+            Debug.WriteLine(jss.Serialize(EventInfo));
+            HttpContent content = new StringContent(jss.Serialize(EventInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
             Debug.WriteLine(response.StatusCode);
             if (response.IsSuccessStatusCode)
             {
+                //only attempt to send player picture data if we have it
+                if (EventImage != null)
+                {
+                    Debug.WriteLine("Calling Update Image method.");
+                    //Send over image data for player
+                    url = "EventData/UpdateEventImage/" + id;
+                    Debug.WriteLine("Received player picture "+ EventImage.FileName);
+
+                    MultipartFormDataContent requestcontent = new MultipartFormDataContent();
+                    HttpContent imagecontent = new StreamContent(EventImage.InputStream);
+                    requestcontent.Add(imagecontent, "EventImage", EventImage.FileName);
+                    response = client.PostAsync(url, requestcontent).Result;
+                }
 
                 return RedirectToAction("Details", new { id = id });
             }

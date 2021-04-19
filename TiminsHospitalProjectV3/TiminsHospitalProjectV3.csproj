@@ -224,6 +224,18 @@
     <Compile Include="Migrations\202104171552353_users_code_v1.Designer.cs">
       <DependentUpon>202104171552353_users_code_v1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104171714038_forignKey.cs" />
+    <Compile Include="Migrations\202104171714038_forignKey.Designer.cs">
+      <DependentUpon>202104171714038_forignKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104181403503_news forignkey int to string.cs" />
+    <Compile Include="Migrations\202104181403503_news forignkey int to string.Designer.cs">
+      <DependentUpon>202104181403503_news forignkey int to string.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104181405466_Indicate ForignKey in newsItem.cs" />
+    <Compile Include="Migrations\202104181405466_Indicate ForignKey in newsItem.Designer.cs">
+      <DependentUpon>202104181405466_Indicate ForignKey in newsItem.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Category.cs" />
@@ -455,6 +467,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\Events\" />
     <Folder Include="Views\EventData\" />
     <Folder Include="Views\TicketData\" />
   </ItemGroup>
@@ -482,6 +495,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104171552353_users_code_v1.resx">
       <DependentUpon>202104171552353_users_code_v1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104171714038_forignKey.resx">
+      <DependentUpon>202104171714038_forignKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104181403503_news forignkey int to string.resx">
+      <DependentUpon>202104181403503_news forignkey int to string.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104181405466_Indicate ForignKey in newsItem.resx">
+      <DependentUpon>202104181405466_Indicate ForignKey in newsItem.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
