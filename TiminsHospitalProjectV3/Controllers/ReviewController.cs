@@ -41,7 +41,7 @@ namespace TiminsHospitalProjectV3.Controllers
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
-                IEnumerable<ReviewDto> SelectedReviews = response.Content.ReadAsAsync<IEnumerable<ReviewDto>>().Result;
+                IEnumerable<Review> SelectedReviews = response.Content.ReadAsAsync<IEnumerable<Review>>().Result;
                 return View(SelectedReviews);
             }
             else
@@ -65,7 +65,7 @@ namespace TiminsHospitalProjectV3.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                ReviewDto SelectedReview = response.Content.ReadAsAsync<ReviewDto>().Result;
+                Review SelectedReview = response.Content.ReadAsAsync<Review>().Result;
                 ViewModel.Review = SelectedReview;
 
                 return View(ViewModel);
@@ -169,7 +169,7 @@ namespace TiminsHospitalProjectV3.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                ReviewDto SelectedReview = response.Content.ReadAsAsync<ReviewDto>().Result;
+                Review SelectedReview = response.Content.ReadAsAsync<Review>().Result;
                 return View(SelectedReview);
             }
             else

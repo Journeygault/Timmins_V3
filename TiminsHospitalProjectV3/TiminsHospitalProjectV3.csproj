@@ -185,6 +185,8 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BillController.cs" />
+    <Compile Include="Controllers\BillDataController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CategoryDataController.cs" />
     <Compile Include="Controllers\DonationController.cs" />
@@ -202,7 +204,7 @@
     <Compile Include="Controllers\NewsItemController.cs" />
     <Compile Include="Controllers\NewsItemDataController.cs" />
     <Compile Include="Controllers\ReviewController.cs" />
-    <Compile Include="Controllers\ReviewsController.cs" />
+    <Compile Include="Controllers\ReviewDataController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Controllers\TicketDataController.cs" />
     <Compile Include="Global.asax.cs">
@@ -256,6 +258,10 @@
     <Compile Include="Migrations\202104191716061_reviewmodel.designer.cs">
       <DependentUpon>202104191716061_reviewmodel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104191807302_updatebillmodel.cs" />
+    <Compile Include="Migrations\202104191807302_updatebillmodel.Designer.cs">
+      <DependentUpon>202104191807302_updatebillmodel.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Bill.cs" />
@@ -275,6 +281,7 @@
     <Compile Include="Models\ViewModels\ListCategories.cs" />
     <Compile Include="Models\ViewModels\ListDonations.cs" />
     <Compile Include="Models\ViewModels\ListFaqs.cs" />
+    <Compile Include="Models\ViewModels\ShowBill.cs" />
     <Compile Include="Models\ViewModels\ShowCategory.cs" />
     <Compile Include="Models\ViewModels\ShowDonation.cs" />
     <Compile Include="Models\ViewModels\ShowEmployee.cs" />
@@ -504,13 +511,18 @@
     <Content Include="Views\Donation\Details.cshtml" />
     <Content Include="Views\Donation\Edit.cshtml" />
     <Content Include="Views\Donation\List.cshtml" />
+    <Content Include="Views\Bill\List.cshtml" />
+    <Content Include="Views\Review\List.cshtml" />
+    <Content Include="Views\Review\Details.cshtml" />
+    <Content Include="Views\Review\Edit.cshtml" />
+    <Content Include="Views\Review\Delete.cshtml" />
+    <Content Include="Views\Review\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\NewsItems\" />
     <Folder Include="Views\EventData\" />
     <Folder Include="Views\ReviewData\" />
-    <Folder Include="Views\Review\" />
     <Folder Include="Views\TicketData\" />
   </ItemGroup>
   <ItemGroup>
@@ -558,6 +570,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104191716061_reviewmodel.resx">
       <DependentUpon>202104191716061_reviewmodel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104191807302_updatebillmodel.resx">
+      <DependentUpon>202104191807302_updatebillmodel.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

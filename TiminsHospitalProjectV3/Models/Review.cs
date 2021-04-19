@@ -37,5 +37,10 @@ namespace TiminsHospitalProjectV3.Models
 
         [DisplayName("Review Content")]
         public string ReviewContent { get; set; }
+
+        public static implicit operator ReviewDto(Review v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

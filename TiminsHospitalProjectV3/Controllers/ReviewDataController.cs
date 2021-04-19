@@ -45,7 +45,7 @@ namespace TiminsHospitalProjectV3.Controllers
 
         //GET: api/ReviewData/FindReview/id
         [HttpGet]
-        [ResponseType(typeof(ReviewDto))]
+        [ResponseType(typeof(Review))]
         public IHttpActionResult FindReview(int id)
         {
             Review Review = db.Reviews.Find(id);
@@ -54,7 +54,7 @@ namespace TiminsHospitalProjectV3.Controllers
                 return NotFound();
             }
 
-            ReviewDto @ReviewDto = new ReviewDto
+            Review @ReviewDto = new Review
             {
                 ReviewID = Review.ReviewID,
                 ReviewDate = Review.ReviewDate,

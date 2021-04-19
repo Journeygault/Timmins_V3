@@ -53,5 +53,6 @@ namespace TiminsHospitalProjectV3.Models
         public DbSet<Bill> Bills { get; set; }
         public DbSet<BillPayment> Bill_Payments { get; set; }
 
+        public System.Data.Entity.DbSet<TiminsHospitalProjectV3.Models.BillDto> BillDtoes { get; set; }
     }
 }
