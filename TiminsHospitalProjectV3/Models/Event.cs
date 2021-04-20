@@ -16,7 +16,7 @@ namespace TiminsHospitalProjectV3.Models
         public int EventId { get; set; }
         public string Title { get; set; }
         public bool EventHasImage { get; set; }
-        public string PicExtension { get; set; }
+        public string PicExtension { get; set; }            
         public DateTime EventDate { get; set; }
         public string EventDisc { get; set; }
         public bool EventHasOcured { get; set; }
@@ -26,7 +26,9 @@ namespace TiminsHospitalProjectV3.Models
         public string UserID { get; set; }
         public virtual ApplicationUser User { get; set; }
 
-        
+        public ICollection<Donation> Donations { get; set; }
+
+
         //ADD PUBLIC VIRTUAL FOR USER ID
     }
     public class EventDto

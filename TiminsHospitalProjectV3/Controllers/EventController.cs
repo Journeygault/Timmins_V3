@@ -64,6 +64,14 @@ namespace TiminsHospitalProjectV3.Controllers
                 ViewModel.Event = SelectedEvent;
 
 
+                //Change
+                url = "EventData/GetDonationsForEvent/" + id;
+                response = client.GetAsync(url).Result;
+                //Can catch the status code (200 OK, 301 REDIRECT), etc.
+                //Debug.WriteLine(response.StatusCode);
+                IEnumerable<DonationDto> SelectedDonations = response.Content.ReadAsAsync<IEnumerable<DonationDto>>().Result;
+                ViewModel.DonationToEvent = SelectedDonations;
+
                 /*url = "hopdata/findHopClassificationforHop/" + id;
                 response = client.GetAsync(url).Result;
                 HopClassificationDto SelectedHopClassification = response.Content.ReadAsAsync<HopClassificationDto>().Result;
