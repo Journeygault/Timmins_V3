@@ -262,6 +262,10 @@
     <Compile Include="Migrations\202104191807302_updatebillmodel.Designer.cs">
       <DependentUpon>202104191807302_updatebillmodel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104191954108_Reomended.cs" />
+    <Compile Include="Migrations\202104191954108_Reomended.Designer.cs">
+      <DependentUpon>202104191954108_Reomended.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Bill.cs" />
@@ -573,6 +577,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104191807302_updatebillmodel.resx">
       <DependentUpon>202104191807302_updatebillmodel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104191954108_Reomended.resx">
+      <DependentUpon>202104191954108_Reomended.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
