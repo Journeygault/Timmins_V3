@@ -112,7 +112,7 @@ To do:
 
 ## Shimeng Pan
 ### Job Application Feature
-- [X] folders that I created is Employee and job_posting
+- [X] tables that I created is Employee and job_posting
 - [X] Connected with job_posting table
 - [X] Admin can do Create a job application
 - [X] Admin can do Read a job application
