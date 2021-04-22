@@ -443,6 +443,7 @@
     <Content Include="Views\Ticket\Edit.cshtml" />
     <Content Include="Views\Event\DeleteConfirm.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
+    <Content Include="Views\Manage\ViewProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

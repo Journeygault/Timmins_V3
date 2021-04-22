@@ -9,25 +9,25 @@
 }
 
 <h2>Request An appointment</h2>
-
+<hr />
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>New Request Of Appointment</h4>
-        <hr />
+        <h3>New Request Of Appointment</h3>
+        
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @if (User.IsInRole("Physician"))
         {
             <div class="form-group">
-                @Html.LabelFor(model => model.Appointment.PatientID, "Patient", htmlAttributes: new { @class = "control-label col-md-3" })
+                @Html.LabelFor(model => model.Appointment.PatientID, "Patient:", htmlAttributes: new { @class = "control-label col-md-3" })
                 <div class="col-md-9">
                     <select name="PatientID" id="PatientID" class="form-control">
                         @foreach (var patient in Model.UsersInRole)
                         {
-                            <option value="@patient.Id">@patient.UserName</option>
+                        <option value="@patient.Id">@patient.FirstName @patient.LastName</option>
                         }
 
                     </select>
@@ -40,12 +40,12 @@
         else
         {
             <div class="form-group">
-                @Html.LabelFor(model => model.Appointment.PhysicianID, "Physician", htmlAttributes: new { @class = "control-label col-md-3" })
+                @Html.LabelFor(model => model.Appointment.PhysicianID, "Physician:", htmlAttributes: new { @class = "control-label col-md-3" })
                 <div class="col-md-9">
                     <select name="PhysicianID" id="PhysicianID" class="form-control">
                         @foreach (var physician in Model.UsersInRole)
                         {
-                            <option value="@physician.Id">@physician.UserName</option>
+                        <option value="@physician.Id">Dr @physician.FirstName @physician.LastName</option>
                         }
 
                     </select>
@@ -59,7 +59,7 @@
 
 
         <div class="form-group">
-            @Html.Label("RequestDatetime", "Requested Date and Time", htmlAttributes: new { @class = "control-label col-md-3" })
+            @Html.Label("RequestDatetime", "Requested Date and Time:", htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9">
                 @Html.Editor("RequestDatetime", new { htmlAttributes = new { id = "RequestDatetime", name = "RequestDatetime", @class = "form-control" } })
                 @Html.ValidationMessage("RequestDatetime", "", new { @class = "text-danger" })
@@ -67,7 +67,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Appointment.Subject, htmlAttributes: new { @class = "control-label col-md-3" })
+            @Html.LabelFor(model => model.Appointment.Subject,"Subject:", htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9">
                 @Html.Editor("Subject", new { htmlAttributes = new { id = "Subject", name = "Subject", @class = "form-control" } })
                 @Html.ValidationMessage("Subject", "", new { @class = "text-danger" })
@@ -75,7 +75,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Appointment.Message, htmlAttributes: new { @class = "control-label col-md-3" })
+            @Html.LabelFor(model => model.Appointment.Message,"Message:", htmlAttributes: new { @class = "control-label col-md-3" })
             <div class="col-md-9">
                 <textarea class="form-control" id="Message" name="Message" cols="12" rows="6" placeholder="enter your message here."></textarea>
                 @Html.ValidationMessage("Message", "", new { @class = "text-danger" })

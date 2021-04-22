@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar navbar-inverse ">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -28,6 +28,7 @@
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
                     <li>@Html.ActionLink("FAQ", "List", "Faq")</li>
                     <li>@Html.ActionLink("Job Application", "List", "Employee")</li>
+                    <li>@Html.ActionLink("Book Appointment", "Create", "Appointments")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

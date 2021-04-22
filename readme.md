@@ -10,7 +10,10 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 - [x] CRUD completed for the appointments table. Can create, read, update, and delete records in the table
  through views.
 - [x] validation of  date and time requested for an appointment
-- [] Styling of the pages
+- [x] Adding of Admin , Patient and Physician privileges
+- [ ] Styling of the pages
+- [x] Assign a user role to users through the user registeration form as well as firstname, lastname and username.
+- [x] Allow logged in users to view their profile  
 ## Extra features
 
 - [x] pagination for the list of appointments.

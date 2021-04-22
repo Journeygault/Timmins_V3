@@ -359,9 +359,9 @@ namespace TiminsHospitalProjectV3.Controllers
                 appointment.PatientUser = new ApplicationDbContext().Users.Find(appointment.PatientID);
                 appointment.PhysicianUser = new ApplicationDbContext().Users.Find(appointment.PhysicianID);
                 if (User.IsInRole("Patient"))
-                    ViewData["recipientUsername"] = appointment.PhysicianUser.UserName;
+                    ViewData["recipientUsername"] = "Dr "+appointment.PhysicianUser.FirstName + " "+ appointment.PhysicianUser.LastName;
                 else
-                    ViewData["recipientUsername"] = appointment.PatientUser.UserName;
+                    ViewData["recipientUsername"] = appointment.PatientUser.FirstName + " "+ appointment.PatientUser.LastName;
 
                 return View(appointment);
 

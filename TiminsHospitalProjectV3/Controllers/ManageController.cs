@@ -64,8 +64,10 @@ namespace TiminsHospitalProjectV3.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            
             var model = new IndexViewModel
-            {
+            {   
+                Userid = userId,
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
@@ -73,6 +75,13 @@ namespace TiminsHospitalProjectV3.Controllers
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
             return View(model);
+        }
+
+        public ActionResult ViewProfile(string id)
+        {
+            ApplicationUser user =  UserManager.FindById(User.Identity.GetUserId());
+
+            return View(user);
         }
 
         //

@@ -53,7 +53,13 @@ namespace TiminsHospitalProjectV3.Controllers
             }
         }
 
-        //
+        //GET: /Account/Details/4
+
+        public ActionResult Details(string id)
+        {
+
+            return View();
+        }
         // GET: /Account/Login
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)

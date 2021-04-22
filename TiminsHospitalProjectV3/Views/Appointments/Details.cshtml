@@ -5,45 +5,51 @@
     Array statuses = (TiminsHospitalProjectV3.Models.AppointmentStatus[])ViewData["listStatus"];
 }
 
-<h2> Appointment Details</h2>
+
 
 <div class="container">
+    <h2> Appointment Details</h2>
 
     <table class="table">
-        <thead class="thead-dark">
 
-        </thead>
         <tbody>
             <tr>
-                <th scope="row">@Html.DisplayName("Patient")</th>
-                <td> @Html.DisplayFor(modelItem => Model.PatientUser.UserName) </td>
+                <th scope="row">@Html.DisplayName("Patient"):</th>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.PatientUser.FirstName)
+                    @Html.DisplayFor(modelItem => modelItem.PatientUser.LastName)
+                </td>
             </tr>
             <tr>
-                <th scope="row">@Html.DisplayName("PHysician")</th>
-                <td> @Html.DisplayFor(modelItem => Model.PhysicianUser.UserName) </td>
+                <th scope="row">@Html.DisplayName("PHysician"):</th>
+                <td>
+                    Dr
+                    @Html.DisplayFor(modelItem => modelItem.PhysicianUser.FirstName)
+                    @Html.DisplayFor(modelItem => modelItem.PhysicianUser.LastName)
+                </td>
             </tr>
             <tr>
-                <th scope="row">@Html.DisplayName("Sent On")</th>
+                <th scope="row">@Html.DisplayName("Sent On"):</th>
                 <td> @Html.DisplayFor(modelItem => Model.SentOn) </td>
             </tr>
             <tr>
-                <th scope="row">@Html.DisplayName("Decision Made On")</th>
+                <th scope="row">@Html.DisplayName("Decision Made On"):</th>
                 <td> @Html.DisplayFor(modelItem => Model.DecisionMadeOn) </td>
             </tr>
             <tr>
-                <th scope="row">@Html.DisplayName("Date and Time Requested")</th>
+                <th scope="row">@Html.DisplayName("Date and Time Requested"):</th>
                 <td> @Html.DisplayFor(modelItem => Model.RequestDatetime) </td>
             </tr>
             <tr>
-                <th scope="row">@Html.DisplayNameFor(model => model.Status)</th>
+                <th scope="row">@Html.DisplayNameFor(model => model.Status):</th>
                 <td> @Html.DisplayFor(modelItem => Model.Status) </td>
             </tr>
             <tr>
-                <th scope="row">@Html.DisplayNameFor(model => model.Subject)</th>
+                <th scope="row">@Html.DisplayNameFor(model => model.Subject):</th>
                 <td> @Html.DisplayFor(modelItem => Model.Subject) </td>
             </tr>
             <tr>
-                <th scope="row">@Html.DisplayNameFor(model => model.Message)</th>
+                <th scope="row">@Html.DisplayNameFor(model => model.Message):</th>
                 <td> @Html.DisplayFor(modelItem => Model.Message) </td>
             </tr>
 
