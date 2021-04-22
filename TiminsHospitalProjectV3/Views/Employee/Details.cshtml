@@ -4,91 +4,73 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Job hunters' Details</h2>
+@Html.ActionLink("Back to List", "List")
+<div class="wrapper">
+    <div class="section1">
+        <div class="detail">
 
-<div>
-    @{
-        //Use server rendering to determine an image
-        string pic = "/Content/Employees/logo.png";
-        string alt = "No Profile Picture Provided.";
-        if (Model.employee.EmployeeHasPic)
-        {
-            pic = "/Content/Employees/" + Model.employee.EmployeeID + "." + Model.employee.EmployeeResume;
-            alt = "Resume of " + Model.employee.EmployeeFirstname;
+            <div class="details">
+                @Html.DisplayNameFor(model => model.employee.EmployeeFirstname)
+                @Html.DisplayFor(model => model.employee.EmployeeFirstname)
+            </div>
+            <div class="details">
+                @Html.DisplayNameFor(model => model.employee.EmployeeLastname)
+                @Html.DisplayFor(model => model.employee.EmployeeLastname)
+            </div>
+
+
+            <div class="details">
+                @Html.DisplayNameFor(model => model.employee.EmployeePhone)
+                @Html.DisplayFor(model => model.employee.EmployeePhone)
+            </div>
+            <div class="details">
+                @Html.DisplayNameFor(model => model.employee.EmployeeEmail)
+                @Html.DisplayFor(model => model.employee.EmployeeEmail)
+            </div>
+            <div class="details">
+                @Html.DisplayNameFor(model => model.employee.EmployeeAddress)
+                @Html.DisplayFor(model => model.employee.EmployeeAddress)
+            </div>
+            <div class="details">
+                @Html.DisplayNameFor(model => model.employee.JobID)
+                @Html.DisplayFor(model => model.employee.JobID)
+            </div>
+        </div>
+
+</div>
+    <div class="section2 spacing">
+        <div class="detail">
+            <div class="details">
+                @Html.DisplayNameFor(model => model.employee.EmployeeDes)
+                @Html.DisplayFor(model => model.employee.EmployeeDes)
+            </div>
+        </div>
+    </div>
+    <div class="section3 spacing">
+        @{
+            //Use server rendering to determine an image
+            string pic = "/Content/Employees/logo.png";
+            string alt = "No Profile Picture Provided.";
+            if (Model.employee.EmployeeHasPic)
+            {
+                pic = "/Content/Employees/" + Model.employee.EmployeeID + "." + Model.employee.EmployeeResume;
+                alt = "Resume of " + Model.employee.EmployeeFirstname;
+            }
         }
-    }
 
-    <img src="@pic" alt="@alt" width="200" />
+        <img src="@pic" alt="@alt" width="350" />
+    </div>
+</div>
+<div>
 
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.employee.EmployeeFirstname)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.employee.EmployeeFirstname)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.employee.EmployeeLastname)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.employee.EmployeeLastname)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.employee.EmployeePhone)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.employee.EmployeePhone)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.employee.EmployeeEmail)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.employee.EmployeeEmail)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.employee.EmployeeAddress)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.employee.EmployeeAddress)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.employee.EmployeeDes)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.employee.EmployeeDes)
-        </dd>
-
-        @*<dt>
-                @Html.DisplayNameFor(model => model.employee.EmployeeResume)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.employee.EmployeeResume)
-            </dd>*@
-
-        <dt>
-            @Html.DisplayNameFor(model => model.employee.JobID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.employee.JobID)
-        </dd>
-
-    </dl>
 </div>
 
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.employee.EmployeeID }) |
-    @Html.ActionLink("Back to List", "List")
-</p>
+<button class="button">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.employee.EmployeeID })
+</button>
+   
+
+

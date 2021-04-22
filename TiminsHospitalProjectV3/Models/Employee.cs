@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.Mvc;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,9 +13,13 @@ namespace TiminsHospitalProjectV3.Models
     {
         [Key]
         public int EmployeeID { get; set; }
+        [Required]
         public string EmployeeFirstname { get; set; }
+        [Required]
         public string EmployeeLastname { get; set; }
+        [Required]
         public string EmployeePhone { get; set; }
+        [Required]
         public string EmployeeEmail { get; set; }
         public string EmployeeAddress { get; set; }
         public string EmployeeDes { get; set; }

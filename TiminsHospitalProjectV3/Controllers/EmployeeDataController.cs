@@ -24,7 +24,7 @@ namespace hospitalproject.Controllers
         /// </summary>
         /// <returns>A list of job hunters including their Id, first name,last name,phone number,email,address,description, and their resume</returns>
         /// <example>
-        // GET: api/PetData
+        // GET: api/EmployeeData/getemployess
         /// </example>
         [ResponseType(typeof(IEnumerable<EmployeeDto>))]
         public IHttpActionResult GetEmployees()
@@ -47,6 +47,49 @@ namespace hospitalproject.Controllers
                     EmployeeHasPic = Employee.EmployeeHasPic,
                     EmployeeResume = Employee.EmployeeResume,
                     //will change in the future
+                    JobID = Employee.JobID
+                };
+                EmployeeDtos.Add(NewEmployee);
+            }
+
+            return Ok(EmployeeDtos);
+        }
+        /// <summary>
+        /// Gets a list or job applicants in the database alongside a status code (200 OK). Skips the first {startindex} records and takes {perpage} records.
+        /// </summary>
+        /// <returns>A list of job hunters including their ID, name, resume, and address</returns>
+        /// <param name="StartIndex">The number of records to skip through</param>
+        /// <param name="PerPage">The number of records for each page</param>
+        /// <example>
+        /// GET: api/EmployeeData/GetEmployees/12/5
+        /// Retrieves the first 12 job hunters after skipping 13
+        /// 
+        /// GET: api/EmployeeData/GetEmployees/12/5
+        /// Retrieves the first 12 job hunters after skipping 13
+        /// 
+        /// </example>
+        [ResponseType(typeof(IEnumerable<EmployeeDto>))]
+        [Route("api/employeedata/getemployeespage/{StartIndex}/{PerPage}")]
+        public IHttpActionResult GetEmployeesPage(int StartIndex, int PerPage)
+        {
+            List<Employee> Employees = db.Employees.OrderBy(p => p.EmployeeID).Skip(StartIndex).Take(PerPage).ToList();
+            List<EmployeeDto> EmployeeDtos = new List<EmployeeDto> { };
+
+            //Here you can choose which information is exposed to the API
+            foreach (var Employee in Employees)
+            {
+                EmployeeDto NewEmployee = new EmployeeDto
+                {
+                    EmployeeID = Employee.EmployeeID,
+                    EmployeeFirstname = Employee.EmployeeFirstname,
+                    EmployeeLastname = Employee.EmployeeLastname,
+                    EmployeePhone = Employee.EmployeePhone,
+                    EmployeeEmail = Employee.EmployeeEmail,
+                    EmployeeAddress = Employee.EmployeeAddress,
+                    EmployeeDes = Employee.EmployeeDes,
+                    EmployeeHasPic = Employee.EmployeeHasPic,
+                    EmployeeResume = Employee.EmployeeResume,
+                    //will change in the future -test
                     JobID = Employee.JobID
                 };
                 EmployeeDtos.Add(NewEmployee);
@@ -140,6 +183,7 @@ namespace hospitalproject.Controllers
         /// </example>
         [ResponseType(typeof(void))]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult UpdateEmployee(int id, [FromBody] Employee employee)
         {
             if (!ModelState.IsValid)
@@ -190,6 +234,7 @@ namespace hospitalproject.Controllers
         /// https://stackoverflow.com/questions/28369529/how-to-set-up-a-web-api-controller-for-multipart-form-data
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult UpdateEmployeePic(int id)
         {
 
@@ -262,6 +307,7 @@ namespace hospitalproject.Controllers
         /// </example>
         [ResponseType(typeof(Employee))]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult AddEmployee([FromBody] Employee employee)
         {
             //Will Validate according to data annotations specified on model
@@ -284,7 +330,7 @@ namespace hospitalproject.Controllers
         // DELETE: api/EmployeeData/DeleteEmployee/5
         /// </example>
         [HttpPost]
-
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult DeleteEmployee(int id)
         {
             Employee employee = db.Employees.Find(id);

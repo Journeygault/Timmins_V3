@@ -5,10 +5,10 @@ using System.Web;
 
 namespace TiminsHospitalProjectV3.Models.ViewModels
 {
-    public class ShowEmployee
+    public class ListEmployees
     {
         public bool isadmin { get; set; }
-        public EmployeeDto employee { get; set; }
-        public Job_PostingDto job_posting { get; set; }
+
+        public IEnumerable<EmployeeDto> employees { get; set; }
     }
 }
