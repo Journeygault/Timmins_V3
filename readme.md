@@ -110,6 +110,26 @@ To do:
 - [] Connection to Users Table
 - [] Styling
 
+## Shimeng Pan
+### Job Application Feature
+- [X] folders that I created is Employee and job_posting
+- [X] Connected with job_posting table
+- [X] Admin can do Create a job application
+- [X] Admin can do Read a job application
+- [X] Admin can do Update a job application
+- [X] Admin can do Delete a job application
+- [X] User can create a apllication
+- [X] User can do Read a job application
+## Design
+- [X] Create a job application: Desktop will 3 columns layout, phone view will be a one column layout
+## Extra Features
+- [X] CRUD database will only execute if the user is logged in as an administrator. login name as a admin: AprilPan10 password:@0410Psm
+- [X] Client side validation
+- [X] Customized HTML/CSS
+- [X] Image Uploading
+- [X] Pagination
+
+
 
 
 
