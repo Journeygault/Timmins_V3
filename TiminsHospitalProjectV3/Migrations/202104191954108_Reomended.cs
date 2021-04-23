@@ -7,7 +7,7 @@ namespace TiminsHospitalProjectV3.Migrations
     {
         public override void Up()
         {
-            CreateTable(
+           /* CreateTable(
                 "dbo.BillPayments",
                 c => new
                     {
@@ -41,7 +41,7 @@ namespace TiminsHospitalProjectV3.Migrations
                         Amount = c.Int(nullable: false),
                         Breakdown = c.String(),
                     })
-                .PrimaryKey(t => t.BillID);
+                .PrimaryKey(t => t.BillID);*/
             
             CreateTable(
                 "dbo.Reviews",

@@ -9,14 +9,37 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 
 - [x] CRUD completed for the appointments table. Can create, read, update, and delete records in the table
  through views.
-- [x] validation of  date and time requested for an appointment
-- [] Styling of the pages
-## Extra features
+ 
+ ![image of list of appointments](https://github.com/Journeygault/Timmins_V3/blob/master/imgs/list_appointments.jpg)
 
+![image of appointment details](https://github.com/Journeygault/Timmins_V3/blob/master/imgs/details_appointment.jpg)
+
+![image of appointment creation](https://github.com/Journeygault/Timmins_V3/blob/master/imgs/create_appointment.jpg)
+
+![image of appointment edition](https://github.com/Journeygault/Timmins_V3/blob/master/imgs/edit_appointment.jpg)
+
+![image of appointment deletion](https://github.com/Journeygault/Timmins_V3/blob/master/imgs/delete_appointment.jpg)
+ 
+- [x] validation of  date and time requested for an appointment
+- [x] Adding of Admin , Patient and Physician privileges
+- [x] Styling of the pages
+- [x] form validation
+- [x] Assign a user role to users through the user registeration form as well as firstname, lastname and username.
+
+![image of user registration form](https://github.com/Journeygault/Timmins_V3/blob/master/imgs/user_registration.jpg)
+
+- [x] Allow logged in users to view their profile 
+
+![image of appointment deletion](https://github.com/Journeygault/Timmins_V3/blob/master/imgs/user_profile.jpg)
+
+
+## Extra features
 - [x] pagination for the list of appointments.
+- [x] seed roles table with "Admin", "Patient", and "Physician" roles
 - [x] refine list of appointments.
 - [x] use the javascript libary [flatpickr](https://flatpickr.js.org/) to select date and time requested for an appointment.
 
+![image of appointment deletion](https://github.com/Journeygault/Timmins_V3/blob/master/imgs/calendar_appointment.jpg)
 ## Alexis Arevalo:
 
 ### FAQ Feature:

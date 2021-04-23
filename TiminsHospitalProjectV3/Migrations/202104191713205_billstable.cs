@@ -7,7 +7,7 @@
     {
         public override void Up()
         {
-            CreateTable(
+            /*CreateTable(
                 "dbo.BillPayments",
                 c => new
                     {
@@ -31,6 +31,7 @@
                         Breakdown = c.String(),
                     })
                 .PrimaryKey(t => t.BillID);
+            */
             
         }
         

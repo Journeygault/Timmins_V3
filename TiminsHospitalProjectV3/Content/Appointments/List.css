@@ -1,0 +1,36 @@
+﻿h2{
+    text-transform: uppercase;
+}
+
+div#filter-row{
+    margin-bottom:1em;
+}
+
+#btn-refine{
+    border-radius: 5px;
+    padding: 0px 5px 0px 5px;
+    display:inline-block;
+    margin-left:1em;
+    color:white;
+    background-color:black;
+}
+form{
+    width:fit-content;
+    position:relative;
+    float:right;
+}
+
+thead.thead-dark {
+    background-color: #326c90;
+    color:whitesmoke;
+}
+
+.page-paginate ul li {
+    list-style-type: none;
+    display: inline-block;
+    margin-left: 0.5em;
+}
+
+.page-paginate ul {
+    float: right;
+}

@@ -1,4 +1,5 @@
 ﻿@model TiminsHospitalProjectV3.Models.Appointment
+@Styles.Render("~/Content/Appointments/Delete.css")
 
 @{
     ViewBag.Title = "DeleteConfirm";
@@ -6,9 +7,13 @@
     string str_apptDatetime = apptDatetime.ToString("F", new System.Globalization.CultureInfo("en-CA"));
 
 }
+<div id="delete-wrapper">
+<div class="form-actions no-color">
 
+    @Html.ActionLink("Back to List", "List")
+</div>
 <h2>Confirmation Of Deletion</h2>
-
+<hr />
 <h3>
     Are you sure you want to delete the appointment on <strong> @str_apptDatetime </strong> with
     <strong>@ViewData["recipientUsername"]</strong>?
@@ -20,8 +25,8 @@
     @Html.HiddenFor(model => model.ID, new { Name = "id" })
 
     <div class="form-actions no-color">
-        <input type="submit" value="Delete" class="btn btn-default" /> |
-        @Html.ActionLink("Back to List", "List")
+        <input type="submit" value="Delete" class="btn btn-danger" />
+
     </div>
 }
 </div>

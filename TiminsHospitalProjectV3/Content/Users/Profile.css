@@ -1,0 +1,12 @@
+﻿h2 {
+    text-transform: uppercase;
+    margin-bottom: 1em;
+}
+
+h3 {
+    text-transform: capitalize;
+    margin-bottom: 1em;
+}
+#servivces-wrapper{
+    margin-bottom:2em;
+}

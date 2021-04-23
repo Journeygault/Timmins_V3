@@ -13,8 +13,7 @@ namespace TiminsHospitalProjectV3.Models
     {
        
         Accepted,       
-        Rejected,
-        Expired,       
+        Rejected,              
         Pending
     }
     public class Appointment

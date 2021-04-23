@@ -9,9 +9,19 @@
     <script src="https://cdn.tiny.cloud/1/tv9jhfuvcrxn27q7ik7frfavq7cgztq82l7e2gvtishatz5v/tinymce/5/tinymce.min.js"
             referrerpolicy="origin"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <link rel="stylesheet" href="~/Content/PageLayout/layout-markup.css"/>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="top-bar">
+        <div class="top-logo">Logo</div>
+        <div id="search-form">
+            <form action="" method="post">
+                <input type="text" placeholder="Search" name="search" class="search-box">
+                <button type="submit" id="search-button"><i class="fa fa-search search-icon"></i></button>
+            </form>
+        </div>
+    </div>
+    <div class="navbar navbar-inverse navbar-fixed">
         <div class="container">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -19,15 +29,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("TADH", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            <div class="navbar-collapse collapse">
+            <div class="navbar-collapse collapse li-links">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("FAQ", "List", "Faq")</li>
                     <li>@Html.ActionLink("Job Application", "List", "Employee")</li>
+
+                    <li>@Html.ActionLink("Book Appointment", "Create", "Appointments")</li>
+
+                    <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -35,14 +48,61 @@
     </div>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
+    <hr />
+    <footer>
+        <div class="footer-panel">
+            <div class="footer-nav">
+                <h4>About TADH</h4>
+                <ul>
+                    <li>@Html.ActionLink("About Us", "About", "Home")</li>
+                    <li>@Html.ActionLink("News & Updates", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Careers & Volunteering", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Accesibility", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Policies", "Index", "Home")</li>
+                </ul>
+            </div>
+            <div class="footer-nav">
+                <h4>Find</h4>
+                <ul>
+                    <li>@Html.ActionLink("Emergency", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Patient & Family Services", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Find A Doctor", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Events", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Maps & Directions", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Programs", "Index", "Home")</li>
+                </ul>
+            </div>
+            <div class="footer-nav">
+                <h4>Connect</h4>
+                <ul>
+                    <li>@Html.ActionLink("Contact Us", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Login Into TADH", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Pay A Bill", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Send An E-Card", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Make A Donation", "List", "Donation")</li>
+                    <li>@Html.ActionLink("Refer Patients", "Index", "Home")</li>
+                </ul>
+            </div>
+            <div class="footer-nav">
+                <h4>More Information</h4>
+                <ul>
+                    <li>@Html.ActionLink("Researchers", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Education", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Health Care Professionals", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Hospital Map", "Index", "Home")</li>
+                    <li>@Html.ActionLink("FAQ's", "List", "Faq")</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-nav outer-line">
+            <h4>Our Partners</h4>
+        </div>
+        <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/bootstrap") 
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://kit.fontawesome.com/c03ea9a48c.js" crossorigin="anonymous"></script>
     @RenderSection("scripts", required: false)

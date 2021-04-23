@@ -230,6 +230,10 @@
     <Compile Include="Migrations\202104171552353_users_code_v1.Designer.cs">
       <DependentUpon>202104171552353_users_code_v1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104230359206_appointment_table_reviewed.cs" />
+    <Compile Include="Migrations\202104230359206_appointment_table_reviewed.Designer.cs">
+      <DependentUpon>202104230359206_appointment_table_reviewed.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\202104171714038_forignKey.cs" />
     <Compile Include="Migrations\202104171714038_forignKey.Designer.cs">
       <DependentUpon>202104171714038_forignKey.cs</DependentUpon>
@@ -266,13 +270,9 @@
     <Compile Include="Migrations\202104191954108_Reomended.Designer.cs">
       <DependentUpon>202104191954108_Reomended.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202104212049308_ListNews viewmodle added.cs" />
-    <Compile Include="Migrations\202104212049308_ListNews viewmodle added.Designer.cs">
-      <DependentUpon>202104212049308_ListNews viewmodle added.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202104212058196_fixed-typo.cs" />
-    <Compile Include="Migrations\202104212058196_fixed-typo.Designer.cs">
-      <DependentUpon>202104212058196_fixed-typo.cs</DependentUpon>
+    <Compile Include="Migrations\202104231104201_update_project.cs" />
+    <Compile Include="Migrations\202104231104201_update_project.Designer.cs">
+      <DependentUpon>202104231104201_update_project.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -292,7 +292,6 @@
     <Compile Include="Models\Ticket.cs" />
     <Compile Include="Models\ViewModels\ListCategories.cs" />
     <Compile Include="Models\ViewModels\ListDonations.cs" />
-    <Compile Include="Models\ViewModels\ListEvents.cs" />
     <Compile Include="Models\ViewModels\ListFaqs.cs" />
     <Compile Include="Models\ViewModels\ShowBill.cs" />
     <Compile Include="Models\ViewModels\ShowCategory.cs" />
@@ -311,11 +310,22 @@
     <Compile Include="Models\ViewModels\UpdateNewsItem.cs" />
     <Compile Include="Models\ViewModels\UpdateReview.cs" />
     <Compile Include="Models\ViewModels\UpdateTicket.cs" />
-    <Compile Include="Models\ViewModels\ViewAppointment.cs" />
+    <Compile Include="Models\ViewModels\ViewModelAppointment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\Appointments\Create.css" />
+    <Content Include="Content\Appointments\Delete.css" />
+    <Content Include="Content\Appointments\Details.css" />
+    <Content Include="Content\Appointments\Edit.css" />
+    <Content Include="Content\Appointments\List.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Employees\logo.png" />
+    <Content Include="Content\Users\Profile.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-reboot.css" />
@@ -324,6 +334,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Employees\logo.png" />
     <Content Include="Content\Events\default.jpg" />
+    <Content Include="Content\PageLayout\layout-markup.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
@@ -514,6 +525,7 @@
     <Content Include="Views\Ticket\Edit.cshtml" />
     <Content Include="Views\Event\DeleteConfirm.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
+    <Content Include="Views\Manage\ViewProfile.cshtml" />
     <Content Include="Views\Category\Create.cshtml" />
     <Content Include="Views\Category\DeleteConfirm.cshtml" />
     <Content Include="Views\Category\Details.cshtml" />
@@ -567,6 +579,9 @@
     <EmbeddedResource Include="Migrations\202104171552353_users_code_v1.resx">
       <DependentUpon>202104171552353_users_code_v1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104230359206_appointment_table_reviewed.resx">
+      <DependentUpon>202104230359206_appointment_table_reviewed.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104171714038_forignKey.resx">
       <DependentUpon>202104171714038_forignKey.cs</DependentUpon>
     </EmbeddedResource>
@@ -594,11 +609,8 @@
     <EmbeddedResource Include="Migrations\202104191954108_Reomended.resx">
       <DependentUpon>202104191954108_Reomended.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104212049308_ListNews viewmodle added.resx">
-      <DependentUpon>202104212049308_ListNews viewmodle added.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202104212058196_fixed-typo.resx">
-      <DependentUpon>202104212058196_fixed-typo.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202104231104201_update_project.resx">
+      <DependentUpon>202104231104201_update_project.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
