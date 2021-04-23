@@ -226,9 +226,9 @@ namespace TiminsHospitalProjectV3.Controllers
             {
                 role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Patient");
             }
-            ViewAppointment viewModel = new ViewAppointment();
+            CreateViewAppointment viewModel = new CreateViewAppointment();
             viewModel.UsersInRole = new ApplicationDbContext().Users.Where(m => m.Roles.Any(r => r.RoleId == role.Id)).ToList();
-
+            ViewData["user_id"] = User.Identity.GetUserId();
 
             return View(viewModel);
         }
@@ -237,37 +237,64 @@ namespace TiminsHospitalProjectV3.Controllers
         [Authorize(Roles = "Patient,Physician")]
         [ValidateAntiForgeryToken()]
         [HttpPost]
-        public ActionResult Create(Appointment newAppointment)
-        {
-            //pass along authentication credential in http request
-            GetApplicationCookie();
+        public ActionResult Create(CreateViewAppointment viewAppointment)
+        {          
 
-            //insert the new appointment
-            string url = "AppointmentsData/AddAppointment";
-            if (User.IsInRole("Patient"))
-                newAppointment.PatientID = User.Identity.GetUserId();
-            else
-                newAppointment.PhysicianID = User.Identity.GetUserId();
-            //newAppointment.SentOn = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss", CultureInfo.CreateSpecificCulture("en-CA")); //set the datetime of the request of appointment
-            //newAppointment.SentOn = DateTime.Now; //set the datetime of the request of appointment
-            var cultureInfo = new CultureInfo("en-CA");
-            DateTime requestedDateTime = DateTime.Parse(newAppointment.RequestDatetime, cultureInfo);
-            newAppointment.RequestDatetime = requestedDateTime.ToString("yyyy/MM/dd hh:mm tt");
-            newAppointment.SentOn = DateTime.Now.ToString("yyyy/MM/dd hh:mm tt");
-            //newAppointment.RequestDatetime = DateTime.ParseExact(newAppointment.RequestDatetime.ToString("yyyy/MM/dd HH:mm"), "yyyy/MM/dd HH:mm", System.Globalization.CultureInfo.CreateSpecificCulture("en-CA"));
-            newAppointment.Status = AppointmentStatus.Pending;
-            HttpContent content = new StringContent(jss.Serialize(newAppointment));
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            HttpResponseMessage response = client.PostAsync(url, content).Result;
-            if (response.IsSuccessStatusCode)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("List", new { pageNum = 1 });
+                Appointment newAppointment = new Appointment();
+                newAppointment.PatientID = viewAppointment.PatientID;
+                newAppointment.PhysicianID = viewAppointment.PhysicianID;
+                newAppointment.ID = 0;
+                //insert the new appointment
+                string url = "AppointmentsData/AddAppointment";
 
+                
+                newAppointment.Subject = viewAppointment.Subject;
+                newAppointment.Message = viewAppointment.Message;
+
+                newAppointment.SentOn = DateTime.Now.ToString("yyyy/MM/dd hh:mm tt");
+                //newAppointment.RequestDatetime = DateTime.ParseExact(newAppointment.RequestDatetime.ToString("yyyy/MM/dd HH:mm"), "yyyy/MM/dd HH:mm", System.Globalization.CultureInfo.CreateSpecificCulture("en-CA"));
+                newAppointment.Status = AppointmentStatus.Pending;
+                var cultureInfo = new CultureInfo("en-CA");
+                DateTime requestedDateTime = DateTime.Parse(viewAppointment.RequestDatetime, cultureInfo);
+                newAppointment.RequestDatetime = requestedDateTime.ToString("yyyy/MM/dd hh:mm tt");
+                //pass along authentication credential in http request
+                GetApplicationCookie();
+
+                HttpContent content = new StringContent(jss.Serialize(newAppointment));
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                HttpResponseMessage response = client.PostAsync(url, content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("List", new { pageNum = 1 });
+
+                }
+                else
+                {
+                    return RedirectToAction("Error");
+
+                }
             }
             else
             {
-                return RedirectToAction("Error");
+                IdentityRole role = null;
+                //if user's role is 'patient' fetch the users with 'Doctor' role and vice versa
+                if (User.IsInRole("Patient"))
+                {
+                    role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Physician");
 
+                }
+
+                else
+                {
+                    role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Patient");
+                }
+                CreateViewAppointment viewModel = new CreateViewAppointment();
+                viewModel.UsersInRole = new ApplicationDbContext().Users.Where(m => m.Roles.Any(r => r.RoleId == role.Id)).ToList();
+                ViewData["user_id"] = User.Identity.GetUserId();
+
+                return View(viewAppointment);
             }
         }
 
@@ -275,34 +302,26 @@ namespace TiminsHospitalProjectV3.Controllers
         // GET: Appointments/Edit/5
         public ActionResult Edit(int id)
         {
-            //IdentityRole role = null;
-            //if user's role is 'patient' fetch the users with 'Doctor' role and vice versa
-            /* if (User.IsInRole("Patient"))
-             {
-                 role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Physician");
-
-             }
-
-             else
-             {
-                 role = new ApplicationDbContext().Roles.SingleOrDefault(m => m.Name == "Patient");
-
-             }*/
-
-            // var usersInRole = new ApplicationDbContext().Users.Where(m => m.Roles.Any(r => r.RoleId == role.Id)).ToList();
-
+            
             string url = "AppointmentsData/GetAppointment/" + id;
             //sends http request and retrieves the response
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
-                ViewAppointment viewModel = new ViewAppointment();
-                viewModel.Appointment = response.Content.ReadAsAsync<Appointment>().Result;
+                UpdateViewAppointment viewModel = new UpdateViewAppointment();
+                Appointment appointment = response.Content.ReadAsAsync<Appointment>().Result;
                 var cultureInfo = new CultureInfo("en-CA");
-                DateTime requestedDateTime = DateTime.Parse(viewModel.Appointment.RequestDatetime, cultureInfo);
-                viewModel.Appointment.RequestDatetime = requestedDateTime.ToString("yyyy/MM/dd HH:mm ");
-                viewModel.Appointment.PatientUser = new ApplicationDbContext().Users.Find(viewModel.Appointment.PatientID);
-                viewModel.Appointment.PhysicianUser = new ApplicationDbContext().Users.Find(viewModel.Appointment.PhysicianID);
+                DateTime requestedDateTime = DateTime.Parse(appointment.RequestDatetime, cultureInfo);
+                viewModel.RequestDatetime = requestedDateTime.ToString("yyyy/MM/dd HH:mm ");
+                viewModel.PatientUser = new ApplicationDbContext().Users.Find(appointment.PatientID);
+                viewModel.PhysicianUser = new ApplicationDbContext().Users.Find(appointment.PhysicianID);
+                viewModel.Subject = appointment.Subject;
+                viewModel.Message = appointment.Message;
+                viewModel.Status = appointment.Status;
+                viewModel.SentOn = appointment.SentOn;
+                viewModel.PatientID = appointment.PatientID;
+                viewModel.PhysicianID = appointment.PhysicianID;
+                viewModel.ID = appointment.ID;
 
                 return View(viewModel);
 
@@ -320,29 +339,44 @@ namespace TiminsHospitalProjectV3.Controllers
         [Authorize(Roles = "Patient,Physician")]
         [ValidateAntiForgeryToken()]
         [HttpPost]
-        public ActionResult Edit(int id, Appointment appointment)
+        public ActionResult Edit(int id, UpdateViewAppointment viewModel)
         {
-            //pass along authentication credential in http request
-            GetApplicationCookie();
-
-            //update the appointment
-            string url = "AppointmentsData/UpdateAppointment/" + id;
-            var cultureInfo = new CultureInfo("en-CA");
-            DateTime requestedDateTime = DateTime.Parse(appointment.RequestDatetime, cultureInfo);
-            appointment.RequestDatetime = requestedDateTime.ToString("yyyy/MM/dd hh:mm tt");
-
-            HttpContent content = new StringContent(jss.Serialize(appointment));
-            content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-            HttpResponseMessage response = client.PostAsync(url, content).Result;
-            if (response.IsSuccessStatusCode)
+            if (ModelState.IsValid)
             {
-                return RedirectToAction("Details", new { id = id });
+                Appointment appointment = new Appointment();
+                appointment.ID = viewModel.ID;
+                appointment.PatientID = viewModel.PatientID;
+                appointment.PhysicianID = viewModel.PhysicianID;
+                appointment.SentOn = viewModel.SentOn;
+                appointment.Subject = viewModel.Subject;
+                appointment.Message = viewModel.Message;
+                appointment.Status = viewModel.Status;
+                //pass along authentication credential in http request
+                GetApplicationCookie();
 
+                //update the appointment
+                string url = "AppointmentsData/UpdateAppointment/" + id;
+                var cultureInfo = new CultureInfo("en-CA");
+                DateTime requestedDateTime = DateTime.Parse(viewModel.RequestDatetime, cultureInfo);
+                appointment.RequestDatetime = requestedDateTime.ToString("yyyy/MM/dd hh:mm tt");
+
+                HttpContent content = new StringContent(jss.Serialize(appointment));
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                HttpResponseMessage response = client.PostAsync(url, content).Result;
+                if (response.IsSuccessStatusCode)
+                {
+                    return RedirectToAction("Details", new { id = id });
+
+                }
+                else
+                {
+                    return RedirectToAction("Error");
+
+                }
             }
             else
             {
-                return RedirectToAction("Error");
-
+                return View(viewModel);
             }
         }
 

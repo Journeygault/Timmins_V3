@@ -1,0 +1,11 @@
+﻿h2 {
+    text-transform: uppercase;
+    margin-bottom: 1em;
+}
+strong{
+    color:orange;
+}
+form{
+    margin-top:2em;
+    text-align:center;
+}
