@@ -10,31 +10,31 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 - [x] CRUD completed for the appointments table. Can create, read, update, and delete records in the table
  through views.
  
- ![image of list of appointments](https://github.com/Journeygault/passion-project/blob/main/imgs/list_appointments.jpg)
+ ![image of list of appointments](https://github.com/Journeygault/Timmins_V3/blob/main/imgs/list_appointments.jpg)
 
-![image of appointment details](https://github.com/Journeygault/passion-project/blob/main/imgs/details_appointment.jpg)
+![image of appointment details](https://github.com/Journeygault/Timmins_V3/blob/main/imgs/details_appointment.jpg)
 
-![image of appointment creation](https://github.com/Journeygault/passion-project/blob/main/imgs/create_appointment.jpg)
+![image of appointment creation](https://github.com/Journeygault/Timmins_V3/blob/main/imgs/create_appointment.jpg)
 
-![image of appointment edition](https://github.com/Journeygault/passion-project/blob/main/imgs/edit_appointment.jpg)
+![image of appointment edition](https://github.com/Journeygault/Timmins_V3/blob/main/imgs/edit_appointment.jpg)
 
-![image of appointment deletion](https://github.com/Journeygault/passion-project/blob/main/imgs/delete_appointment.jpg)
+![image of appointment deletion](https://github.com/Journeygault/Timmins_V3/blob/main/imgs/delete_appointment.jpg)
  
 - [x] validation of  date and time requested for an appointment
 - [x] Adding of Admin , Patient and Physician privileges
 - [x] Styling of the pages
 - [x] form validation
 - [x] Assign a user role to users through the user registeration form as well as firstname, lastname and username.
-![image of user registration form](https://github.com/Journeygault/passion-project/blob/main/imgs/user_registration.jpg)
+![image of user registration form](https://github.com/Journeygault/Timmins_V3/blob/main/imgs/user_registration.jpg)
 - [x] Allow logged in users to view their profile 
-![image of appointment deletion](https://github.com/Journeygault/passion-project/blob/main/imgs/user_profile.jpg)
+![image of appointment deletion](https://github.com/Journeygault/Timmins_V3/blob/main/imgs/user_profile.jpg)
 
 
 ## Extra features
 - [x] pagination for the list of appointments.
 - [x] refine list of appointments.
 - [x] use the javascript libary [flatpickr](https://flatpickr.js.org/) to select date and time requested for an appointment.
-![image of appointment deletion](https://github.com/Journeygault/passion-project/blob/main/imgs/calendar_appointment.jpg)
+![image of appointment deletion](https://github.com/Journeygault/Timmins_V3/blob/main/imgs/calendar_appointment.jpg)
 ## Alexis Arevalo:
 
 ### FAQ Feature:
