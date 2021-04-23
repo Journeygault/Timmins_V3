@@ -8,6 +8,7 @@ namespace TiminsHospitalProjectV3.Models.ViewModels
     public class ShowEvent
     {
         public EventDto Event { get; set; }
-        //We will likely have to add A DTO for the Log in?Check with group
+
+        public IEnumerable<DonationDto> DonationToEvent { get; set; }
     }
 }

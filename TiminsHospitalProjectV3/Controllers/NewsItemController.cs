@@ -10,6 +10,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Diagnostics;
 using System.Web.Script.Serialization;
+//The following Using statement allows for access of logged in users credentials
+using Microsoft.AspNet.Identity;
+
 
 namespace TiminsHospitalProjectV3.Controllers
 {
@@ -85,6 +88,8 @@ namespace TiminsHospitalProjectV3.Controllers
         {
             //Debug.WriteLine(NewsItem.NewsItemID);
             string url = "NewsItemData/AddNewsItem";//CHANGE
+            NewsItemInfo.UserID = User.Identity.GetUserId();
+
             Debug.WriteLine(jss.Serialize(NewsItemInfo));
             HttpContent content = new StringContent(jss.Serialize(NewsItemInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
@@ -197,18 +202,31 @@ namespace TiminsHospitalProjectV3.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken()]
 
-        public ActionResult Edit(int id, NewsItem NewsItemInfo)
+        public ActionResult Edit(int id, NewsItem NewsItemInfo, HttpPostedFileBase NewsItemImage)
         {
 
             string url = "NewsItemData/UpdateNewsItem/" + id;
+            NewsItemInfo.UserID = User.Identity.GetUserId();
+
             Debug.WriteLine(jss.Serialize(NewsItemInfo));
             HttpContent content = new StringContent(jss.Serialize(NewsItemInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
             Debug.WriteLine(response.StatusCode);
             if (response.IsSuccessStatusCode)
-            {
+            {///UPDATE BELLOW
+                if (NewsItemImage != null)
+                {
+                    Debug.WriteLine("Calling Update Image method.");
+                    //Send over image data for player
+                    url = "NewsItemData/UpdateNewsItemImage/" + id;
+                    //Debug.WriteLine("Received player picture "+PlayerPic.FileName);
 
+                    MultipartFormDataContent requestcontent = new MultipartFormDataContent();
+                    HttpContent imagecontent = new StreamContent(NewsItemImage.InputStream);
+                    requestcontent.Add(imagecontent, "NewsItemImage", NewsItemImage.FileName);
+                    response = client.PostAsync(url, requestcontent).Result;
+                }
                 return RedirectToAction("Details", new { id = id });
             }
             else

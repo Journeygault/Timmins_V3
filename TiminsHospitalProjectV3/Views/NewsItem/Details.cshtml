@@ -5,9 +5,19 @@
 }
 
 <h2>Details</h2>
-
+@{
+    //Use server rendering to determine an image
+    string pic = "/Content/NewsItems/default.jpg";
+    string alt = "No Profile Picture Provided.";
+    if (Model.newsItem.NewsItemHasPic)
+    {
+        pic = "/Content/NewsItems/" + Model.newsItem.NewsItemID + "." + Model.newsItem.NewsItemPicExtension;
+        alt = "Picture Of Event ";
+    }
+}
 <div>
     <h4>NewsItem</h4>
+    <img src="@pic" alt="@alt" width="200" />
     <hr />
     <dl class="dl-horizontal">
         <dt>

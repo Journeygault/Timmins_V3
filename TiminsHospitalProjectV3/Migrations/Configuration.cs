@@ -10,6 +10,8 @@
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
+           // this.ContextKey = "TiminsHospitalProjectV3.Migrations.Configuration";
+
         }
 
         protected override void Seed(TiminsHospitalProjectV3.Models.ApplicationDbContext context)

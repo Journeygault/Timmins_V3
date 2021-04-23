@@ -19,6 +19,7 @@ namespace TiminsHospitalProjectV3.Controllers
     public class FaqController : Controller
     {
         private JavaScriptSerializer jss = new JavaScriptSerializer();
+        private string id;
         private static readonly HttpClient client;
 
         static FaqController()
@@ -72,9 +73,9 @@ namespace TiminsHospitalProjectV3.Controllers
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
-                
                 IEnumerable<FaqDto> SelectedFaqs = response.Content.ReadAsAsync<IEnumerable<FaqDto>>().Result;
                 ViewModel.faqs = SelectedFaqs;
+
                 return View(ViewModel);
             }
             else
@@ -97,6 +98,14 @@ namespace TiminsHospitalProjectV3.Controllers
             {
                 FaqDto SelectedFaqs = response.Content.ReadAsAsync<FaqDto>().Result;
                 ViewModel.Faq = SelectedFaqs;
+
+                //Find the Category for Project by Id
+                url = "CategoryData/FindCategoryForFaq/" + id;
+                response = client.GetAsync(url).Result;
+                Debug.WriteLine(response.StatusCode);
+                CategoryDto SelectedCategory = response.Content.ReadAsAsync<CategoryDto>().Result;
+                ViewModel.Categories = SelectedCategory;
+
                 return View(ViewModel);
             }
             else
@@ -111,6 +120,10 @@ namespace TiminsHospitalProjectV3.Controllers
         public ActionResult Create()
         {
             UpdateFaq ViewModel = new UpdateFaq();
+            string url = "CategoryData/GetCategories";
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            IEnumerable<CategoryDto> PotetnialCategories = response.Content.ReadAsAsync<IEnumerable<CategoryDto>>().Result;
+            ViewModel.Allcategories = PotetnialCategories;
             return View(ViewModel);
         }
         /// <returns>Seralizes the inputs and Adds</returns>
@@ -152,6 +165,12 @@ namespace TiminsHospitalProjectV3.Controllers
             {
                 FaqDto SelectedFaqs = response.Content.ReadAsAsync<FaqDto>().Result;
                 ViewModel.Faq = SelectedFaqs;
+
+                url = "CategoryData/GetCategories";
+                response = client.GetAsync(url).Result;
+                IEnumerable<CategoryDto> FaqsCategory = response.Content.ReadAsAsync<IEnumerable<CategoryDto>>().Result;
+                ViewModel.Allcategories = FaqsCategory;
+
                 return View(ViewModel);
             }
             else
@@ -186,7 +205,7 @@ namespace TiminsHospitalProjectV3.Controllers
             }
         }
         /// <returns>Retrieves Data</returns>
-        // GET: Faq/Delete/1
+        // GET: Faq/DeleteConfim/1
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)

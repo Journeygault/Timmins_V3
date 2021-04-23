@@ -185,6 +185,12 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BillController.cs" />
+    <Compile Include="Controllers\BillDataController.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\CategoryDataController.cs" />
+    <Compile Include="Controllers\DonationController.cs" />
+    <Compile Include="Controllers\DonationDataController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\EmployeeDataController.cs" />
     <Compile Include="Controllers\AppointmentsController.cs" />
@@ -197,6 +203,8 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NewsItemController.cs" />
     <Compile Include="Controllers\NewsItemDataController.cs" />
+    <Compile Include="Controllers\ReviewController.cs" />
+    <Compile Include="Controllers\ReviewDataController.cs" />
     <Compile Include="Controllers\TicketController.cs" />
     <Compile Include="Controllers\TicketDataController.cs" />
     <Compile Include="Global.asax.cs">
@@ -226,9 +234,52 @@
     <Compile Include="Migrations\202104230359206_appointment_table_reviewed.Designer.cs">
       <DependentUpon>202104230359206_appointment_table_reviewed.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104171714038_forignKey.cs" />
+    <Compile Include="Migrations\202104171714038_forignKey.Designer.cs">
+      <DependentUpon>202104171714038_forignKey.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104181403503_news forignkey int to string.cs" />
+    <Compile Include="Migrations\202104181403503_news forignkey int to string.Designer.cs">
+      <DependentUpon>202104181403503_news forignkey int to string.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104181405466_Indicate ForignKey in newsItem.cs" />
+    <Compile Include="Migrations\202104181405466_Indicate ForignKey in newsItem.Designer.cs">
+      <DependentUpon>202104181405466_Indicate ForignKey in newsItem.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104190638371_addedDonationnsTbl.cs" />
+    <Compile Include="Migrations\202104190638371_addedDonationnsTbl.Designer.cs">
+      <DependentUpon>202104190638371_addedDonationnsTbl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104190715531_donationTypeChange.cs" />
+    <Compile Include="Migrations\202104190715531_donationTypeChange.Designer.cs">
+      <DependentUpon>202104190715531_donationTypeChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104191713205_billstable.cs" />
+    <Compile Include="Migrations\202104191713205_billstable.designer.cs">
+      <DependentUpon>202104191713205_billstable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104191716061_reviewmodel.cs" />
+    <Compile Include="Migrations\202104191716061_reviewmodel.designer.cs">
+      <DependentUpon>202104191716061_reviewmodel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104191807302_updatebillmodel.cs" />
+    <Compile Include="Migrations\202104191807302_updatebillmodel.Designer.cs">
+      <DependentUpon>202104191807302_updatebillmodel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104191954108_Reomended.cs" />
+    <Compile Include="Migrations\202104191954108_Reomended.Designer.cs">
+      <DependentUpon>202104191954108_Reomended.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104231104201_update_project.cs" />
+    <Compile Include="Migrations\202104231104201_update_project.Designer.cs">
+      <DependentUpon>202104231104201_update_project.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Bill.cs" />
+    <Compile Include="Models\BillPayment.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Donation.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Faq.cs" />
@@ -237,18 +288,27 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NewsItem.cs" />
     <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Ticket.cs" />
+    <Compile Include="Models\ViewModels\ListCategories.cs" />
+    <Compile Include="Models\ViewModels\ListDonations.cs" />
     <Compile Include="Models\ViewModels\ListFaqs.cs" />
+    <Compile Include="Models\ViewModels\ShowBill.cs" />
+    <Compile Include="Models\ViewModels\ShowCategory.cs" />
+    <Compile Include="Models\ViewModels\ShowDonation.cs" />
     <Compile Include="Models\ViewModels\ShowEmployee.cs" />
     <Compile Include="Models\ViewModels\ShowEvent.cs" />
     <Compile Include="Models\ViewModels\ShowFaq.cs" />
     <Compile Include="Models\ViewModels\ShowJob_Posting.cs" />
     <Compile Include="Models\ViewModels\ShowNewsItem.cs" />
+    <Compile Include="Models\ViewModels\ShowReview.cs" />
     <Compile Include="Models\ViewModels\ShowTicket.cs" />
+    <Compile Include="Models\ViewModels\UpdateDonation.cs" />
     <Compile Include="Models\ViewModels\UpdateEmployee.cs" />
     <Compile Include="Models\ViewModels\UpdateEvent.cs" />
     <Compile Include="Models\ViewModels\UpdateFaq.cs" />
     <Compile Include="Models\ViewModels\UpdateNewsItem.cs" />
+    <Compile Include="Models\ViewModels\UpdateReview.cs" />
     <Compile Include="Models\ViewModels\UpdateTicket.cs" />
     <Compile Include="Models\ViewModels\ViewModelAppointment.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -266,12 +326,22 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Employees\logo.png" />
     <Content Include="Content\Users\Profile.css" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Employees\logo.png" />
+    <Content Include="Content\Events\default.jpg" />
+    <Content Include="Content\PageLayout\layout-markup.css" />
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\Appointments\create.js" />
     <Content Include="Scripts\Appointments\edit.js" />
+    <Content Include="Scripts\bootstrap.bundle.js" />
+    <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
@@ -283,14 +353,16 @@
     <Content Include="Scripts\esm\popper.js.map" />
     <Content Include="Scripts\esm\popper-utils.min.js.map" />
     <Content Include="Scripts\esm\popper-utils.js.map" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Scripts\bootstrap.min.js.map" />
+    <Content Include="Scripts\bootstrap.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.min.js.map" />
+    <Content Include="Scripts\bootstrap.bundle.js.map" />
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Content\bootstrap.css.map" />
-    <Content Include="Content\bootstrap-theme.min.css.map" />
-    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-grid.css.map" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <None Include="Scripts\jquery-3.6.0-vsdoc.js" />
     <Content Include="Scripts\jquery-3.6.0.js" />
@@ -454,10 +526,32 @@
     <Content Include="Views\Event\DeleteConfirm.cshtml" />
     <Content Include="Views\Event\Edit.cshtml" />
     <Content Include="Views\Manage\ViewProfile.cshtml" />
+    <Content Include="Views\Category\Create.cshtml" />
+    <Content Include="Views\Category\DeleteConfirm.cshtml" />
+    <Content Include="Views\Category\Details.cshtml" />
+    <Content Include="Views\Category\Edit.cshtml" />
+    <Content Include="Views\Category\List.cshtml" />
+    <Content Include="Views\Donation\Create.cshtml" />
+    <Content Include="Views\Donation\DeleteConfirm.cshtml" />
+    <Content Include="Views\Donation\Details.cshtml" />
+    <Content Include="Views\Donation\Edit.cshtml" />
+    <Content Include="Views\Donation\List.cshtml" />
+    <Content Include="Views\Bill\List.cshtml" />
+    <Content Include="Views\Review\List.cshtml" />
+    <Content Include="Views\Review\Details.cshtml" />
+    <Content Include="Views\Review\Edit.cshtml" />
+    <Content Include="Views\Review\Create.cshtml" />
+    <Content Include="Views\Bill\Edit.cshtml" />
+    <Content Include="Views\Bill\Create.cshtml" />
+    <Content Include="Views\Bill\Details.cshtml" />
+    <Content Include="Views\Bill\DeleteConfirm.cshtml" />
+    <Content Include="Views\Review\DeleteConfirm.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\NewsItems\" />
     <Folder Include="Views\EventData\" />
+    <Folder Include="Views\ReviewData\" />
     <Folder Include="Views\TicketData\" />
   </ItemGroup>
   <ItemGroup>
@@ -487,6 +581,36 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104230359206_appointment_table_reviewed.resx">
       <DependentUpon>202104230359206_appointment_table_reviewed.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104171714038_forignKey.resx">
+      <DependentUpon>202104171714038_forignKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104181403503_news forignkey int to string.resx">
+      <DependentUpon>202104181403503_news forignkey int to string.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104181405466_Indicate ForignKey in newsItem.resx">
+      <DependentUpon>202104181405466_Indicate ForignKey in newsItem.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104190638371_addedDonationnsTbl.resx">
+      <DependentUpon>202104190638371_addedDonationnsTbl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104190715531_donationTypeChange.resx">
+      <DependentUpon>202104190715531_donationTypeChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104191713205_billstable.resx">
+      <DependentUpon>202104191713205_billstable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104191716061_reviewmodel.resx">
+      <DependentUpon>202104191716061_reviewmodel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104191807302_updatebillmodel.resx">
+      <DependentUpon>202104191807302_updatebillmodel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104191954108_Reomended.resx">
+      <DependentUpon>202104191954108_Reomended.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104231104201_update_project.resx">
+      <DependentUpon>202104231104201_update_project.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

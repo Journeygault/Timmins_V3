@@ -10,6 +10,8 @@ using System.Data.Entity.Infrastructure;
 using System.Web.Http.Description;
 using TiminsHospitalProjectV3.Models;
 using System.Diagnostics;
+using System.IO;
+using System.Web;
 
 
 
@@ -123,6 +125,9 @@ namespace TiminsHospitalProjectV3.Controllers
             }
 
             db.Entry(newsItem).State = EntityState.Modified;
+            //The following two preevnt updates here
+            db.Entry(newsItem).Property(p => p.NewsItemHasPic).IsModified = false;
+            db.Entry(newsItem).Property(p => p.NewsItemPicExtension).IsModified = false;
 
             try
             {
@@ -143,6 +148,68 @@ namespace TiminsHospitalProjectV3.Controllers
             }
 
             return StatusCode(HttpStatusCode.NoContent);
+        }
+        [HttpPost]
+        public IHttpActionResult UpdateNewsItemImage(int id)
+        {
+
+            bool haspic = false;
+            string picextension;
+            if (Request.Content.IsMimeMultipartContent())
+            {
+                Debug.WriteLine("Received multipart form data.");
+
+                int numfiles = HttpContext.Current.Request.Files.Count;
+                Debug.WriteLine("Files Received: " + numfiles);
+
+                //Check if a file is posted
+                if (numfiles == 1 && HttpContext.Current.Request.Files[0] != null)
+                {
+                    var NewsItemImage = HttpContext.Current.Request.Files[0];
+                    //Check if the file is empty
+                    if (NewsItemImage.ContentLength > 0)
+                    {
+                        var valtypes = new[] { "jpeg", "jpg", "png", "gif" };
+                        var extension = Path.GetExtension(NewsItemImage.FileName).Substring(1);
+                        //Check the extension of the file
+                        if (valtypes.Contains(extension))
+                        {
+                            try
+                            {
+                                //file name is the id of the image
+                                string fn = id + "." + extension;
+
+                                //get a direct file path to ~/Content/Players/{id}.{extension}
+                                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/NewsItems/"), fn);
+
+                                //save the file
+                                NewsItemImage.SaveAs(path);
+
+                                //if these are all successful then we can set these fields
+                                haspic = true;
+                                picextension = extension;
+
+                                //Update the player haspic and picextension fields in the database
+                                NewsItem SelectedNewsItems = db.NewsItems.Find(id);
+                                SelectedNewsItems.NewsItemHasPic = haspic;
+                                SelectedNewsItems.NewsItemPicExtension = extension;
+                                db.Entry(SelectedNewsItems).State = EntityState.Modified;
+
+                                db.SaveChanges();
+
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine("News Item Image was not saved successfully.");
+                                Debug.WriteLine("Exception:" + ex);
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)

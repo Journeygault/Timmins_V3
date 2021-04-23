@@ -24,11 +24,12 @@ namespace TiminsHospitalProjectV3.Models
         //If the player has an image, record the extension of the image (.png, .gif, .jpg, etc.)
         public string NewsItemPicExtension { get; set; }
 
-        
+
         //A player plays for one team
         //[ForeignKey("AccountViewModels")]
-        public int UserID { get; set; }
-        //public virtual AccountViewModels UserID { get; set; }
+        [ForeignKey("User")]
+        public string UserID { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
     public class NewsItemDto
     {
@@ -46,6 +47,6 @@ namespace TiminsHospitalProjectV3.Models
 
         //A player plays for one team
         //[ForeignKey("AccountViewModels")]
-        public int UserID { get; set; }
+        public string UserID { get; set; }
     }
 }

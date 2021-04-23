@@ -6,84 +6,98 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
 
-    <div class="form-horizontal">
-        <h4>Event</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Event.EventId, new { Name = "EventId" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Event.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Event.Title, new { htmlAttributes = new { @class = "form-control",  Name = "Title" } })
-                @Html.ValidationMessageFor(model => model.Event.Title, "", new { @class = "text-danger" })
+
+    @using (Html.BeginForm("Edit","Event",new { id = Model.Event.EventId }, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <h4>Event</h4>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.Event.EventId, new { Name = "EventId" })
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Event.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Event.Title, new { htmlAttributes = new { @class = "form-control", Name = "Title" } })
+                    @Html.ValidationMessageFor(model => model.Event.Title, "", new { @class = "text-danger" })
+                </div>
             </div>
-        </div>
+            <!--
+            <div class="form-group">
+                @Html.LabelFor(model => model.Event.EventHasImage, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Event.EventHasImage, new { htmlAttributes = new { Name = "EventHasImage" } })
+                        @Html.ValidationMessageFor(model => model.Event.EventHasImage, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Event.EventHasImage, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Event.EventHasImage, new { htmlAttributes = new { Name = "EventHasImage" } })
-                    @Html.ValidationMessageFor(model => model.Event.EventHasImage, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Event.PicExtension, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Event.PicExtension, new { htmlAttributes = new { @class = "form-control", Name = "PicExtension" } })
+                    @Html.ValidationMessageFor(model => model.Event.PicExtension, "", new { @class = "text-danger" })
+                </div>
+            </div>
+                -->
+            <div class="form-group">
+                @Html.LabelFor(model => model.Event.EventDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Event.EventDate, new { htmlAttributes = new { @class = "form-control", Name = "EventDate" } })
+                    @Html.ValidationMessageFor(model => model.Event.EventDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Event.EventDisc, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Event.EventDisc, new { htmlAttributes = new { @class = "form-control", Name = "EventDisc" } })
+                    @Html.ValidationMessageFor(model => model.Event.EventDisc, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Event.EventHasOcured, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.Event.EventHasOcured, new { htmlAttributes = new { Name = "EventHasOcured" } })
+                        @Html.ValidationMessageFor(model => model.Event.EventHasOcured, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+            <!--
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.Event.UserID, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-10">
+                            @Html.EditorFor(model => model.Event.UserID, new { htmlAttributes = new { @class = "form-control" } })
+                            @Html.ValidationMessageFor(model => model.Event.UserID, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+            -->
+            <div class="col-md-6">
+                <div class="form-group">
+                    <div class="col-md-12">Picture:</div>
+                    <div class="col-md-12">
+                        <input type="file" name="EventImage" />
+
+
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
                 </div>
             </div>
         </div>
+    }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Event.PicExtension, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Event.PicExtension, new { htmlAttributes = new { @class = "form-control", Name="PicExtension" } })
-                @Html.ValidationMessageFor(model => model.Event.PicExtension, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Event.EventDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Event.EventDate, new { htmlAttributes = new { @class = "form-control", Name = "EventDate" } })
-                @Html.ValidationMessageFor(model => model.Event.EventDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Event.EventDisc, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Event.EventDisc, new { htmlAttributes = new { @class = "form-control", Name = "EventDisc" } })
-                @Html.ValidationMessageFor(model => model.Event.EventDisc, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Event.EventHasOcured, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.Event.EventHasOcured, new { htmlAttributes = new { Name = "EventHasOcured" } })
-                    @Html.ValidationMessageFor(model => model.Event.EventHasOcured, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Event.UserID, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Event.UserID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Event.UserID, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
+    <div>
+        @Html.ActionLink("Back to List", "Index")
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>

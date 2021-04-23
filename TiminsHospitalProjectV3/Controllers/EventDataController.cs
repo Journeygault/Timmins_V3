@@ -11,6 +11,10 @@ using System.Web.Http.Description;
 using TiminsHospitalProjectV3.Models;
 using System.Diagnostics;
 
+using System.IO;
+using System.Web;
+
+
 namespace TiminsHospitalProjectV3.Controllers
 {
     public class EventDataController : ApiController
@@ -98,7 +102,16 @@ namespace TiminsHospitalProjectV3.Controllers
             {
                 return NotFound();
             }
-            Debug.WriteLine(@event);
+            if (@event.EventHasImage && @event.PicExtension != "")
+            {
+                //also delete image from path
+                string path = HttpContext.Current.Server.MapPath("~/Content/Events/" + id + "." + @event.PicExtension);
+                if (System.IO.File.Exists(path))
+                {
+                    Debug.WriteLine("File exists... preparing to delete!");
+                    System.IO.File.Delete(path);
+                }
+            }
 
             db.Events.Remove(@event);
             db.SaveChanges();
@@ -120,7 +133,9 @@ namespace TiminsHospitalProjectV3.Controllers
             }
 
             db.Entry(@event).State = EntityState.Modified;
-
+            //The following two preevnt updates here
+            db.Entry(@event).Property(p => p.EventHasImage).IsModified = false;
+            db.Entry(@event).Property(p => p.PicExtension).IsModified = false;
             try
             {
                 //    Debug.WriteLine(hop);
@@ -142,6 +157,94 @@ namespace TiminsHospitalProjectV3.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        [HttpPost]
+        public IHttpActionResult UpdateEventImage(int id)
+        {
+
+            bool haspic = false;
+            string picextension;
+            if (Request.Content.IsMimeMultipartContent())
+            {
+                Debug.WriteLine("Received multipart form data.");
+
+                int numfiles = HttpContext.Current.Request.Files.Count;
+                Debug.WriteLine("Files Received: " + numfiles);
+
+                //Check if a file is posted
+                if (numfiles == 1 && HttpContext.Current.Request.Files[0] != null)
+                {
+                    var EventImage = HttpContext.Current.Request.Files[0];
+                    //Check if the file is empty
+                    if (EventImage.ContentLength > 0)
+                    {
+                        var valtypes = new[] { "jpeg", "jpg", "png", "gif" };
+                        var extension = Path.GetExtension(EventImage.FileName).Substring(1);
+                        //Check the extension of the file
+                        if (valtypes.Contains(extension))
+                        {
+                            try
+                            {
+                                //file name is the id of the image
+                                string fn = id + "." + extension;
+
+                                //get a direct file path to ~/Content/Players/{id}.{extension}
+                                string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Events/"), fn);
+
+                                //save the file
+                                EventImage.SaveAs(path);
+
+                                //if these are all successful then we can set these fields
+                                haspic = true;
+                                picextension = extension;
+
+                                //Update the player haspic and picextension fields in the database
+                                Event SelectedEvent = db.Events.Find(id);
+                                SelectedEvent.EventHasImage = haspic;
+                                SelectedEvent.PicExtension = extension;
+                                db.Entry(SelectedEvent).State = EntityState.Modified;
+
+                                db.SaveChanges();
+
+                            }
+                            catch (Exception ex)
+                            {
+                                Debug.WriteLine("Event Image was not saved successfully.");
+                                Debug.WriteLine("Exception:" + ex);
+                            }
+                        }
+                    }
+
+                }
+            }
+
+            return Ok();
+        }
+        [ResponseType(typeof(IEnumerable<DonationDto>))]
+        public IHttpActionResult GetDonationsForEvent(int id)
+        {
+            //ERROR IN CONTROLLER
+            List<Donation> Donations = db.Donations.Where(p => p.EventId == id).ToList();
+
+            List<DonationDto> DonationDtos = new List<DonationDto> { };
+
+            //Here you can choose which information is exposed to the API
+            foreach (var Donation in Donations)
+            {
+                DonationDto NewDonation = new DonationDto
+                {
+                    FistName = Donation.FistName,
+                    LastName = Donation.LastName
+
+
+
+                    // public string FistName { get; set; }
+                    // public string LastName { get; set; }
+                };
+                DonationDtos.Add(NewDonation);
+            }
+
+            return Ok(DonationDtos);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)
