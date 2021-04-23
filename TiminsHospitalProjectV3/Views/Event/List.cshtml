@@ -14,64 +14,91 @@
         <th>
             Title
         </th>
-        <th>
-            EventHasImage
-        </th>
-        <th>
-            PicExtension
-        </th>
+        @if (Model.isadmin)
+        {
+            <th>
+                EventHasImage
+            </th>
+            <th>
+                PicExtension
+            </th>
+        }
         <th>
             EventDate
         </th>
-        <th>
-            EventDisc
-        </th>
-        <th>
-            EventHasOcured
-        </th>
-        <th>
-            UserID
-        </th>
-        <th></th>
-    </tr>
+        @if (Model.isadmin)
+        {
+            <th>
+                EventDisc
+            </th>
+            <th>
+                EventHasOcured
+            </th>
+            <th>
+                UserID
+            </th>
+        }
+            <th>
+                Details
+            </th>
+        
+        </tr><!--MAybe add empty th here for admin view-->
 
     @foreach (var item in Model.events)
+
     {
         if (item.EventHasOcured != true)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EventHasImage)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PicExtension)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EventDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EventDisc)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EventHasOcured)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserID)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.EventId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.EventId }) |
-                    @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.EventId })
-                </td>
-            </tr>
+
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+    @if (Model.isadmin)
+    {
+        <td>
+            @Html.DisplayFor(modelItem => item.EventHasImage)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PicExtension)
+        </td>
+    }
+    <td>
+        @Html.DisplayFor(modelItem => item.EventDate)
+    </td>
+    @if (Model.isadmin)
+    {
+        <td>
+            @Html.DisplayFor(modelItem => item.EventDisc)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EventHasOcured)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserID)
+        </td>
+    }
+<td>
+    @if (Model.isadmin)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = item.EventId }) 
+        }
+    @Html.ActionLink("Details", "Details", new { id = item.EventId }) 
+    @if (Model.isadmin)
+    {
+        @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.EventId })
+    }
+    </td>
+   
+    </tr>
+
         }
     }
+
 </table>
 <!--if (Model.isadmin)-->
-
+@if (Model.isadmin)
+            {
 <h2>Past Events</h2>
 <table class="table">
     <tr>
@@ -96,7 +123,9 @@
         <th>
             UserID
         </th>
-        <th></th>
+        <th>
+            Details
+        </th>
     </tr>
 
     @foreach (var item in Model.events)
@@ -133,7 +162,7 @@
             </tr>
         }
     }
-
+}
 </table>
 }
 
