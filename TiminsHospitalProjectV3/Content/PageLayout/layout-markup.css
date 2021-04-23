@@ -1,0 +1,128 @@
+﻿body {
+    padding-top: 180px;
+    margin: 0;
+    overflow-x: hidden;
+    padding-bottom: 0;
+}
+.top-bar {
+    width: 100%;
+    height: 70px;
+    background: #326c90;
+    position: fixed;
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+}
+.top-logo {
+    font-family: Arial;
+    font-size: 25px;
+    margin: 1% 5% 1% 5%;
+    padding-left: 20px;
+    width: 20%;
+    color: white;
+    text-transform: uppercase;
+    display: inline-block;
+}
+#search-form {
+    margin: 1% 5% 1% 5%;
+    display: inline-block;
+    padding-left: 120px;
+}
+@media (max-width: 635px) {
+    #search-form {
+        display: none;
+    }
+}
+.search-box {
+    border: none;
+    padding: 3px 5px 3px 5px;
+    border-radius: 6px;
+}
+#search-button {
+    background: none;
+    border: none;
+}
+.search-icon {
+    color: white;
+}
+.search-icon:hover {
+    color: black;
+}
+.navbar-fixed {
+    position: fixed;
+    top: 70px;
+    border-width: 0 0 1px;
+    right: 0;
+    left: 0;
+    z-index: 1030;
+    border: 1px solid transparent;
+    background: #333333;
+}
+.li-links {
+    text-transform: uppercase;
+}
+    .li-links > li > a {
+        color: #56e79f;
+    }
+@media (min-width: 768px) {
+    .navbar-fixed {
+        border-radius: 0;
+    }
+}
+footer {
+    background: #333333;
+    width: 100%;
+    bottom: 0;
+    color: white;
+}
+    footer p {
+        margin: 0;
+        padding-left: 10px;
+        padding-bottom: 10px;
+    }
+.footer-panel {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 20px 150px 5px 40px;
+}
+@media (max-width: 855px) {
+    .footer-panel {
+        padding: 20px 50px 5px 40px;
+    }
+}
+.footer-nav h4 {
+    color: #56e79f;
+}
+.footer-nav ul {
+    padding: 0;
+}
+.footer-nav li {
+    list-style-type: none;
+}
+.footer-nav a {
+    text-decoration: none;
+    color: white;
+}
+    .footer-nav a:hover {
+        color: #56e79f;
+    }
+.outer-line {
+    width: 100%;
+    text-align: right;
+    display: inline-block;
+    padding-right: 200px;
+    padding-left: 40px;
+}
+@media (max-width: 343px) {
+    .outer-line {
+        text-align: left;
+        padding-right: 0;
+    }
+}
+

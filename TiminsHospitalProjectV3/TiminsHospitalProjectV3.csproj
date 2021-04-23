@@ -315,6 +315,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Employees\logo.png" />
     <Content Include="Content\Events\default.jpg" />
+    <Content Include="Content\PageLayout\layout-markup.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />

@@ -104,7 +104,7 @@ namespace TiminsHospitalProjectV3.Controllers
         /// <param name="id">Donation Id</param>
         /// <returns>All the information of the Event</returns> (CHECKED)
         // GET: api/EventData/FindEventForDonation/1
-        /*[HttpGet]
+        [HttpGet]
         [Route("api/EventData/FindEventForDonation/{id}")]
         [ResponseType(typeof(EventDto))]
         public IHttpActionResult FindEventForDonation(int id)
@@ -127,7 +127,7 @@ namespace TiminsHospitalProjectV3.Controllers
             };
             //pass along data as 200 status code OK response
             return Ok(EventDto);
-        }*/
+        }
         /// <summary>
         ///     Will Update the Donation from the database by id.
         /// </summary>
