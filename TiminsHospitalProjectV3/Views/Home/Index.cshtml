@@ -2,10 +2,32 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div class="emergency-button">
+    <button><h4>Emergency</h4><span>+</span></button>
+</div>
+<div class="index-image"></div>
+<div class="tab-icon-links">
+    <a href="@Url.Action("Index", "Home")" class="tab-icon">
+        <i class="fa fa-info-circle"></i><br /><p>Visitor Information</p>
+    </a>
+    <a href="@Url.Action("List", "Donation")" class="tab-icon">
+        <i class="fa fa-hand-holding-usd"></i><br /><p>Make A Donation</p>
+    </a>
+    <a href="@Url.Action("Index", "Home")" class="tab-icon">
+        <i class="fa fa-stethoscope"></i><br/><p>Our Doctors</p>
+    </a>
+    <a href="@Url.Action("Index", "Home")" class="tab-icon">
+        <i class="fa fa-phone-square"></i><br /><p>Contact A Patient</p>
+    </a>
+    <a href="@Url.Action("Index", "Home")" class="tab-icon">
+        <i class="fa fa-calendar-alt"></i><br /><p>Hospital Hours</p>
+    </a>
+    <a href="@Url.Action("Index", "Home")" class="tab-icon">
+        <i class="fa fa-file-invoice-dollar"></i><br /><p>Pay My Bill</p>
+    </a>
+    <a href="@Url.Action("List", "Faq")" class="tab-icon">
+        <i class="fa fa-question"></i><br /><p>FAQs</p>
+    </a>
 </div>
 
 <div class="row">

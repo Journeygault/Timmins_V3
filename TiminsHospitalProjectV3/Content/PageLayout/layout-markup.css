@@ -1,5 +1,5 @@
 ﻿body {
-    padding-top: 180px;
+    padding-top: 123px;
     margin: 0;
     overflow-x: hidden;
     padding-bottom: 0;
@@ -125,4 +125,120 @@ footer {
         padding-right: 0;
     }
 }
-
+/*Index Page*/
+.emergency-button {
+    padding: 20px 0;
+    overflow: hidden;
+}
+    .emergency-button button {
+        border: 2px solid red;
+        border-radius: 50px;
+        padding: 5px 10px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 170px;
+        align-items: center;
+        background: white;
+    }
+@media (max-width: 635px) {
+    .emergency-button button {
+        padding: 3px 8px;
+        width: 150px;
+    }
+    .emergency-button h4 {
+        font-size: 16px;
+    }
+}
+    .emergency-button button:hover {
+        background: #ffadad;
+    }
+.emergency-button h4 {
+    color: red;
+}
+    .emergency-button span {
+        font-size: 20px;
+        background: red;
+        display: inline-block;
+        padding: 0 8px;
+        border-radius: 50%;
+        color: white;
+    }
+.index-image {
+    width: 100%;
+    height: 350px;
+    color: inherit;
+    background: #eeeeee;
+}
+.tab-icon-links {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+}
+.tab-icon {
+    border: black thin solid;
+    width: 14.28571428571429%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    flex-direction: column
+}
+.tab-icon:not(.tab-icon:nth-child(7)){
+    border-right: none;
+}
+@media (max-width: 995px) {
+    .tab-icon-links {
+        flex-direction: column;
+        flex-wrap: wrap;
+    }
+    .tab-icon {
+        width: 100%;
+        padding-top: 0;
+        padding-bottom: 0;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        text-align: center;
+    }
+    .tab-icon p{
+        margin: 0;
+        padding-top: 5px;
+    }
+    .fa-info-circle:before, .fa-hand-holding-usd:before, .fa-stethoscope:before, .fa-phone-square:before, .fa-calendar-alt:before, .fa-file-invoice-dollar:before, .fa-question:before {
+        font-size: 16px;
+        padding-right: 10px;
+    }
+}
+.tab-icon i {
+    font-size: 23px;
+    padding-bottom: 10px;
+}
+    .tab-icon p {
+        color: black;
+        text-decoration: none;
+    }
+        .tab-icon:hover {
+            background: #f8f9fa;
+            text-decoration: none;
+        }
+.fa-info-circle {
+    color: #4f5487;
+}
+.fa-hand-holding-usd {
+    color: #9973ab;
+}
+.fa-stethoscope {
+    color: #038dd0;
+}
+.fa-phone-square {
+    color: #dc954b;
+}
+.fa-calendar-alt {
+    color: #76b830;
+}
+.fa-file-invoice-dollar {
+    color: #f45556;
+}
+.fa-question {
+    color: #4f5487;
+}

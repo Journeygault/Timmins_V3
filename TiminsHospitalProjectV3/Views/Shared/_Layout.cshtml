@@ -29,15 +29,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <!---Html.ActionLink("TADH", "Index", "Home", new { area = "" }, new { class = "navbar-brand" })-->
+                @Html.ActionLink("TADH", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse li-links">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("FAQ", "List", "Faq")</li>
                     <li>@Html.ActionLink("Job Application", "List", "Employee")</li>
+                    <li>@Html.ActionLink("Contact Us", "Contact", "Home")</li>
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -77,7 +76,7 @@
                     <li>@Html.ActionLink("Login Into TADH", "Index", "Home")</li>
                     <li>@Html.ActionLink("Pay A Bill", "Index", "Home")</li>
                     <li>@Html.ActionLink("Send An E-Card", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Make A Donation", "Index", "Home")</li>
+                    <li>@Html.ActionLink("Make A Donation", "List", "Donation")</li>
                     <li>@Html.ActionLink("Refer Patients", "Index", "Home")</li>
                 </ul>
             </div>
@@ -88,7 +87,7 @@
                     <li>@Html.ActionLink("Education", "Index", "Home")</li>
                     <li>@Html.ActionLink("Health Care Professionals", "Index", "Home")</li>
                     <li>@Html.ActionLink("Hospital Map", "Index", "Home")</li>
-                    <li>@Html.ActionLink("FAQ's", "Index", "Home")</li>
+                    <li>@Html.ActionLink("FAQ's", "List", "Faq")</li>
                 </ul>
             </div>
         </div>
