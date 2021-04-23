@@ -39,12 +39,21 @@ namespace TiminsHospitalProjectV3.Controllers
             }
             public ActionResult List()
             {
-                string url = "EventData/GetEvents";
+
+            ListEvents ViewModel = new ListEvents();
+            ViewModel.isadmin = User.IsInRole("Admin");
+
+            string url = "EventData/GetEvents";
                 HttpResponseMessage response = client.GetAsync(url).Result;
                 if (response.IsSuccessStatusCode)
                 {
                     IEnumerable<EventDto> SelectedEvents = response.Content.ReadAsAsync<IEnumerable<EventDto>>().Result;
-                    return View(SelectedEvents);
+                    ViewModel.events = SelectedEvents;
+
+                return View(ViewModel);
+
+
+
                 }
                 else
                 {

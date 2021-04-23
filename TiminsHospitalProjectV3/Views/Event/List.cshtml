@@ -1,10 +1,10 @@
-﻿@model IEnumerable<TiminsHospitalProjectV3.Models.EventDto>
+﻿@model TiminsHospitalProjectV3.Models.ViewModels.ListEvents
 
 @{
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
+<h2>Upcoming Events</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,58 +12,128 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            Title
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EventHasImage)
+            EventHasImage
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PicExtension)
+            PicExtension
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EventDate)
+            EventDate
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EventDisc)
+            EventDisc
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.EventHasOcured)
+            EventHasOcured
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.UserID)
+            UserID
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model.events)
+    {
+        if (item.EventHasOcured != true)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventHasImage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PicExtension)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventDisc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventHasOcured)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserID)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.EventId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.EventId }) |
+                    @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.EventId })
+                </td>
+            </tr>
+        }
+    }
+</table>
+<!--if (Model.isadmin)-->
+
+<h2>Past Events</h2>
+<table class="table">
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventHasImage)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PicExtension)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventDisc)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EventHasOcured)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.UserID)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EventId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.EventId }) |
-            @Html.ActionLink("Delete", "DeleteConfirm", new { id=item.EventId })
-        </td>
+        <th>
+            Title
+        </th>
+        <th>
+            EventHasImage
+        </th>
+        <th>
+            PicExtension
+        </th>
+        <th>
+            EventDate
+        </th>
+        <th>
+            EventDisc
+        </th>
+        <th>
+            EventHasOcured
+        </th>
+        <th>
+            UserID
+        </th>
+        <th></th>
     </tr>
-}
+
+    @foreach (var item in Model.events)
+    {
+        if (item.EventHasOcured == true)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Title)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventHasImage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PicExtension)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventDisc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EventHasOcured)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserID)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.EventId }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.EventId }) |
+                    @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.EventId })
+                </td>
+            </tr>
+        }
+    }
 
 </table>
+}
+
