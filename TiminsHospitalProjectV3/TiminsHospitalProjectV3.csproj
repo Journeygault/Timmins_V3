@@ -279,6 +279,10 @@
     <Compile Include="Migrations\202104240116390_initial-project.designer.cs">
       <DependentUpon>202104240116390_initial-project.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104240438594_donations-updates.cs" />
+    <Compile Include="Migrations\202104240438594_donations-updates.designer.cs">
+      <DependentUpon>202104240438594_donations-updates.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Bill.cs" />
@@ -621,6 +625,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104240116390_initial-project.resx">
       <DependentUpon>202104240116390_initial-project.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104240438594_donations-updates.resx">
+      <DependentUpon>202104240438594_donations-updates.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

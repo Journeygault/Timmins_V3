@@ -116,21 +116,22 @@ namespace TiminsHospitalProjectV3.Controllers
         /// <returns>Retrieves Data</returns>
         // GET: Donation/Create
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             UpdateDonation ViewModel = new UpdateDonation();
-            string url = "EventData/GetCategories";
+            ViewModel.isadmin = User.IsInRole("Admin");
+            string url = "EventData/GetEvents";
             HttpResponseMessage response = client.GetAsync(url).Result;
-            IEnumerable<EventDto> PotetnialCategories = response.Content.ReadAsAsync<IEnumerable<EventDto>>().Result;
-            ViewModel.Allevents = PotetnialCategories;
+            IEnumerable<EventDto> PotetnialEvents = response.Content.ReadAsAsync<IEnumerable<EventDto>>().Result;
+            ViewModel.Allevents = PotetnialEvents;
             return View(ViewModel);
         }
         /// <returns>Seralizes the inputs and Adds</returns>
         // POST: Donation/Create
         [HttpPost]
         [ValidateAntiForgeryToken()]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public ActionResult Create(Donation DonationInfo)
         {
             //pass along authentication credential in http request
