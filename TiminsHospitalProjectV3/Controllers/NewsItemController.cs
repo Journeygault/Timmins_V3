@@ -37,14 +37,36 @@ namespace TiminsHospitalProjectV3.Controllers
 
 
         }
+
+        private void GetApplicationCookie()
+        {
+            string token = "";
+           
+            client.DefaultRequestHeaders.Remove("Cookie");
+            if (!User.Identity.IsAuthenticated) return;
+
+            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
+            if (cookie != null) token = cookie.Value;
+
+            Debug.WriteLine("Token Submitted is : " + token);
+            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
+
+            return;
+        }
         public ActionResult List()
         {
+            ListNewsItems ViewModel = new ListNewsItems();
+            ViewModel.isadmin = User.IsInRole("Admin"); 
+
             string url = "NewsItemData/GetNewsItems";
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
-                IEnumerable<NewsItemDto> SelectedNewsItems = response.Content.ReadAsAsync<IEnumerable<NewsItemDto>>().Result;
-                return View(SelectedNewsItems);
+                IEnumerable<NewsItemDto> SelectedEvents = response.Content.ReadAsAsync<IEnumerable<NewsItemDto>>().Result;
+                ViewModel.newsItems = SelectedEvents;
+
+                return View(ViewModel);
+
             }
             else
             {
@@ -84,8 +106,11 @@ namespace TiminsHospitalProjectV3.Controllers
         // POST: Hop/Create
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Create(NewsItem NewsItemInfo)
         {
+            GetApplicationCookie();
             //Debug.WriteLine(NewsItem.NewsItemID);
             string url = "NewsItemData/AddNewsItem";//CHANGE
             NewsItemInfo.UserID = User.Identity.GetUserId();
@@ -118,6 +143,8 @@ namespace TiminsHospitalProjectV3.Controllers
             }
         }
         [HttpGet]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult DeleteConfirm(int id)
         {
             string url = "NewsItemData/FindNewsItem/" + id;
@@ -143,8 +170,11 @@ namespace TiminsHospitalProjectV3.Controllers
         // POST: Hop/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Delete(int id)
         {
+            GetApplicationCookie();
             string url = "NewsItemData/DeleteNewsItem/" + id;
             //post body is empty
             HttpContent content = new StringContent("");
@@ -163,6 +193,8 @@ namespace TiminsHospitalProjectV3.Controllers
             }
 
         }
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Edit(int id)
         {
             UpdateNewsItem ViewModel = new UpdateNewsItem();
@@ -199,11 +231,14 @@ namespace TiminsHospitalProjectV3.Controllers
         /// <param name="HopInfo">The information on a hop</param>
         /// <returns></returns>
         // POST: Hop/Edit/5
+        [Authorize(Roles = "Admin")]
+
         [HttpPost]
         [ValidateAntiForgeryToken()]
 
         public ActionResult Edit(int id, NewsItem NewsItemInfo, HttpPostedFileBase NewsItemImage)
         {
+            GetApplicationCookie();
 
             string url = "NewsItemData/UpdateNewsItem/" + id;
             NewsItemInfo.UserID = User.Identity.GetUserId();

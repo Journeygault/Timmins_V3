@@ -1,4 +1,5 @@
-﻿@model IEnumerable<TiminsHospitalProjectV3.Models.NewsItemDto>
+﻿@model TiminsHospitalProjectV3.Models.ViewModels.ListNewsItems
+
 
 
 @{
@@ -13,37 +14,41 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            Title
         </th>
+
         <th>
-            @Html.DisplayNameFor(model => model.NewsBody)
+            Date
         </th>
+        @if (Model.isadmin)
+        {
+            <th>
+                News Item Has Picure?
+            </th>
+            <th>
+                Pic Extention
+            </th>
+            <th>
+                Last Created/updated by:
+            </th>
+        }
         <th>
-            @Html.DisplayNameFor(model => model.NewItemDate)
+            Details
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NewsItemHasPic)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NewsItemPicExtension)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserID)
-        </th>
-        <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NewsBody)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NewItemDate)
-        </td>
+    @foreach (var item in Model.newsItems)
+    {
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.NewItemDate)
+    </td>
+    @if (Model.isadmin)
+    {
         <td>
             @Html.DisplayFor(modelItem => item.NewsItemHasPic)
         </td>
@@ -53,12 +58,16 @@
         <td>
             @Html.DisplayFor(modelItem => item.UserID)
         </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.NewsItemID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.NewsItemID }) |
-            @Html.ActionLink("Delete", "DeleteConfirm", new { id=item.NewsItemID })
-        </td>
+    }
+<td>
+    @if (Model.isadmin)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = item.NewsItemID }) 
+        @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.NewsItemID })
+    }
+    @Html.ActionLink("Details", "Details", new { id = item.NewsItemID }) 
+</td>
     </tr>
-}
+    }
 
 </table>

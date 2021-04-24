@@ -78,6 +78,7 @@ namespace TiminsHospitalProjectV3.Controllers
         }
         [ResponseType(typeof(NewsItem))]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult AddNewsItem([FromBody] NewsItem newsItem)
         {
             //Just checks to see if the model is valid
@@ -94,6 +95,7 @@ namespace TiminsHospitalProjectV3.Controllers
         // GET: api/NewsItemData/DeleteNewsItem
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult DeleteNewsItem(int id)
         {
 
@@ -112,6 +114,7 @@ namespace TiminsHospitalProjectV3.Controllers
 
         [ResponseType(typeof(void))]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult UpdateNewsItem(int id, [FromBody] NewsItem newsItem)
         {
             if (!ModelState.IsValid)
@@ -150,6 +153,7 @@ namespace TiminsHospitalProjectV3.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult UpdateNewsItemImage(int id)
         {
 

@@ -80,6 +80,7 @@ namespace TiminsHospitalProjectV3.Controllers
         }
         [ResponseType(typeof(Event))]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult AddEvent([FromBody] Event @event)
         {
             //Just checks to see if the model is valid
@@ -94,6 +95,7 @@ namespace TiminsHospitalProjectV3.Controllers
             return Ok(@event.EventId); ;
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult DeleteEvent(int id)
         {
 
@@ -120,6 +122,7 @@ namespace TiminsHospitalProjectV3.Controllers
         }
         [ResponseType(typeof(void))]
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult UpdateEvent(int id, [FromBody] Event @event)
         {
             if (!ModelState.IsValid)
@@ -158,6 +161,7 @@ namespace TiminsHospitalProjectV3.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult UpdateEventImage(int id)
         {
 

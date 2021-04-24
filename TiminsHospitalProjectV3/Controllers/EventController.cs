@@ -37,7 +37,23 @@ namespace TiminsHospitalProjectV3.Controllers
 
 
             }
-            public ActionResult List()
+
+        private void GetApplicationCookie()
+        {
+            string token = "";
+
+            client.DefaultRequestHeaders.Remove("Cookie");
+            if (!User.Identity.IsAuthenticated) return;
+
+            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
+            if (cookie != null) token = cookie.Value;
+
+            Debug.WriteLine("Token Submitted is : " + token);
+            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
+
+            return;
+        }
+        public ActionResult List()
             {
 
             ListEvents ViewModel = new ListEvents();
@@ -101,8 +117,10 @@ namespace TiminsHospitalProjectV3.Controllers
         // POST: Hop/Create
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(Event EventInfo)
         {
+            GetApplicationCookie();
             //Debug.WriteLine(NewsItem.NewsItemID);
             string url = "EventData/AddEvent";
             EventInfo.UserID = User.Identity.GetUserId();
@@ -139,6 +157,7 @@ namespace TiminsHospitalProjectV3.Controllers
             }
         }
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)
         {
             string url = "EventData/FindEvent/" + id;
@@ -164,8 +183,10 @@ namespace TiminsHospitalProjectV3.Controllers
         // POST: Hop/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
+            GetApplicationCookie();
             string url = "EventData/DeleteEvent/" + id;
             //post body is empty
             HttpContent content = new StringContent("");
@@ -184,6 +205,7 @@ namespace TiminsHospitalProjectV3.Controllers
             }
 
         }
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             UpdateEvent ViewModel = new UpdateEvent();
@@ -222,10 +244,10 @@ namespace TiminsHospitalProjectV3.Controllers
         // POST: Hop/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
-
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id, Event EventInfo, HttpPostedFileBase EventImage) 
         {
-
+            GetApplicationCookie();
             string url = "EventData/UpdateEvent/" + id;
             EventInfo.UserID = User.Identity.GetUserId();
 
