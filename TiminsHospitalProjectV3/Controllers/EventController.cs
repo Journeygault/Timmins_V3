@@ -26,7 +26,9 @@ namespace TiminsHospitalProjectV3.Controllers
             {
                 HttpClientHandler handler = new HttpClientHandler()
                 {
-                    AllowAutoRedirect = false
+                    AllowAutoRedirect = false,
+                    UseCookies = false
+
                 };
                 client = new HttpClient(handler);
                 //change this to match your own local port number
