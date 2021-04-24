@@ -9,27 +9,45 @@ using System.ComponentModel;
 
 namespace TiminsHospitalProjectV3.Models
 {
+
     public class Donation
     {
         [Key]
         public int DonationID { get; set; }
         //These are columns for users that are not signed in ...
+        [Required]
         public string FistName { get; set; }
+        [Required]
         public string LastName { get; set; }
+        [Required]
         public string Email { get; set; }
-        public string PhoneNumber { get; set; }
+        [Required]
         //...
+        public string PhoneNumber { get; set; }
+        [Required]
         public string Address { get; set; }
+        [Required]
         public string Country { get; set; }
+        [Required]
         public string Zip { get; set; }
+        [Required]
         public string Province { get; set; }
+        [Required]
         public string City { get; set; }
+        [Required]
         public decimal Amount { get; set; }
+        [Required]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }//Validate Date
+        [Required]
         public string CardName { get; set; }
+        [Required]
         public int CardNumber { get; set; }
+        [Required]
         public DateTime ExpiryDate { get; set; }//Validate Date
+        [Required]
         public int CVV { get; set; }
+        [Required]
         public string CardType { get; set; }
         public string CompanyName { get; set; }
         //Foreign Key set on the Event id in the Events Table
