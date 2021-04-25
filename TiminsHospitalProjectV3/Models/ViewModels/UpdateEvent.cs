@@ -7,6 +7,7 @@ namespace TiminsHospitalProjectV3.Models.ViewModels
 {
     public class UpdateEvent
     {
+        //Allows for easy updating of the events throlugh the DTO
         
         public EventDto Event { get; set; }
         //information that is sent from the user table

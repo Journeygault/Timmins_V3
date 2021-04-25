@@ -9,6 +9,7 @@ using System.ComponentModel.DataAnnotations;
 namespace TiminsHospitalProjectV3.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
+   
     public class ApplicationUser : IdentityUser
     {
         [Required]
@@ -39,6 +40,7 @@ namespace TiminsHospitalProjectV3.Models
         {
             return new ApplicationDbContext();
         }
+ //The following defines the tables in the database
 
         public DbSet<NewsItem> NewsItems { get; set; }
         public DbSet<Category> Categories { get; set; }

@@ -26,7 +26,9 @@ namespace TiminsHospitalProjectV3.Controllers
             {
                 HttpClientHandler handler = new HttpClientHandler()
                 {
-                    AllowAutoRedirect = false
+                    AllowAutoRedirect = false,
+                    UseCookies = false
+
                 };
                 client = new HttpClient(handler);
                 //change this to match your own local port number
@@ -37,7 +39,23 @@ namespace TiminsHospitalProjectV3.Controllers
 
 
             }
-            public ActionResult List()
+
+        private void GetApplicationCookie()
+        {
+            string token = "";
+
+            client.DefaultRequestHeaders.Remove("Cookie");
+            if (!User.Identity.IsAuthenticated) return;
+
+            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
+            if (cookie != null) token = cookie.Value;
+
+            Debug.WriteLine("Token Submitted is : " + token);
+            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
+
+            return;
+        }
+        public ActionResult List()
             {
 
             ListEvents ViewModel = new ListEvents();
@@ -101,8 +119,10 @@ namespace TiminsHospitalProjectV3.Controllers
         // POST: Hop/Create
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(Event EventInfo)
         {
+            GetApplicationCookie();
             //Debug.WriteLine(NewsItem.NewsItemID);
             string url = "EventData/AddEvent";
             EventInfo.UserID = User.Identity.GetUserId();
@@ -120,7 +140,6 @@ namespace TiminsHospitalProjectV3.Controllers
                     return RedirectToAction("Details", new
                     {
                         id = eventid,
-                        ///THE FOLLOWING LINE
                        
 
 
@@ -138,13 +157,14 @@ namespace TiminsHospitalProjectV3.Controllers
                 return RedirectToAction("Error");
             }
         }
+        //Allows Admin to find specific Event for deletion
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)
         {
             string url = "EventData/FindEvent/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             //Can catch the status code (200 OK, 301 REDIRECT), etc.
-            //Debug.WriteLine(response.StatusCode);
             if (response.IsSuccessStatusCode)
             {
                 //Put data into Hop data transfer object
@@ -156,16 +176,14 @@ namespace TiminsHospitalProjectV3.Controllers
                 return RedirectToAction("Error");
             }
         }
-        /// <summary>
-        /// Same as aboves security measures
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
+        //Deletes the event
         // POST: Hop/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
+            GetApplicationCookie();
             string url = "EventData/DeleteEvent/" + id;
             //post body is empty
             HttpContent content = new StringContent("");
@@ -184,6 +202,9 @@ namespace TiminsHospitalProjectV3.Controllers
             }
 
         }
+
+        //Allows the Admin to edit
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             UpdateEvent ViewModel = new UpdateEvent();
@@ -194,8 +215,9 @@ namespace TiminsHospitalProjectV3.Controllers
             {
                 //Put data into Hop data transfer object
                 EventDto SelectedEvent = response.Content.ReadAsAsync<EventDto>().Result;
-                ViewModel.Event = SelectedEvent;//CHECK FOR CAPITAL
-                //The following is for a forign key
+                ViewModel.Event = SelectedEvent;
+                //The following is for a forign key that may later be added
+
                 /*url = "HopClassificationdata/getHopClassifications";
                 response = client.GetAsync(url).Result;
                 IEnumerable<HopClassificationDto> PotentialHops = response.Content.ReadAsAsync<IEnumerable<HopClassificationDto>>().Result;
@@ -211,21 +233,13 @@ namespace TiminsHospitalProjectV3.Controllers
         ///<results>Edits a specific hop</results>
 
 
-        /// <summary>
-        /// The following is for security reasons as i understand it,
-        /// The validantiforgerytoken helps to protect the database, though 
-        /// the specifics of how it acomplishes that is beond me
-        /// </summary>
-        /// <param name="id">specific hop id</param>
-        /// <param name="HopInfo">The information on a hop</param>
-        /// <returns></returns>
-        // POST: Hop/Edit/5
+        //Alows the admin to edit or add photos to an event
         [HttpPost]
         [ValidateAntiForgeryToken()]
-
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id, Event EventInfo, HttpPostedFileBase EventImage) 
         {
-
+            GetApplicationCookie();
             string url = "EventData/UpdateEvent/" + id;
             EventInfo.UserID = User.Identity.GetUserId();
 
@@ -241,6 +255,7 @@ namespace TiminsHospitalProjectV3.Controllers
                 {
                     Debug.WriteLine("Calling Update Image method.");
                     //Send over image data for player
+                    //Calls the update event images method
                     url = "EventData/UpdateEventImage/" + id;
                     Debug.WriteLine("Received player picture "+ EventImage.FileName);
 

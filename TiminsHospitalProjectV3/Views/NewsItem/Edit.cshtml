@@ -11,71 +11,72 @@
 
 {
     @Html.AntiForgeryToken()
+    <!--This is using the built in razor validation-->
 
-<div class="form-horizontal">
-    <h4>NewsItem</h4>
-    <hr />
-
-
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.newsItem.NewsItemID, new { Name = "NewsItemID" })
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.newsItem.Title, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.newsItem.Title, new { htmlAttributes = new { @class = "form-control", Name = "Title" } })
-            @Html.ValidationMessageFor(model => model.newsItem.Title, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.newsItem.NewsBody, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.newsItem.NewsBody, new { htmlAttributes = new { @class = "form-control", Name = "NewsBody" } })
-            @Html.ValidationMessageFor(model => model.newsItem.NewsBody, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.newsItem.NewItemDate, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.newsItem.NewItemDate, new { htmlAttributes = new { @class = "form-control", Name = "NewItemDate" } })
-            @Html.ValidationMessageFor(model => model.newsItem.NewItemDate, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    <div class="form-horizontal">
+        <h4>NewsItem</h4>
+        <hr />
 
 
-    <!-- <div class="form-group">
-         @Html.LabelFor(model => model.newsItem.UserID, htmlAttributes: new { @class = "control-label col-md-2" })
-         <div class="col-md-10">
-             @Html.EditorFor(model => model.newsItem.UserID, new { htmlAttributes = new { @class = "form-control", Name = "UserID" } })
-             @Html.ValidationMessageFor(model => model.newsItem.UserID, "", new { @class = "text-danger" })
-         </div>
-     </div>
-        -->
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.newsItem.NewsItemID, new { Name = "NewsItemID" })
 
-
-
-
-
-    <div class="col-md-6">
         <div class="form-group">
-            <div class="col-md-12">Picture:</div>
-            <div class="col-md-12">
-                <input type="file" name="NewsItemImage" />
+            @Html.LabelFor(model => model.newsItem.Title, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.newsItem.Title, new { htmlAttributes = new { @class = "form-control", Name = "Title" } })
+                @Html.ValidationMessageFor(model => model.newsItem.Title, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.newsItem.NewsBody, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.newsItem.NewsBody, new { htmlAttributes = new { @class = "form-control", Name = "NewsBody" } })
+                @Html.ValidationMessageFor(model => model.newsItem.NewsBody, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.newsItem.NewItemDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.newsItem.NewItemDate, new { htmlAttributes = new { @class = "form-control", Name = "NewItemDate" } })
+                @Html.ValidationMessageFor(model => model.newsItem.NewItemDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <!-- <div class="form-group">
+             @Html.LabelFor(model => model.newsItem.UserID, htmlAttributes: new { @class = "control-label col-md-2" })
+             <div class="col-md-10">
+                 @Html.EditorFor(model => model.newsItem.UserID, new { htmlAttributes = new { @class = "form-control", Name = "UserID" } })
+                 @Html.ValidationMessageFor(model => model.newsItem.UserID, "", new { @class = "text-danger" })
+             </div>
+         </div>
+            -->
+
+
+
+        <!--IMAGE UPLOAD-->
+
+        <div class="col-md-6">
+            <div class="form-group">
+                <div class="col-md-12">Picture:</div>
+                <div class="col-md-12">
+                    <input type="file" name="NewsItemImage" />
+
+
+                </div>
 
             </div>
+        </div>
 
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
         </div>
     </div>
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
 
 <div>

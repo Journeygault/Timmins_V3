@@ -4,7 +4,7 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2> @Html.DisplayFor(model => model.newsItem.Title)</h2>
 @{
     //Use server rendering to determine an image
     string pic = "/Content/NewsItems/default.jpg";
@@ -16,59 +16,17 @@
     }
 }
 <div>
-    <h4>NewsItem</h4>
     <img src="@pic" alt="@alt" width="200" />
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.newsItem.Title)
-        </dt>
+    <p>
+        <b>Publication Date:</b>  @Html.DisplayFor(model => model.newsItem.NewItemDate)
+    </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.newsItem.Title)
-        </dd>
+    <br />
 
-        <dt>
-            @Html.DisplayNameFor(model => model.newsItem.NewsBody)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.newsItem.NewsBody)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.newsItem.NewItemDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.newsItem.NewItemDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.newsItem.NewsItemHasPic)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.newsItem.NewsItemHasPic)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.newsItem.NewsItemPicExtension)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.newsItem.NewsItemPicExtension)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.newsItem.UserID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.newsItem.UserID)
-        </dd>
-
-    </dl>
+    <p>
+        @Html.DisplayFor(model => model.newsItem.NewsBody)
+    </p>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.newsItem.NewsItemID }) |

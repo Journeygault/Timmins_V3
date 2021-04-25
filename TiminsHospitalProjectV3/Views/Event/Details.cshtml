@@ -4,7 +4,9 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>
+    @Html.DisplayFor(model => model.Event.Title)
+</h2>
 
 <div>
     <h4>Event</h4>
@@ -20,64 +22,19 @@
     }
     <img src="@pic" alt="@alt" width="200" />
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Event.Title)
-        </dt>
+    
 
-        <dd>
-            @Html.DisplayFor(model => model.Event.Title)
-        </dd>
+    <hr />
+    <p>
+        <b>Publication Date:</b>  @Html.DisplayFor(model => model.Event.EventDate)
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Event.EventHasImage)
-        </dt>
+    </p>
 
-        <dd>
-            @Html.DisplayFor(model => model.Event.EventHasImage)
-        </dd>
+    <br />
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Event.PicExtension)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Event.PicExtension)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Event.EventDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Event.EventDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Event.EventDisc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Event.EventDisc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Event.EventHasOcured)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Event.EventHasOcured)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Event.UserID)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Event.UserID)
-        </dd>
-
-    </dl>
+    <p>
+        @Html.DisplayNameFor(model => model.Event.EventDisc)
+    </p>
 </div>
 <div>
     <h4>Event Sponsers:</h4>

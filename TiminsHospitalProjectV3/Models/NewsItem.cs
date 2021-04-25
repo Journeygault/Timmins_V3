@@ -8,10 +8,10 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TiminsHospitalProjectV3.Models
-{
+{//Table name
     public class NewsItem
     {
-
+//Primary key of table
         [Key]
         public int NewsItemID { get; set; }
 
@@ -19,18 +19,18 @@ namespace TiminsHospitalProjectV3.Models
 
         public string NewsBody { get; set; }
         public DateTime NewItemDate { get; set; }
+//The following two fields allow for detection of a picture and that type of picture(IE JPG)
         public bool NewsItemHasPic { get; set; }
 
-        //If the player has an image, record the extension of the image (.png, .gif, .jpg, etc.)
         public string NewsItemPicExtension { get; set; }
 
-
-        //A player plays for one team
+//The ForegnKey is of the loged in user ID 
         //[ForeignKey("AccountViewModels")]
         [ForeignKey("User")]
         public string UserID { get; set; }
         public virtual ApplicationUser User { get; set; }
     }
+ //The DTO helps keep data safe by adding a degree of seperation to the database
     public class NewsItemDto
     {
         public int NewsItemID { get; set; }
@@ -41,12 +41,9 @@ namespace TiminsHospitalProjectV3.Models
         public DateTime NewItemDate { get; set; }
         public bool NewsItemHasPic { get; set; }
 
-        //If the player has an image, record the extension of the image (.png, .gif, .jpg, etc.)
         public string NewsItemPicExtension { get; set; }
 
 
-        //A player plays for one team
-        //[ForeignKey("AccountViewModels")]
         public string UserID { get; set; }
     }
 }
