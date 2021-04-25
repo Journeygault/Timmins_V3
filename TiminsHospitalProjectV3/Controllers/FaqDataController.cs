@@ -99,6 +99,37 @@ namespace TiminsHospitalProjectV3.Controllers
             return Ok(CategoryDto);
         }
         /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        //
+        [HttpGet]
+        [Route("api/CategoryData/GetAllCategories")]
+        [ResponseType(typeof(CategoryDto))]
+        public IHttpActionResult GetAllCategories()
+        {
+            List<Category> categories = db.Categories.ToList();
+            List<Faq> faqs = db.Faqs.ToList();
+            List<CategoryDto> categoryDtos = new List<CategoryDto> { };
+            var categoryxfaq = from f in db.Faqs
+                               join c in db.Categories on f.CategoryID equals c.CategoryID
+                               into table1
+                               from c in table1.ToList()
+                               select new { category = c, faqs = f };
+
+            foreach (var Category in categoryxfaq)
+            {
+                CategoryDto NewCategory = new CategoryDto
+                {
+                    CategoryID = Category.category.CategoryID,
+                    CategoryName = Category.category.CategoryName
+                };
+                categoryDtos.Add(NewCategory);
+            }
+            return Ok(categoryDtos);
+        }
+        /// <summary>
         ///     Will Update the FAQ from the database by id.
         /// </summary>
         /// <param name="id">FaqID</param>

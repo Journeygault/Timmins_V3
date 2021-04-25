@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -75,6 +76,13 @@ namespace TiminsHospitalProjectV3.Controllers
             {
                 IEnumerable<FaqDto> SelectedFaqs = response.Content.ReadAsAsync<IEnumerable<FaqDto>>().Result;
                 ViewModel.faqs = SelectedFaqs;
+
+                //Find the Category for Project by Id
+                url = "CategoryData/GetCategories";
+                response = client.GetAsync(url).Result;
+                Debug.WriteLine(response.StatusCode);
+                IEnumerable<CategoryDto> SelectedCategory = response.Content.ReadAsAsync<IEnumerable<CategoryDto>>().Result;
+                ViewModel.categories = SelectedCategory;
 
                 return View(ViewModel);
             }

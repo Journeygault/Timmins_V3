@@ -19,7 +19,8 @@ namespace TiminsHospitalProjectV3.Models
         public string FistName { get; set; }
         [Required]
         public string LastName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The email address is required")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
         [Required]
         //...

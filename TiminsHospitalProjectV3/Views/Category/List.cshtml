@@ -4,30 +4,53 @@
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            Catagory Name
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model.categories) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.CategoryName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CategoryID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CategoryID }) |
-            @Html.ActionLink("Delete", "DeleteConfirm", new { id=item.CategoryID })
-        </td>
-    </tr>
+<h2>FAQ's</h2>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a href="/Category/Create" class="btn btn-default btn-success">Create A New Category</a>
+    </p>
 }
-
-</table>
+<form method="get" action="/Faq/List">
+    <input type="text" class="form-control" placeholder="Enter Search Keyword" name="FaqSearchKey" />
+    <input type="submit" value="Search" class="btn btn-default" />
+</form>
+<div style="padding-bottom: 1em; font-style: italic;">
+    @Model.categories.Count() result(s) found
+</div>
+<hr />
+@foreach (var item in Model.categories)
+{
+    <div class="spacing">
+        <h2 style="color: #326c90";>@Html.DisplayFor(modelItem => item.CategoryName)</h2>
+        @if (User.IsInRole("Admin"))
+        {
+            <p>
+                @Html.ActionLink("Edit", "Edit", new { id = item.CategoryID }, new { @class = "text-warning" }) |
+                @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.CategoryID }, new { @class = "text-danger" }) |
+                @Html.ActionLink("Details", "Details", new { id = item.CategoryID }, new { @class = "text-primary" })
+            </p>
+        }
+        @foreach (var faq in Model.CategoryFaqs)
+        {
+            if (item.CategoryID == faq.CategoryID)
+            {
+                <div class="spacing">
+                    <h3>@Html.DisplayFor(modelItem => faq.FaqQuestion)</h3>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <p>
+                            @Html.ActionLink("Add New FAQ", "Create", "Faq", new { id = faq.FaqID }, new { @class = "text-success" }) |
+                            @Html.ActionLink("Edit", "Edit", new { id = faq.FaqID }, new { @class = "text-warning" }) |
+                            @Html.ActionLink("Delete", "DeleteConfirm", new { id = faq.FaqID }, new { @class = "text-danger" }) |
+                            @Html.ActionLink("Details", "Details", new { id = faq.FaqID }, new { @class = "text-primary" })
+                        </p>
+                    }
+                    <p>@Html.Raw(faq.FaqAnswer)</p>
+                    <br />
+                </div>
+            }
+        }
+    </div>
+    <br />
+}

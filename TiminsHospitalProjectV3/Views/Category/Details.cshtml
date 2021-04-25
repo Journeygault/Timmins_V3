@@ -4,23 +4,19 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
-
 <div>
-    <h4>Category</h4>
+    <h2>
+        @Html.DisplayFor(model => model.Category.CategoryName)
+    </h2>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Category.CategoryName)
-        </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Category.CategoryName)
-        </dd>
-
-    </dl>
+    @foreach (var faq in Model.CategoryFaqs)
+    {
+        <h3>@Html.DisplayFor(modelItem => faq.FaqQuestion)</h3>
+        <p>@Html.Raw(faq.FaqAnswer)</p>
+    }
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Category.CategoryID }) |
-    @Html.ActionLink("Back to List", "List")
+    @Html.ActionLink("Back to List", "List", "Faq")
 </p>

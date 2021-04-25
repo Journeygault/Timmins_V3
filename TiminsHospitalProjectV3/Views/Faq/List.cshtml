@@ -1,40 +1,60 @@
 ﻿@model TiminsHospitalProjectV3.Models.ViewModels.ListFaqs
+@Styles.Render("~/Content/Faq_Category/Faq_Category.css")
 
 @{
     ViewBag.Title = "List";
 }
 
-<h1>FAQs</h1>
-
+<h1 class="middle">Frequently Asked Questions</h1>
+<br />
 @if (User.IsInRole("Admin"))
 {
     <p>
-        <a href="/Faq/Create" class="btn btn-default btn-success">Create A New FAQ</a>
+        <a href="/Category/Create" class="btn btn-default btn-success">Create A New Category</a>
     </p>
 }
 <form method="get" action="/Faq/List">
-    <input type="text" class="form-control" placeholder="Enter Search Keyword" name="FaqSearchKey" />
-    <input type="submit" value="Search" class="btn btn-default" />
+    <input type="text" class="form-control" placeholder="Enter Search Keyword" name="FaqSearchKey" id="KeySearch"/>
+    <input type="submit" value="Search" class="ConfirmationButton" />
 </form>
 <div style="padding-bottom: 1em; font-style: italic;">
     @Model.faqs.Count() result(s) found
-</div>
+</div><a href="/Faq/List" class="reset">Reset</a>
 
 <hr />
-@foreach (var item in Model.faqs)
+@foreach (var item in Model.categories)
 {
     <div class="spacing">
-        <h2>@Html.DisplayFor(modelItem => item.FaqQuestion)</h2>
+        <h2 style="color: #326c90" ;>@Html.DisplayFor(modelItem => item.CategoryName)</h2>
         @if (User.IsInRole("Admin"))
         {
             <p>
-                @Html.ActionLink("Edit", "Edit", new { id = item.FaqID }, new { @class = "text-warning" }) |
-                @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.FaqID }, new { @class = "text-danger" }) |
-                @Html.ActionLink("Details", "Details", new { id = item.FaqID }, new { @class = "text-primary" })
+                @Html.ActionLink("Edit Category", "Edit", "Category", new { id = item.CategoryID }, new { @class = "text-warning" }) |
+                @Html.ActionLink("Delete Category", "DeleteConfirm", "Category", new { id = item.CategoryID }, new { @class = "text-danger" }) |
+                @Html.ActionLink("Category Details", "Details", "Category", new { id = item.CategoryID }, new { @class = "text-primary" })
             </p>
+            <a href="/Faq/Create" class="text-success">Create A New FAQ</a>
         }
-        <p>@Html.Raw(item.FaqAnswer)</p>
-        <br />
+        @foreach (var faq in Model.faqs)
+        {
+            if (item.CategoryID == faq.CategoryID)
+            {
+                <div class="spacing">
+                    <h3>@Html.DisplayFor(modelItem => faq.FaqQuestion)</h3>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <p>
+                            @Html.ActionLink("Edit FAQ", "Edit", new { id = faq.FaqID }, new { @class = "text-warning" }) |
+                            @Html.ActionLink("Delete FAQ", "DeleteConfirm", new { id = faq.FaqID }, new { @class = "text-danger" }) |
+                            @Html.ActionLink("FAQ Details", "Details", new { id = faq.FaqID }, new { @class = "text-primary" })
+                        </p>
+                    }
+                    <p>@Html.Raw(faq.FaqAnswer)</p>
+                    <br />
+                </div>
+            }
+        }
     </div>
+    <br />
 }
 

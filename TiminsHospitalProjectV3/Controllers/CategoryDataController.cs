@@ -96,6 +96,37 @@ namespace TiminsHospitalFaqV3.Controllers
             return Ok(faqDtos);
         }
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("api/CategoryData/GetAllFaqForCategory")]
+        [ResponseType(typeof(IEnumerable<FaqDto>))]
+        public IHttpActionResult GetAllFaqForCategory()
+        {
+            List<Faq> faqs = db.Faqs.ToList();
+            List<Category> categories = db.Categories.ToList();
+            List<FaqDto> faqDtos = new List<FaqDto> { };
+            var faqxcategory = from c in db.Categories 
+                               join f in db.Faqs on c.CategoryID equals f.CategoryID
+                               into table1 from f in table1.ToList()
+                               select new { category = c, faqs = f };
+
+            foreach (var faq in faqxcategory)
+            {
+                FaqDto NewFaq = new FaqDto
+                {
+                    FaqID = faq.faqs.FaqID,
+                    FaqQuestion = faq.faqs.FaqQuestion,
+                    FaqAnswer = faq.faqs.FaqAnswer,
+                    CategoryID = faq.faqs.CategoryID,
+
+                };
+                faqDtos.Add(NewFaq);
+            }
+            return Ok(faqDtos);
+        }
+        /// <summary>
         ///     Updates the Category in the database
         /// </summary>
         /// <param name="id"></param>

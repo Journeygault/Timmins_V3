@@ -11,5 +11,6 @@ namespace TiminsHospitalProjectV3.Models.ViewModels
         //Admin will see "Create New" and "Edit" links, non-admin will not see these.
         public bool isadmin { get; set; }
         public IEnumerable<CategoryDto> categories { get; set; }
+        public IEnumerable<FaqDto> CategoryFaqs { get; set; }
     }
 }

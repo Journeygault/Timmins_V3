@@ -186,6 +186,7 @@ namespace TiminsHospitalProjectV3.Controllers
         //[Authorize(Roles = "Admin")]
         public IHttpActionResult AddDonation([FromBody] Donation donation)
         {
+            donation.Date = DateTime.Now;
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

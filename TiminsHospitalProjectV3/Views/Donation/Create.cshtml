@@ -40,7 +40,12 @@
                 @Html.ValidationMessageFor(model => model.Donation.Email, "", new { @class = "text-danger" })
             </div>
         </div>
-        }
+        } <script>
+            var Donation_Email = document.getElementById("Donation_Email");
+            if (Donation_Email.value === " " || Donation_Email === null) {
+                Donation_Email.style.background = "red"
+            }
+        </script>
         <div class="form-group">
             @Html.LabelFor(model => model.Donation.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -100,7 +105,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Donation.Date, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Donation.Date, new { htmlAttributes = new { @class = "form-control", @value = DateTime.Today.ToString("0:dd/MM/yyyy"), @readonly = "readonly" } })
+                @Html.EditorFor(model => model.Donation.Date, new { htmlAttributes = new { @class = "form-control", placehodler = DateTime.Now, @value = DateTime.Now.ToString("0:dd/MM/yyyy"), @readonly = "readonly" } })
                 @Html.ValidationMessageFor(model => model.Donation.Date, "", new { @class = "text-danger" })
             </div>
         </div>

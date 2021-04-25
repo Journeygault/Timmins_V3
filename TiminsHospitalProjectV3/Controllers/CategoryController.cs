@@ -62,17 +62,25 @@ namespace TiminsHospitalProjectV3.Controllers
         }
         /// <return>---</return>
         // GET: Category/List
-        public ActionResult List()
+        public ActionResult List(string FaqSearchKey = null)
         {
             ListCategories ViewModel = new ListCategories();
             ViewModel.isadmin = User.IsInRole("Admin");
 
-            string url = "CategoryData/GetCategories";
+            string url = "CategoryData/GetCategories" + FaqSearchKey;
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
                 IEnumerable<CategoryDto> SelectedCategories = response.Content.ReadAsAsync<IEnumerable<CategoryDto>>().Result;
                 ViewModel.categories = SelectedCategories;
+
+                //Get All Faqs for specific Category
+                url = "CategoryData/GetAllFaqForCategory";
+                response = client.GetAsync(url).Result;
+                //Debug.WriteLine(response.StatusCode);
+                IEnumerable<FaqDto> SelectedFaqs = response.Content.ReadAsAsync<IEnumerable<FaqDto>>().Result;
+                ViewModel.CategoryFaqs = SelectedFaqs;//Seen in the ViewModel Folder
+
                 return View(ViewModel);
             }
             else
@@ -138,7 +146,7 @@ namespace TiminsHospitalProjectV3.Controllers
 
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("List");
+                return RedirectToAction("List", "Faq");
             }
             else
             {
@@ -227,7 +235,7 @@ namespace TiminsHospitalProjectV3.Controllers
             Debug.WriteLine(response.StatusCode);
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("List");
+                return RedirectToAction("List", "Faq");
             }
             else
             {
