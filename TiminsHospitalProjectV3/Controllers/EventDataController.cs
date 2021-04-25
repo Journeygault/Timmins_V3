@@ -16,11 +16,16 @@ using System.Web;
 
 
 namespace TiminsHospitalProjectV3.Controllers
-{
+{/// <summary>
+/// </summary>
     public class EventDataController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: api/EventData/GetEvents
+        /// <summary>
+        /// The following gets all Event data from the events table and makes it accessible to the MVC controller
+        /// </summary>
+        /// <returns> all events and their information</returns>
         [ResponseType(typeof(IEnumerable<EventDto>))]
         public IHttpActionResult GetEvents()
         {
@@ -46,6 +51,11 @@ namespace TiminsHospitalProjectV3.Controllers
 
             return Ok(EventDtos);
         }
+        /// <summary>
+        /// Finds one specific event based off of ID
+        /// </summary>
+        /// <param name="id">the events ID</param>
+        /// <returns> all info based off a specific event</returns>
         [HttpGet]
         // GET: api/EventData/FindEvent/id
 
@@ -61,7 +71,7 @@ namespace TiminsHospitalProjectV3.Controllers
                 return NotFound();
             }
 
-            //An easy to access entry into the Hop information, safely through the DTO
+            //All event info the @ creates a verbatem string instead of accidentaly using the event key word
             EventDto @EventDto = new EventDto
             {
                 EventId = Event.EventId,
@@ -74,10 +84,14 @@ namespace TiminsHospitalProjectV3.Controllers
                 EventHasOcured = Event.EventHasOcured
             };
 
-
-            //pass along data as 200 status code OK response
-            return Ok(EventDto);
+            //Returns the Evetn DTO
+               return Ok(EventDto);
         }
+        /// <summary>
+        /// Adds an event to the database
+        /// </summary>
+        /// <param name="event"> the event in question, holds all the information</param>
+        /// <returns> This returns a new event with a new ID </returns>
         [ResponseType(typeof(Event))]
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -94,6 +108,11 @@ namespace TiminsHospitalProjectV3.Controllers
 
             return Ok(@event.EventId); ;
         }
+        /// <summary>
+        /// Allows Admin to delete an event
+        /// </summary>
+        /// <param name="id">the ID of the event to be deleted</param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public IHttpActionResult DeleteEvent(int id)
@@ -120,6 +139,12 @@ namespace TiminsHospitalProjectV3.Controllers
 
             return Ok();
         }
+        /// <summary>
+        /// Allows for the update of a specific Event
+        /// </summary>
+        /// <param name="id">The id of the event to be updated</param>
+        /// <param name="event">The event in question/ The info</param>
+        /// <returns>Returns an updated event</returns>
         [ResponseType(typeof(void))]
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -159,7 +184,11 @@ namespace TiminsHospitalProjectV3.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
-
+        /// <summary>
+        /// The following allows the admin to add an image, and update a current image
+        /// </summary>
+        /// <param name="id"> the ID of the event having the image added</param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public IHttpActionResult UpdateEventImage(int id)
@@ -181,6 +210,7 @@ namespace TiminsHospitalProjectV3.Controllers
                     //Check if the file is empty
                     if (EventImage.ContentLength > 0)
                     {
+                        //Checks the type of photo
                         var valtypes = new[] { "jpeg", "jpg", "png", "gif" };
                         var extension = Path.GetExtension(EventImage.FileName).Substring(1);
                         //Check the extension of the file
@@ -188,10 +218,10 @@ namespace TiminsHospitalProjectV3.Controllers
                         {
                             try
                             {
-                                //file name is the id of the image
+                                //file name is the id of the image, this only allows one image per event
                                 string fn = id + "." + extension;
 
-                                //get a direct file path to ~/Content/Players/{id}.{extension}
+                                //Speciies which folder the image is being stored in
                                 string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/Events/"), fn);
 
                                 //save the file
@@ -223,6 +253,11 @@ namespace TiminsHospitalProjectV3.Controllers
 
             return Ok();
         }
+        /// <summary>
+        /// The following allows each event to display all donners names
+        /// </summary>
+        /// <param name="id">The ID of the event </param>
+        /// <returns> a list of donners</returns>
         [ResponseType(typeof(IEnumerable<DonationDto>))]
         public IHttpActionResult GetDonationsForEvent(int id)
         {
@@ -241,14 +276,16 @@ namespace TiminsHospitalProjectV3.Controllers
 
 
 
-                    // public string FistName { get; set; }
-                    // public string LastName { get; set; }
                 };
                 DonationDtos.Add(NewDonation);
             }
 
             return Ok(DonationDtos);
         }
+        /// <summary>
+        /// The fllowing allows things to be completely deleted 
+        /// </summary>
+        /// <param name="disposing">the thing being disposed</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -257,6 +294,11 @@ namespace TiminsHospitalProjectV3.Controllers
             }
             base.Dispose(disposing);
         }
+        /// <summary>
+        /// Checks to see if the event exists in te fistplace
+        /// </summary>
+        /// <param name="id">the ID of the event </param>
+        /// <returns></returns>
 
         private bool EventExists(int id)
         {

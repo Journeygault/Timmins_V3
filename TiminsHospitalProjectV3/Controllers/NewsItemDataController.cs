@@ -20,8 +20,13 @@ namespace TiminsHospitalProjectV3.Controllers
 {
     public class NewsItemDataController : ApiController
     {
+       
         private ApplicationDbContext db = new ApplicationDbContext();
         // GET: api/NewsItemData/GetNewsItems
+        /// <summary>
+        /// THe following gets a list of all NewsItems
+        /// </summary>
+        /// <returns> A list of all news Items</returns>
         [ResponseType(typeof(IEnumerable<NewsItemDto>))]
         public IHttpActionResult GetNewsItems()
         {
@@ -45,6 +50,11 @@ namespace TiminsHospitalProjectV3.Controllers
 
             return Ok(NewsItemDtos);
         }
+        /// <summary>
+        /// Finds the information for one specific news item
+        /// </summary>
+        /// <param name="id">The ID of the desired news item</param>
+        /// <returns> All the information for a specific new item</returns>
         [HttpGet]
         // GET: api/NewsItemData/FindNewsItem/id
 
@@ -76,6 +86,11 @@ namespace TiminsHospitalProjectV3.Controllers
             //pass along data as 200 status code OK response
             return Ok(NewsItemDto);
         }
+        /// <summary>
+        /// Allows the admin to create a new NewsItem
+        /// </summary>
+        /// <param name="newsItem">The News Item info being created</param>
+        /// <returns> a new NEws ITem</returns>
         [ResponseType(typeof(NewsItem))]
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -93,7 +108,11 @@ namespace TiminsHospitalProjectV3.Controllers
             return Ok(newsItem.NewsItemID); ;
         }
         // GET: api/NewsItemData/DeleteNewsItem
-
+        /// <summary>
+        /// Allows the Admin to delete a specific news item
+        /// </summary>
+        /// <param name="id">The ID of the specific news item being deleted</param>
+        /// <returns> Returns OK but dosent really return anything other than having 1 less item</returns>
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public IHttpActionResult DeleteNewsItem(int id)
@@ -111,7 +130,12 @@ namespace TiminsHospitalProjectV3.Controllers
 
             return Ok();
         }
-
+        /// <summary>
+        /// Allows for the updating of one newsitem
+        /// </summary>
+        /// <param name="id">The specific news item ID</param>
+        /// <param name="newsItem">Represents the information being added</param>
+        /// <returns></returns>
         [ResponseType(typeof(void))]
         [HttpPost]
         [Authorize(Roles = "Admin")]
@@ -152,6 +176,12 @@ namespace TiminsHospitalProjectV3.Controllers
 
             return StatusCode(HttpStatusCode.NoContent);
         }
+        /// <summary>
+        /// Updates/ adds an image to a specific news item
+        /// This technique adds the image to the newsItems folder in the content folder and assigns each photo a id matching its newsitem ID this method only allows one photo per newsitem
+        /// </summary>
+        /// <param name="id"> The ID of the news item the photo is being added to</param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize(Roles = "Admin")]
         public IHttpActionResult UpdateNewsItemImage(int id)
@@ -183,7 +213,7 @@ namespace TiminsHospitalProjectV3.Controllers
                                 //file name is the id of the image
                                 string fn = id + "." + extension;
 
-                                //get a direct file path to ~/Content/Players/{id}.{extension}
+                                //Speciies which folder the image is being stored in
                                 string path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/NewsItems/"), fn);
 
                                 //save the file
@@ -215,7 +245,10 @@ namespace TiminsHospitalProjectV3.Controllers
 
             return Ok();
         }
-
+        /// <summary>
+        /// Disposes 
+        /// </summary>
+        /// <param name="disposing" >The info being disposed( deleted)</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -224,7 +257,11 @@ namespace TiminsHospitalProjectV3.Controllers
             }
             base.Dispose(disposing);
         }
-
+        /// <summary>
+        /// Checks to see if the news item exists
+        /// </summary>
+        /// <param name="id">The ID of the news item being checked</param>
+        /// <returns></returns>
         private bool NewsItemExists(int id)
         {
             return db.NewsItems.Count(e => e.NewsItemID == id) > 0;
