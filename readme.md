@@ -63,21 +63,35 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 - [ ] Can View the details about the specific data.
 - [ ] Can Edit new data into the database.
 - [ ] Can Delete data from the database.
-
-### NewsItem(Journey Gault):
-
-- [x] Can see all the data that is retrieved from the database.
-- [x] Basic Crud
-- [ ] Image upload
-- [ ] User Id functioning as forign key
-
-
-### Events(Journey Gault):
+## Journey Gault
+### NewsItem:
 
 - [x] Can see all the data that is retrieved from the database.
 - [x] Basic Crud
-- [ ] Image upload
-- [ ] User Id functioning as forign key
+- [x] Image upload
+- [x] User Id functioning as forign key
+- [ ] Styling
+- [x] Razor Validation
+- [x] Admin Only for create,update and delete
+- [x] Different layout for admins and users
+
+### Events:
+
+- [x] Can see all the data that is retrieved from the database.
+- [x] Basic Crud
+- [x] Image upload
+- [x] User Id functioning as forign key
+- [x] Sponsers forign key (one to many)
+- [ ] styling
+- [x] Razor Validation
+- [x] Admin Only for create,update and delete
+- [x] Different layout for admins and users
+
+## People who assisted Debuging my work:
+Sandra Kupfer: Assisted debugging of my image upload feature for 30 min
+Sandra Kupfer: Assisted debugging one to many relationship for 15 min
+Frank-Yves Cheuzem: Assisted Debugging Foring Key one to many relationship 30 min
+
 
 ## Adam Galek
 
