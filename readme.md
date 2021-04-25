@@ -87,7 +87,7 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 - [x] Admin Only for create,update and delete
 - [x] Different layout for admins and users
 
-## People who assisted Debuging my work:
+### People who assisted Debuging my work:
 -Sandra Kupfer: Assisted debugging of my image upload feature for 30 min
 -Sandra Kupfer: Assisted debugging one to many relationship for 15 min
 -Frank-Yves Cheuzem: Assisted Debugging Foring Key one to many relationship 30 min
