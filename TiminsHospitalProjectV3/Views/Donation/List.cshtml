@@ -4,132 +4,54 @@
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
+<h2>List of Donations</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Events.Title)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FistName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Country)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Zip)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Province)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.City)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Amount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CardName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CardNumber)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ExpiryDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CVV)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CardType)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CompanyName)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Events.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FistName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Country)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Zip)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Province)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.City)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Amount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CardName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CardNumber)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ExpiryDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CVV)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CardType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CompanyName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DonationID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.DonationID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.DonationID })
-        </td>
-    </tr>
-}
-
+<table class="table table-bordered">
+   <thead>
+       <tr>
+           <th>Full Name</th>
+           <th>Email</th>
+           <th>Phone Number</th>
+           <th>Address</th>
+           <th>City</th>
+           <th>Province</th>
+           <th>ZIP</th>
+           <th>Country</th>
+           <th>Company Name</th>
+           <th>Amount</th>
+           <th>Event Name</th>
+           <th></th>
+       </tr>
+   </thead>
+   <tbody>
+       @foreach(var donation in Model.donations) 
+        {
+           <tr>
+               <td>@Html.DisplayFor(model => donation.FistName) @Html.DisplayFor(model => donation.LastName)</td>
+               <td>@Html.DisplayFor(model => donation.Email)</td>
+               <td>@Html.DisplayFor(model => donation.PhoneNumber)</td>
+               <td>@Html.DisplayFor(model => donation.Address)</td>
+               <td>@Html.DisplayFor(model => donation.City)</td>
+               <td>@Html.DisplayFor(model => donation.Province)</td>
+               <td>@Html.DisplayFor(model => donation.Zip)</td>
+               <td>@Html.DisplayFor(model => donation.Country)</td>
+               <td>@Html.DisplayFor(model => donation.CompanyName)</td>
+               <td>@Html.DisplayFor(model => donation.Amount)</td>
+               @foreach(var item in Model.events)
+               {
+                   if(item.EventId == donation.EventId)
+                   {
+                       <td>@Html.DisplayFor(model => item.Title)</td>
+                   }
+                }
+               <td>
+                    <p>
+                        @Html.ActionLink("Edit Donation", "Edit", new { id = donation.DonationID }, new { @class = "text-warning" }) |
+                        @Html.ActionLink("Delete Donation", "DeleteConfirm", new { id = donation.DonationID }, new { @class = "text-danger" }) |
+                        @Html.ActionLink("Donation Details", "Details", new { id = donation.DonationID }, new { @class = "text-primary" })
+                    </p>
+               </td>
+           </tr>
+        }
+   </tbody>
 </table>

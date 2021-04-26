@@ -80,7 +80,14 @@
                     <li>@Html.ActionLink("Login Into TADH", "Index", "Home")</li>
                     <li>@Html.ActionLink("Pay A Bill", "Index", "Home")</li>
                     <li>@Html.ActionLink("Send An E-Card", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Make A Donation", "List", "Donation")</li>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        <li>@Html.ActionLink("Make A Donation", "List", "Donation")</li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Make A Donation", "Create", "Donation")</li>
+                    }
                     <li>@Html.ActionLink("Refer Patients", "Index", "Home")</li>
                 </ul>
             </div>

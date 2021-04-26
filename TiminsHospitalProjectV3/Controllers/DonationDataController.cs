@@ -138,7 +138,7 @@ namespace TiminsHospitalProjectV3.Controllers
         [HttpPost]
         [Route("api/DonationData/UpdateDonation/{id}")]
         [ResponseType(typeof(void))]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult UpdateDonation(int id, [FromBody] Donation donation)
         {
             /*If the Model State is not 
@@ -205,7 +205,7 @@ namespace TiminsHospitalProjectV3.Controllers
         [HttpPost]
         [Route("api/DonationData/DeleteDonation/{id}")]
         [ResponseType(typeof(Donation))]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult DeleteDonation(int id)
         {
             Donation donation = db.Donations.Find(id);

@@ -1,0 +1,16 @@
+﻿@model TiminsHospitalProjectV3.Models.ViewModels.ListDonations
+@{
+    ViewBag.Title = "Confirmation";
+}
+
+<p>Your Donation was approved</p>
+<h2>Thank you for your contribution and support</h2>
+<p>We have emailed your pay statement to [Email Here]</p>
+
+<div>
+    @Html.ActionLink("Back to Main", "Index", "Home")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

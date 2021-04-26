@@ -10,9 +10,18 @@
     <a href="@Url.Action("Index", "Home")" class="tab-icon">
         <i class="fa fa-info-circle"></i><br /><p>Visitor Information</p>
     </a>
-    <a href="@Url.Action("Create", "Donation")" class="tab-icon">
-        <i class="fa fa-hand-holding-usd"></i><br /><p>Make A Donation</p>
-    </a>
+    @if (User.IsInRole("Admin"))
+     {
+        <a href="@Url.Action("List", "Donation")" class="tab-icon">
+            <i class="fa fa-hand-holding-usd"></i><br /><p>Make A Donation</p>
+        </a>
+     } 
+    else 
+    {
+        <a href="@Url.Action("Create", "Donation")" class="tab-icon">
+            <i class="fa fa-hand-holding-usd"></i><br /><p>Make A Donation</p>
+        </a>
+    }
     <a href="@Url.Action("Index", "Home")" class="tab-icon">
         <i class="fa fa-stethoscope"></i><br/><p>Our Doctors</p>
     </a>

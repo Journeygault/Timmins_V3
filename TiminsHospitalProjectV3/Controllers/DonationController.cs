@@ -64,10 +64,11 @@ namespace TiminsHospitalProjectV3.Controllers
         /// <returns>All Donations in the database if response is successfull -
         /// otherwise redirects to error page</returns>
         // GET: Donation/List
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult List()
         {
             ListDonations ViewModel = new ListDonations();
-            ViewModel.isadmin = User.IsInRole("Admin");
 
             string url = "DonationData/GetDonations";
             HttpResponseMessage response = client.GetAsync(url).Result;
@@ -75,6 +76,13 @@ namespace TiminsHospitalProjectV3.Controllers
             {
                 IEnumerable<DonationDto> SelectedDonations = response.Content.ReadAsAsync<IEnumerable<DonationDto>>().Result;
                 ViewModel.donations = SelectedDonations;
+
+                //Get Events for Donation
+                url = "EventData/GetEvents";
+                response = client.GetAsync(url).Result;
+                Debug.WriteLine(response.StatusCode);
+                IEnumerable<EventDto> SelectedEvent = response.Content.ReadAsAsync<IEnumerable<EventDto>>().Result;
+                ViewModel.events = SelectedEvent;
 
                 return View(ViewModel);
             }
@@ -87,6 +95,8 @@ namespace TiminsHospitalProjectV3.Controllers
         /// otherwise redirects to error page</returns>
         // GET: Donation/Details/1
         [HttpGet]
+        [Authorize(Roles = "Admin")]
+
         public ActionResult Details(int id)
         {
             ShowDonation ViewModel = new ShowDonation();
@@ -99,7 +109,7 @@ namespace TiminsHospitalProjectV3.Controllers
                 DonationDto SelectedDonations = response.Content.ReadAsAsync<DonationDto>().Result;
                 ViewModel.Donation = SelectedDonations;
 
-                //Find the Event for Project by Id
+                //Find the Event for Donation by Id
                 url = "EventData/FindEventForDonation/" + id;
                 response = client.GetAsync(url).Result;
                 Debug.WriteLine(response.StatusCode);
@@ -145,7 +155,7 @@ namespace TiminsHospitalProjectV3.Controllers
             HttpResponseMessage response = client.PostAsync(url, content).Result;
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("List", "Donation");
+                return RedirectToAction("Confirmation", "Donation");
             }
             else
             {
@@ -248,6 +258,10 @@ namespace TiminsHospitalProjectV3.Controllers
             }
         }
         public ActionResult Error()
+        {
+            return View();
+        }
+        public ActionResult Confirmation()
         {
             return View();
         }

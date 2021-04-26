@@ -10,7 +10,7 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 - [x] CRUD completed for the appointments table. Can create, read, update, and delete records in the table
  through views.
  
- ![image of list of appointments](https://github.com/Journeygault/Timmins_V3/blob/master/imgs/list_appointments.jpg)
+![image of list of appointments](https://github.com/Journeygault/Timmins_V3/blob/master/imgs/list_appointments.jpg)
 
 ![image of appointment details](https://github.com/Journeygault/Timmins_V3/blob/master/imgs/details_appointment.jpg)
 
@@ -40,29 +40,49 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 - [x] use the javascript libary [flatpickr](https://flatpickr.js.org/) to select date and time requested for an appointment.
 
 ![image of appointment deletion](https://github.com/Journeygault/Timmins_V3/blob/master/imgs/calendar_appointment.jpg)
+
+---
+
 ## Alexis Arevalo:
 
-### FAQ Feature:
+### FAQ & Category Features 
 
-- [x] Users Can see all the data that is retrieved from the database.
-- [x] Users Are able to search for data that matches the input by Question or Answer.
-- [x] Admin Can see all the data that is retrieved from the database.
-- [x] Admin Are able to search for data that matches the input by Question or Answer.
-- [x] Admin Can Add new data into the database.
-- [x] Admin Can View the details about the specific data.
+- [x] Users Can see all FAQ and Category data that is retrieved from the database.
+        - User will not be able to Create, Update or Delete. They can only view the information.
+- [x] Users Are able to search for data that matches the input by FAQ Question or FAQ Answer.
+- [x] Admin Can see all FAQ and Category data that is retrieved from the database.
+- [x] Admins Are able to search for data that matches the input by FAQ Question or FAQ Answer.
+- [x] Admin Can Add new data into the database for FAQ and Category.
 - [x] Admin Can Edit new data into the database.
+        - When Adding or Editing FAQ data, the Admin has to select a given Category that is retrieved from the database.
+        - All FAQs are associated with a certain Category - Seen through a foreign key assigned in the FAQ table that links to a specific Category Id.
+- [x] Admin Can View the details about the specific data.
 - [x] Admin Can Delete data from the database.
+- [x] Validation is managed for all inputs with JS.
+- [x] Styling added.
 
-### Category Feature:
+### Donation Feature
 
-- [ ] Users Can see all the data that is retrieved from the database.
-- [ ] Users Are able to search for data that matches the input by Category.
-- [ ] Can see all the data that is retrieved from the database.
-- [ ] Are able to search for data that matches the input by Category.
-- [ ] Can Add new data into the database.
-- [ ] Can View the details about the specific data.
-- [ ] Can Edit new data into the database.
-- [ ] Can Delete data from the database.
+- [x] Users Can Add new data into the database for Donation and Event.
+- [ ] Donation date is self inputed with the recent date upon submiting.
+- [x] Users Can see all the events they made a donation to.
+- [x] Admin Can see all the data that is retrieved from the database (except users card information).
+- [x] Admin Can Edit new data into the database.
+        - When Adding or Editing Donation data, the Admin has the option to select a given Event that is retrieved from the database. /- This is only done when a user confirms they've made a mistake on one of the inputs.
+        - All Donations are associated with a certain Event - Seen through a foreign key assigned in the Donation table that links to a specific Event Id.
+- [ ] Admin Can Delete data from the database.
+- [ ] Admin Can View the details about the specific data.
+- [ ] Validation is managed for all inputs with JS.
+- [ ] Styling added.
+
+### Page Design
+
+- [x] Redesigned the footer and header with styling CSS.
+- [x] Redesigned the Index page with styling CSS
+
+- @Jorneygault /- Assisted retrieving the database.
+---
+
 ## Journey Gault
 ### NewsItem:
 
@@ -92,6 +112,7 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 -Sandra Kupfer: Assisted debugging one to many relationship for 15 min
 -Frank-Yves Cheuzem: Assisted Debugging Foring Key one to many relationship 30 min
 
+---
 
 ## Adam Galek
 
@@ -110,6 +131,7 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 #### To Add
 - [ ] Different Priviledges for admins and users for Tickets
 
+---
 
 ## Nisarg Chauhan
 
@@ -127,6 +149,8 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 - [x] Admins can update department details
 - [x] Admins can delete a department
 - [ ] Style the page
+
+---
 
 ## Steven Le
 

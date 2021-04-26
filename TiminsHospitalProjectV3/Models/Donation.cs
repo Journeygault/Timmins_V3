@@ -15,14 +15,17 @@ namespace TiminsHospitalProjectV3.Models
         [Key]
         public int DonationID { get; set; }
         //These are columns for users that are not signed in ...
-        [Required]
+        [Required(ErrorMessage = "First name is required")]
+        [RegularExpression("^([a-zA-Z]+)$", ErrorMessage = "Invalid First Name")]
         public string FistName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Last name is required")]
+        [RegularExpression("^([a-zA-Z]+)$", ErrorMessage = "Invalid Last Name")]
         public string LastName { get; set; }
         [Required(ErrorMessage = "The email address is required")]
         [EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
-        [Required]
+        [Required(ErrorMessage = "The phone number is required")]
+        [Phone(ErrorMessage = "Invalid Phone Number")]
         //...
         public string PhoneNumber { get; set; }
         [Required]
@@ -37,6 +40,10 @@ namespace TiminsHospitalProjectV3.Models
         public string City { get; set; }
         [Required]
         public decimal Amount { get; set; }
+        public Donation()
+        {
+            this.Date = DateTime.Now;
+        }
         [Required]
         [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime Date { get; set; }//Validate Date
@@ -45,6 +52,7 @@ namespace TiminsHospitalProjectV3.Models
         [Required]
         public int CardNumber { get; set; }
         [Required]
+        [DisplayFormat(DataFormatString = "{0:MM/yyyy}", ApplyFormatInEditMode = true)]
         public DateTime ExpiryDate { get; set; }//Validate Date
         [Required]
         public int CVV { get; set; }
