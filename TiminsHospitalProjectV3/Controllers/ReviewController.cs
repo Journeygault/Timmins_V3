@@ -32,6 +32,22 @@ namespace TiminsHospitalProjectV3.Controllers
             client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));
         }
+        //getting cookie 
+        private void GetApplicationCookie()
+        {
+            string token = "";
+            client.DefaultRequestHeaders.Remove("Cookie");
+            if (!User.Identity.IsAuthenticated) return;
+
+            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
+            if (cookie != null) token = cookie.Value;
+
+            //collect token
+            Debug.WriteLine("Token Submitted is : " + token);
+            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
+
+            return;
+        }
 
 
         // GET: Review
@@ -91,6 +107,7 @@ namespace TiminsHospitalProjectV3.Controllers
         // POST: Review/Create
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize (Roles = "Patient, Admin")]
         public ActionResult Create(Review NewReview)
         {
             string url = "ReviewData/AddReview";
@@ -120,6 +137,7 @@ namespace TiminsHospitalProjectV3.Controllers
             }
         }
 
+        [Authorize (Roles = "Admin")]
         // GET: Review/Edit/5
         public ActionResult Edit(int id)
         {
@@ -143,6 +161,7 @@ namespace TiminsHospitalProjectV3.Controllers
         // POST: Review/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize (Roles = "Admin")]
         public ActionResult Edit(int id, Review ReviewInfo)
         {
             string url = "ReviewData/UpdateReview/" + id;
@@ -181,6 +200,7 @@ namespace TiminsHospitalProjectV3.Controllers
         // POST: Review/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize (Roles = "Admin")]
         public ActionResult Delete(int id, FormCollection collection)
         {
             string url = "ReviewData/DeleteReview/" + id;

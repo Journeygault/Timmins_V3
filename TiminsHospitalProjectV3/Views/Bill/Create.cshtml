@@ -1,5 +1,5 @@
-﻿@model TiminsHospitalProjectV3.Models.Bill
-
+﻿@model TiminsHospitalProjectV3.Models.ViewModels.UpdateBill
+@model TiminsHospitalProjectV3.Models.BillDto
 @{
     ViewBag.Title = "Create";
 }
@@ -7,12 +7,12 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm(new { @id = "billForm", @name = "billForm" })) 
 {
     @Html.AntiForgeryToken()
+
     
     <div class="form-horizontal">
-        <h4>Bill</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -44,8 +44,10 @@
                 <input type="submit" value="Create" class="btn btn-default" />
             </div>
         </div>
+        
     </div>
-}
+        
+    }
 
 <div>
     @Html.ActionLink("Back to List", "List")

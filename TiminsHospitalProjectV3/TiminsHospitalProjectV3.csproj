@@ -314,6 +314,7 @@
     <Compile Include="Models\ViewModels\ShowNewsItem.cs" />
     <Compile Include="Models\ViewModels\ShowReview.cs" />
     <Compile Include="Models\ViewModels\ShowTicket.cs" />
+    <Compile Include="Models\ViewModels\UpdateBill.cs" />
     <Compile Include="Models\ViewModels\UpdateDonation.cs" />
     <Compile Include="Models\ViewModels\UpdateEmployee.cs" />
     <Compile Include="Models\ViewModels\UpdateEvent.cs" />
