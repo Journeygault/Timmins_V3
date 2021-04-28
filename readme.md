@@ -163,9 +163,10 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 
 
 ### Bill Payment Feature
-- [x] Admin can Create Bill
-- [x] Admin can Update Bill
-- [x] Admin can Delete Bill
+- [x] Admin can see all bills
+- [x] Admin can Create Bills
+- [x] Admin can Update Bills
+- [x] Admin can Delete Bills
 - [x] Pagination
 
 ### To Add:
