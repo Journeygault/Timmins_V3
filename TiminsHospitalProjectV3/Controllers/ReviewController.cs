@@ -19,6 +19,7 @@ namespace TiminsHospitalProjectV3.Controllers
     {
         private JavaScriptSerializer jss = new JavaScriptSerializer();
         private static readonly HttpClient client;
+        private int showPer = 4; //declaring pagination variable
         static ReviewController()
         {
             HttpClientHandler handler = new HttpClientHandler()
@@ -50,15 +51,46 @@ namespace TiminsHospitalProjectV3.Controllers
         }
 
 
-        // GET: Review
-        public ActionResult List()
+        // GET: Review/List/{PageNum}
+        public ActionResult List(int pageNum = 0)
         {
+            ListReviews ViewModel = new ListReviews();
             string url = "ReviewData/ListReviews";
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
                 IEnumerable<Review> SelectedReviews = response.Content.ReadAsAsync<IEnumerable<Review>>().Result;
-                return View(SelectedReviews);
+                //pagination
+
+                int ReviewCount = SelectedReviews.Count();
+                //4 reviews per page
+                int PerPage = 4;
+
+                //determining the max number of pages
+                int maxPage = (int)Math.Ceiling((decimal)ReviewCount / PerPage) - 1;
+
+                //setting lower boundaries
+                if (maxPage < 0) maxPage = 0;
+                if (pageNum < 0) pageNum = 0;
+
+                //setting upper boundaries
+                if (pageNum > maxPage) pageNum = maxPage;
+
+                //record index of page start
+                int startIndex = PerPage * pageNum;
+
+                //generating html
+                ViewData["PageNum"] = pageNum;
+                ViewData["PageSummary"] = " " + (pageNum + 1) + " of " + (maxPage + 1) + " ";
+
+                //end of Pagination
+                url = "reviewdata/listreviews/" + startIndex + "/" + PerPage;
+                response = client.GetAsync(url).Result;
+
+                //retrieving the response of the request
+                IEnumerable<ReviewDto> SelectedReviewsPage = response.Content.ReadAsAsync<IEnumerable<ReviewDto>>().Result;
+                ViewModel.reviews = SelectedReviewsPage;
+                return View(ViewModel);
             }
             else
             {

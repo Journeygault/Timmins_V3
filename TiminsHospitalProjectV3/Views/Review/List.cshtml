@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<TiminsHospitalProjectV3.Models.Review>
+@model IEnumerable<TiminsHospitalProjectV3.Models.ViewModels.ListReview>
 
 @{
     ViewBag.Title = "List";
@@ -14,42 +15,53 @@
     </p>
 }
 
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.ReviewDate)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReviewRating)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReviewContent)
-        </th>
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
+<div class="paginate">
+    @if (Model.review.Count() > 0)
     {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReviewDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReviewRating)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ReviewContent)
-            </td>
-            <td>
-                @if (!User.IsInRole("Admin"))
-                {
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ReviewID })
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ReviewID }) 
-                }
-                @Html.ActionLink("Details", "Details", new { id = item.ReviewID }) 
-            </td>
-        </tr>
+        int PrevPage = Convert.ToInt32(ViewData["PageNum"]) - 1;
+        int NextPage = Convert.ToInt32(ViewData["PageNum"]) - 1;
+        @Html.ActionLink("Prev", "List", new { PageNum = PrevPage })
+        @ViewData["PageSummary"]
+        @Html.ActionLink("Next", "List", new { PageNum = NextPage })
     }
 
-</table>
+
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ReviewDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReviewRating)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ReviewContent)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReviewDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReviewRating)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ReviewContent)
+                </td>
+                <td>
+                    @if (!User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ReviewID })
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ReviewID })
+                    }
+                    @Html.ActionLink("Details", "Details", new { id = item.ReviewID })
+                </td>
+            </tr>
+        }
+
+    </table>

@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<TiminsHospitalProjectV3.Models.Bill>
+@model IEnumerable<TiminsHospitalProjectV3.Models.ViewModels.ListBill>
+
 
 @{
     ViewBag.Title = "List";
@@ -12,7 +14,18 @@
         @Html.ActionLink("Create New", "Create")
     </p>
 }
+<div class="paginate">
+    @if (Model.bills.Count() > 0)
+    {
+        int PrevPage = Convert.ToInt32(ViewData["PageNum"]) - 1;
+        int NextPage = Convert.ToInt32(ViewData["PageNum"]) - 1;
+        @Html.ActionLink("Prev", "List", new { PageNum = PrevPage })
+        @ViewData["PageSummary"]
+        @Html.ActionLink("Next", "List", new { PageNum = NextPage })
+    }
 
+
+</div>
 <table class="table">
     <tr>
         <th>
