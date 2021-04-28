@@ -157,22 +157,19 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 ### Review Feature
 - [x] User can see reviews
 - [x] User can create a review
-- [x] User can update review
-- [x] User can delete a review
-- [ ] Styling
-
-To do:
-- [ ] Change permissions so that only admin can delete a review
+- [x] Admin can update review
+- [x] Admin can delete a review
+- [x] Pagination
 
 
 ### Bill Payment Feature
-- [] Basic CRUD for Table
-- [] Permissions for User + Admin
-- [] Connection to Users Table
-- [] Styling
+- [x] Admin can Create Bill
+- [x] Admin can Update Bill
+- [x] Admin can Delete Bill
+- [x] Pagination
 
-
-
+### To Add:
+- [x] Connect to User Table both Review + Bill Feature
 
 
 
