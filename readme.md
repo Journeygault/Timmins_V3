@@ -171,7 +171,7 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 ### To Add:
 - [x] Connect to User Table both Review + Bill Feature
 
-
+NOTE: Journey helped get inital migration working for my features.
 
 
 
