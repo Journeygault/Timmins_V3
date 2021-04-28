@@ -1,5 +1,5 @@
 ﻿@model IEnumerable<TiminsHospitalProjectV3.Models.Bill>
-@model IEnumerable<TiminsHospitalProjectV3.Models.ViewModels.ListBill>
+
 
 
 @{
@@ -15,7 +15,11 @@
     </p>
 }
 <div class="paginate">
-    @if (Model.bills.Count() > 0)
+    @{ 
+        int PageNum = Convert.ToInt32(ViewData["PageNum"]);
+        int MaxPages = Convert.ToInt32(ViewData["MaxPages"]);
+    }
+    @if (PageNum > 1)
     {
         int PrevPage = Convert.ToInt32(ViewData["PageNum"]) - 1;
         int NextPage = Convert.ToInt32(ViewData["PageNum"]) - 1;
