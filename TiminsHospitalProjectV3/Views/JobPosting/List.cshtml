@@ -1,0 +1,81 @@
+﻿@model IEnumerable<TiminsHospitalProjectV3.Models.JobPostingDto>
+
+@{
+    ViewBag.Title = "List of posts";
+}
+<h2>List of posts</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobCategory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.JobLocation)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PositionType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SalaryRange)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatePosted)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+<tr>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.DepartmentName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.JobCategory)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.JobTitle)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.JobDescription)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.JobLocation)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PositionType)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.SalaryRange)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DatePosted)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.JobId }) |
+        @Html.ActionLink("Details", "Details", new { id = item.JobId }) |
+        @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.JobId })
+    </td>
+</tr>
+}
+
+</table>
