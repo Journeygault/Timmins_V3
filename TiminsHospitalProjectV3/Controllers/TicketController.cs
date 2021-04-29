@@ -10,6 +10,9 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Diagnostics;
 using System.Web.Script.Serialization;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity;
+using System.Globalization;
 
 namespace TiminsHospitalProjectV3.Controllers
 {
@@ -57,14 +60,26 @@ namespace TiminsHospitalProjectV3.Controllers
         }
 
         // POST: Ticket/Create
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken()]
-        public ActionResult Create(Ticket NewTicket)
+        public ActionResult Create(CreateTicket NewTicket)
         {
-            //Debug.WriteLine(NewsItem.NewsItemID);
+
+            Ticket newTicket = new Ticket();
+            newTicket.UserID = User.Identity.GetUserId();
+            newTicket.TicketDate = DateTime.Now;
+            newTicket.TicketTitle = NewTicket.TicketTitle;
+            newTicket.TicketBody = NewTicket.TicketBody;
+            //newTicket.UserID = NewTicket.UserID;
+
+            Debug.WriteLine(User.Identity.GetUserId());
+            //Debug.WriteLine(newTicket.User.Id);
+            //Debug.WriteLine(newTicket.UserID);
+
             string url = "TicketData/AddTicket";
-            Debug.WriteLine(jss.Serialize(NewTicket));
-            HttpContent content = new StringContent(jss.Serialize(NewTicket));
+            Debug.WriteLine(jss.Serialize(newTicket));
+            HttpContent content = new StringContent(jss.Serialize(newTicket));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
 

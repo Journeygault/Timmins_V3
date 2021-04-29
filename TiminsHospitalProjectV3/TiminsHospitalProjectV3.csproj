@@ -283,6 +283,10 @@
     <Compile Include="Migrations\202104240438594_donations-updates.designer.cs">
       <DependentUpon>202104240438594_donations-updates.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104282358094_user-in-ticket.cs" />
+    <Compile Include="Migrations\202104282358094_user-in-ticket.designer.cs">
+      <DependentUpon>202104282358094_user-in-ticket.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Bill.cs" />
@@ -299,6 +303,7 @@
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Ticket.cs" />
+    <Compile Include="Models\ViewModels\CreateTicket.cs" />
     <Compile Include="Models\ViewModels\ListBill.cs" />
     <Compile Include="Models\ViewModels\ListCategories.cs" />
     <Compile Include="Models\ViewModels\ListDonations.cs" />
@@ -635,6 +640,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104240438594_donations-updates.resx">
       <DependentUpon>202104240438594_donations-updates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104282358094_user-in-ticket.resx">
+      <DependentUpon>202104282358094_user-in-ticket.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

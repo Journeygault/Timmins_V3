@@ -19,6 +19,11 @@ namespace TiminsHospitalProjectV3.Models
         public string TicketBody { get; set; }
         public DateTime TicketDate { get; set; }
 
+        // Retrieving Logged In UserID
+        [ForeignKey("User")]
+        public string UserID { get; set; }
+        public virtual ApplicationUser User { get; set; }
+
     }
     public class TicketDTO
     {
@@ -28,6 +33,12 @@ namespace TiminsHospitalProjectV3.Models
         public string TicketTitle { get; set; }
 
         public string TicketBody { get; set; }
+
         public DateTime TicketDate { get; set; }
+
+        // Retrieving Logged In UserID
+        [ForeignKey("User")]
+        public string UserID { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 }

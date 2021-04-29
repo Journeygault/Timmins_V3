@@ -234,7 +234,8 @@ namespace TiminsHospitalProjectV3.Controllers
         }
 
         // POST: Appointments/Create
-        [Authorize(Roles = "Patient,Physician")]
+        
+
         [ValidateAntiForgeryToken()]
         [HttpPost]
         public ActionResult Create(CreateViewAppointment viewAppointment)
