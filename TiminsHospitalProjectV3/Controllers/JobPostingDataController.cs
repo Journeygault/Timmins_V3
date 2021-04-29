@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -43,7 +44,8 @@ namespace TiminsHospitalProjectV3.Controllers
                     PositionType = JobPost.PositionType,
                     SalaryRange = JobPost.SalaryRange,
                     DatePosted = JobPost.DatePosted.Date,
-                    Email = JobPost.Email
+                    Email = JobPost.Email,
+                    DepartmentName = JobPost.Department.DepartmentName
                 };
                 JobPostsDtos.Add(NewJobPost);
             }
@@ -135,7 +137,9 @@ namespace TiminsHospitalProjectV3.Controllers
                 PositionType = jobPosting.PositionType,
                 SalaryRange = jobPosting.SalaryRange,
                 DatePosted = jobPosting.DatePosted.Date,
-                Email = jobPosting.Email
+                Email = jobPosting.Email,
+                DepartmentName = jobPosting.Department.DepartmentName,
+
             };
 
 
@@ -157,6 +161,7 @@ namespace TiminsHospitalProjectV3.Controllers
         [HttpPost]
         public IHttpActionResult UpdatePost(int id, [FromBody] JobPosting jobPosting)
         {
+            Debug.WriteLine("id::" + jobPosting.JobId);
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);

@@ -192,8 +192,39 @@ namespace TiminsHospitalProjectV3.Controllers
             }
 
             return StatusCode(HttpStatusCode.NoContent);
-        } 
+        }
+
         //GetJobPostings for the department In- departmentID, op- JobPostings
+        [HttpGet]
+        [ResponseType(typeof(IEnumerable<JobPostingDto>))]
+        public IHttpActionResult FindJobPostingsForDepartment(int id)
+        {
+
+            List<JobPosting> JobPostings = db.JobPostings
+                .Where(t => t.DepartmentID == id)
+                .ToList();
+
+            List<JobPostingDto> JobPostingDtos = new List<JobPostingDto> { };
+
+            foreach (var JobPosting in JobPostings)
+            {
+                JobPostingDto NewJobPosting = new JobPostingDto
+                {
+                    JobId = JobPosting.JobId,
+                    JobTitle = JobPosting.JobTitle,
+                    JobDescription = JobPosting.JobDescription,
+                    JobCategory = JobPosting.JobCategory,
+                    JobLocation = JobPosting.JobLocation,
+                    PositionType = JobPosting.PositionType,
+                    SalaryRange = JobPosting.SalaryRange,
+                    DatePosted = JobPosting.DatePosted.Date,
+                    Email = JobPosting.Email,
+                    DepartmentName = JobPosting.Department.DepartmentName
+                };
+                JobPostingDtos.Add(NewJobPosting);
+            }
+            return Ok(JobPostingDtos);
+        }
     }
 }
 

@@ -1,84 +1,87 @@
-﻿@model TiminsHospitalProjectV3.Models.JobPostingDto
+﻿@model TiminsHospitalProjectV3.Models.ViewModels.ShowJobPosting
+@{
+    ViewBag.Title = "Details";
+}
 <h2>Post Details</h2>
 <div>
 
     <hr />
     <dl class="dl-horizontal">
-        @*     <dt>
-                @Html.DisplayNameFor(model => model.Department.DepartmentName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.Department.DepartmentName)
-            </dd>*@
-
         <dt>
-            @Html.DisplayNameFor(model => model.JobCategory)
+           Department Name
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.JobCategory)
+            @Html.DisplayFor(model => model.JobPosting.DepartmentName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.JobTitle)
+            @Html.DisplayNameFor(model => model.JobPosting.JobCategory)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.JobTitle)
+            @Html.DisplayFor(model => model.JobPosting.JobCategory)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.JobDescription)
+            @Html.DisplayNameFor(model => model.JobPosting.JobTitle)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.JobDescription)
+            @Html.DisplayFor(model => model.JobPosting.JobTitle)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.JobLocation)
+            @Html.DisplayNameFor(model => model.JobPosting.JobDescription)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.JobLocation)
+            @Html.DisplayFor(model => model.JobPosting.JobDescription)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PositionType)
+            @Html.DisplayNameFor(model => model.JobPosting.JobLocation)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PositionType)
+            @Html.DisplayFor(model => model.JobPosting.JobLocation)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.JobPosting.PositionType)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Email)
+            @Html.DisplayFor(model => model.JobPosting.PositionType)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.SalaryRange)
+            @Html.DisplayNameFor(model => model.JobPosting.Email)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.SalaryRange)
+            @Html.DisplayFor(model => model.JobPosting.Email)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.DatePosted)
+            @Html.DisplayNameFor(model => model.JobPosting.SalaryRange)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.DatePosted)
+            @Html.DisplayFor(model => model.JobPosting.SalaryRange)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.JobPosting.DatePosted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.JobPosting.DatePosted)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.JobId }) |
+    @Html.ActionLink("Edit", "Edit", new { id = Model.JobPosting.JobId }) |
     @Html.ActionLink("Back to List", "List")
 </p>

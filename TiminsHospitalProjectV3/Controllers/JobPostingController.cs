@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using TiminsHospitalProjectV3.Models.ViewModels;
 
 namespace TiminsHospitalProjectV3.Controllers
 {
@@ -46,7 +47,12 @@ namespace TiminsHospitalProjectV3.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            return View();
+            UpdateJobPosting ViewModel = new UpdateJobPosting();
+            string url = "DepartmentData/GetDepartments";
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            IEnumerable<DepartmentDto> departments = response.Content.ReadAsAsync<IEnumerable<DepartmentDto>>().Result;
+            ViewModel.AllDepartments = departments;
+            return View(ViewModel);
         }
 
         // POST: JobPosting/Create
@@ -103,28 +109,12 @@ namespace TiminsHospitalProjectV3.Controllers
             }
         }
 
-        // GET: Jobposting/Edit/5
-        public ActionResult Edit(int id)
-        {
-            string url = "jobpostingdata/findpost/" + id;
-            HttpResponseMessage response = client.GetAsync(url).Result;
-            //Can catch the status code (200 OK, 301 REDIRECT), etc.
-            //Debug.WriteLine(response.StatusCode);
-            if (response.IsSuccessStatusCode)
-            {
-                //Put data into jobposting data transfer object
-                JobPostingDto SelectedPost = response.Content.ReadAsAsync<JobPostingDto>().Result;
-                return View(SelectedPost);
-            }
-            else
-            {
-                return RedirectToAction("Error");
-            }
-        }
+  
 
         // GET: Jobposting/Details/5
         public ActionResult Details(int id)
         {
+            ShowJobPosting ViewModel = new ShowJobPosting();
             string url = "jobpostingdata/findpost/" + id;
          
             HttpResponseMessage response = client.GetAsync(url).Result;
@@ -133,13 +123,45 @@ namespace TiminsHospitalProjectV3.Controllers
             {
                 // Fetch the response content into IEnumerable<JobPostingDto>
                 JobPostingDto SelectedPost = response.Content.ReadAsAsync<JobPostingDto>().Result;
-                return View(SelectedPost);
+
+                ViewModel.JobPosting = SelectedPost;
+                return View(ViewModel);
             }
             else
             {
                 return RedirectToAction("Error");
             }
         }
+
+        // GET: Jobposting/Edit/5
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+            UpdateJobPosting ViewModel = new UpdateJobPosting();
+
+            string url = "jobpostingdata/findpost/" + id;
+            HttpResponseMessage response = client.GetAsync(url).Result;
+            //Can catch the status code (200 OK, 301 REDIRECT), etc.
+            //Debug.WriteLine(response.StatusCode);
+            if (response.IsSuccessStatusCode)
+            {
+                //Put data into jobposting data transfer object
+              
+                JobPostingDto SelectedJobPostings = response.Content.ReadAsAsync<JobPostingDto>().Result;
+                ViewModel.JobPosting = SelectedJobPostings;
+                 url = "DepartmentData/GetDepartments";
+                 response = client.GetAsync(url).Result;
+                IEnumerable<DepartmentDto> departments = response.Content.ReadAsAsync<IEnumerable<DepartmentDto>>().Result;
+                ViewModel.AllDepartments = departments;
+                return View(ViewModel);
+            }
+            else
+            {
+                return RedirectToAction("Error");
+            }
+        }
+
+
 
         // POST: Jobposting/Edit/5
         [HttpPost]
@@ -148,13 +170,16 @@ namespace TiminsHospitalProjectV3.Controllers
         {
             string url = "jobpostingdata/updatepost/" + id;
             Debug.WriteLine(jss.Serialize(JobInfo));
+            Debug.WriteLine(JobInfo.JobId);
+
             HttpContent content = new StringContent(jss.Serialize(JobInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
+            Debug.WriteLine(jss.Serialize(JobInfo));
 
-            if (response.IsSuccessStatusCode)
-            {
-                return RedirectToAction("Details", new { id = id });
+              if (response.IsSuccessStatusCode)
+              {
+            return RedirectToAction("Details", new { id = id });
             }
             else
             {

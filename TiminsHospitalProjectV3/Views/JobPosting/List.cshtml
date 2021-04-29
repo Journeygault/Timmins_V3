@@ -9,7 +9,10 @@
 </p>
 <table class="table">
     <tr>
-      
+
+        <th>
+            @Html.DisplayNameFor(model => model.DepartmentName)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.JobCategory)
         </th>
@@ -38,38 +41,41 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-      
-        <td>
-            @Html.DisplayFor(modelItem => item.JobCategory)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.JobTitle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.JobDescription)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.JobLocation)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PositionType)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.SalaryRange)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DatePosted)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.JobId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.JobId }) |
-            @Html.ActionLink("Delete", "DeleteConfirm", new { id=item.JobId })
-        </td>
-    </tr>
+<tr>
+
+    <td>
+        @Html.DisplayFor(modelItem => item.DepartmentName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.JobCategory)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.JobTitle)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.JobDescription)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.JobLocation)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.PositionType)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.SalaryRange)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.DatePosted)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.JobId }) |
+        @Html.ActionLink("Details", "Details", new { id = item.JobId }) |
+        @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.JobId })
+    </td>
+</tr>
 }
 
 </table>

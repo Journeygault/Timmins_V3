@@ -12,6 +12,7 @@ namespace TiminsHospitalProjectV3.Models
         [Key]
         public int DepartmentId { get; set; }
 
+        [Required]
         public string DepartmentName { get; set; }
 
         //A department can have many job posts

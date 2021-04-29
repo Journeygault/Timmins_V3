@@ -8,6 +8,7 @@ using System.Net.Http.Headers;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Script.Serialization;
+using TiminsHospitalProjectV3.Models.ViewModels;
 
 namespace TiminsHospitalProjectV3.Controllers
 {
@@ -72,6 +73,8 @@ namespace TiminsHospitalProjectV3.Controllers
         // GET: Department/Details/5
         public ActionResult Details(int id)
         {
+            ShowDepartment showdepartment = new ShowDepartment();
+
             string url = "departmentdata/finddepartment/" + id;
 
             HttpResponseMessage response = client.GetAsync(url).Result;
@@ -79,8 +82,15 @@ namespace TiminsHospitalProjectV3.Controllers
             if (response.IsSuccessStatusCode)
             {
                 // Fetch the response content into IEnumerable<DepartmentDto>
-                DepartmentDto SelectedDepartment = response.Content.ReadAsAsync<DepartmentDto>().Result;
-                return View(SelectedDepartment);
+
+                DepartmentDto department = response.Content.ReadAsAsync<DepartmentDto>().Result;
+                showdepartment.Department = department;
+
+                url = "DepartmentData/FindJobPostingsForDepartment/" + id;
+                response = client.GetAsync(url).Result;
+                IEnumerable<JobPostingDto> jobPostings = response.Content.ReadAsAsync<IEnumerable<JobPostingDto>>().Result;
+                showdepartment.JobPostings = jobPostings;
+                return View(showdepartment);
 
             }
             else
@@ -200,6 +210,8 @@ namespace TiminsHospitalProjectV3.Controllers
                 return RedirectToAction("Error");
             }
         }
+
+        
 
         public ActionResult Error()
         {
