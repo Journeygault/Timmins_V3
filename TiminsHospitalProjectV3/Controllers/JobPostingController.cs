@@ -25,7 +25,9 @@ namespace TiminsHospitalProjectV3.Controllers
         {
             HttpClientHandler handler = new HttpClientHandler()
             {
-                AllowAutoRedirect = false
+                AllowAutoRedirect = false,
+                //cookies are manually set in RequestHeader
+                UseCookies = false
             };
             client = new HttpClient(handler);
             //change this to match your own local port number
@@ -35,16 +37,44 @@ namespace TiminsHospitalProjectV3.Controllers
 
         }
 
-        // GET: JobPosting
+        /// <summary>
+        /// Grabs the authentication credentials which are sent to the Controller.
+        /// This is NOT considered a proper authentication technique for the WebAPI. It piggybacks the existing authentication set up in the template for Individual User Accounts. Considering the existing scope and complexity of the course, it works for now.
+        /// 
+        /// Here is a descriptive article which walks through the process of setting up authorization/authentication directly.
+        /// https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/individual-accounts-in-web-api
+        /// </summary>
+        private void GetApplicationCookie()
+        {
+            string token = "";
+            //HTTP client is set up to be reused, otherwise it will exhaust server resources.
+            //This is a bit dangerous because a previously authenticated cookie could be cached for
+            //a follow-up request from someone else. Reset cookies in HTTP client before grabbing a new one.
+            client.DefaultRequestHeaders.Remove("Cookie");
+            if (!User.Identity.IsAuthenticated) return;
+
+            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
+            if (cookie != null) token = cookie.Value;
+
+            //collect token as it is submitted to the controller
+            //use it to pass along to the WebAPI.
+            Debug.WriteLine("Token Submitted is : " + token);
+            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
+
+            return;
+        }
+
+   /*     // GET: JobPosting
         public ActionResult Index()
         {
             return View();
         }
-
+*/
        
 
         // GET: JobPosting/Create
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             UpdateJobPosting ViewModel = new UpdateJobPosting();
@@ -58,6 +88,7 @@ namespace TiminsHospitalProjectV3.Controllers
         // POST: JobPosting/Create
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(JobPosting PostInfo)
         {
             try
@@ -84,9 +115,10 @@ namespace TiminsHospitalProjectV3.Controllers
                 return View();
             }
         }
- 
+
 
         // GET: JobPosting/List
+        [Authorize(Roles = "Admin")]
         public ActionResult List()
         {
             // Grab all players
@@ -109,9 +141,10 @@ namespace TiminsHospitalProjectV3.Controllers
             }
         }
 
-  
+
 
         // GET: Jobposting/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int id)
         {
             ShowJobPosting ViewModel = new ShowJobPosting();
@@ -135,6 +168,7 @@ namespace TiminsHospitalProjectV3.Controllers
 
         // GET: Jobposting/Edit/5
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             UpdateJobPosting ViewModel = new UpdateJobPosting();
@@ -166,6 +200,7 @@ namespace TiminsHospitalProjectV3.Controllers
         // POST: Jobposting/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id, JobPosting JobInfo)
         {
             string url = "jobpostingdata/updatepost/" + id;
@@ -189,6 +224,7 @@ namespace TiminsHospitalProjectV3.Controllers
 
         // GET: Jobposting/Delete/5
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)
         {
             string url = "jobpostingdata/findpost/" + id;
@@ -210,6 +246,7 @@ namespace TiminsHospitalProjectV3.Controllers
         // POST: Jobposting/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             string url = "jobpostingdata/DeleteJobPosting/" + id;

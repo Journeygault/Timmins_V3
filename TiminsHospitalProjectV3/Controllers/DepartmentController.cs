@@ -39,6 +39,7 @@ namespace TiminsHospitalProjectV3.Controllers
         // GET: Department/Create
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Admin")]
         public ActionResult Create(Department DepartmentInfo)
         {
             Debug.WriteLine(DepartmentInfo.DepartmentName);
@@ -64,13 +65,14 @@ namespace TiminsHospitalProjectV3.Controllers
 
         }
 
-        // GET: Department
-        public ActionResult Index()
-        {
-            return View();
-        }
+        /*    // GET: Department
+            public ActionResult Index()
+            {
+                return View();
+            }*/
 
         // GET: Department/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int id)
         {
             ShowDepartment showdepartment = new ShowDepartment();
@@ -100,6 +102,7 @@ namespace TiminsHospitalProjectV3.Controllers
         }
 
         // GET: Department/List
+        [Authorize(Roles = "Admin")]
         public ActionResult List()
         {
             // Grab all departments
@@ -122,6 +125,7 @@ namespace TiminsHospitalProjectV3.Controllers
         }
 
         // GET: Department/Create
+        [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -130,6 +134,7 @@ namespace TiminsHospitalProjectV3.Controllers
 
 
         // GET: Department/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             string url = "departmentdata/finddepartment/" + id;
@@ -151,6 +156,7 @@ namespace TiminsHospitalProjectV3.Controllers
         // POST: Department/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id, Department DepartmentInfo)
         {
             string url = "departmentdata/updatedepartment/" + id;
@@ -171,6 +177,7 @@ namespace TiminsHospitalProjectV3.Controllers
 
         // GET: Department/Delete/5
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)
         {
             string url = "departmentdata/finddepartment/" + id;
@@ -192,6 +199,7 @@ namespace TiminsHospitalProjectV3.Controllers
         // POST: Department/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             string url = "departmentdata/deletedepartment/" + id;
@@ -210,8 +218,6 @@ namespace TiminsHospitalProjectV3.Controllers
                 return RedirectToAction("Error");
             }
         }
-
-        
 
         public ActionResult Error()
         {
