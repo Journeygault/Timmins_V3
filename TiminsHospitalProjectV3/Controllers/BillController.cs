@@ -27,7 +27,7 @@ namespace TiminsHospitalProjectV3.Controllers
 
             };
             client = new HttpClient(handler);
-            client.BaseAddress = new Uri("https://localhost:44346/api/");
+            client.BaseAddress = new Uri("http://hospitalproject-env.eba-fm6cqgtc.us-east-2.elasticbeanstalk.com/api/");
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
         }

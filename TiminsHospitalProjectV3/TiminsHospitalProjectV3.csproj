@@ -36,6 +36,10 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>
+      <Objects>
+      </Objects>
+    </PublishDatabaseSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -295,8 +299,13 @@
     <Compile Include="Migrations\202104291819429_JobPosting_table.designer.cs">
       <DependentUpon>202104291819429_JobPosting_table.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104291954458_journey-migration.cs" />
+    <Compile Include="Migrations\202104291954458_journey-migration.designer.cs">
+      <DependentUpon>202104291954458_journey-migration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AWSConnector.cs" />
     <Compile Include="Models\Bill.cs" />
     <Compile Include="Models\BillPayment.cs" />
     <Compile Include="Models\Category.cs" />
@@ -353,8 +362,6 @@
     <Content Include="Content\Appointments\Details.css" />
     <Content Include="Content\Appointments\Edit.css" />
     <Content Include="Content\Appointments\List.css" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Employees\logo.png" />
@@ -595,7 +602,6 @@
     <Content Include="Views\JobPosting\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Content\NewsItems\" />
     <Folder Include="Views\EventData\" />
     <Folder Include="Views\ReviewData\" />
@@ -670,6 +676,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104291819429_JobPosting_table.resx">
       <DependentUpon>202104291819429_JobPosting_table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104291954458_journey-migration.resx">
+      <DependentUpon>202104291954458_journey-migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
