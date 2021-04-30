@@ -1,66 +1,70 @@
 ﻿@model TiminsHospitalProjectV3.Models.ViewModels.ListTicket
+@Styles.Render("~/Content/Tickets/ticket.css")
 
 @{
     ViewBag.Title = "List";
 }
 
-<h2>List</h2>
+<div class="body">
+    <h2>List Of All Tickets</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            Ticket ID
-        </th>
-        <th>
-            Ticket Body
-        </th>
-        <th>
-            Ticket Date
-        </th>
-        @if (Model.isadmin)
-        {
+    <table class="table">
+        <tr>
             <th>
-                Admin Commands
+                Ticket ID
             </th>
+            <th>
+                Ticket Body
+            </th>
+            <th>
+                Ticket Date
+            </th>
+            @if (Model.isadmin)
+            {
+                <th>
+                    Admin Commands
+                </th>
+            }
+            <th>
+                User ID
+            </th>
+            <th>
+                User First Name
+            </th>
+        </tr>
+
+        @foreach (var item in Model.tickets)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketTitle)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketBody)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TicketDate)
+                </td>
+                @if (Model.isadmin)
+                {
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.TicketId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.TicketId }) |
+                        @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.TicketId })
+                    </td>
+                }
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserID)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.FirstName)
+                </td>
+            </tr>
         }
-        <th>
-            User ID
-        </th>
-        <th>
-            User First Name
-        </th>
-    </tr>
 
-    @foreach (var item in Model.tickets)
-    {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.TicketTitle)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TicketBody)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.TicketDate)
-    </td>
-    @if (Model.isadmin)
-    {
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.TicketId }) |
-            @Html.ActionLink("Details", "Details", new { id = item.TicketId }) |
-            @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.TicketId })
-        </td>
-    }
-    <td>
-        @Html.DisplayFor(modelItem => item.UserID)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.User.FirstName)
-    </td>
-</tr>
-    }
+    </table>
 
-</table>
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+</div>

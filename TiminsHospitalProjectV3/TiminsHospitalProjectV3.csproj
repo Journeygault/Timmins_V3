@@ -360,6 +360,7 @@
     <Content Include="Content\Employees\logo.png" />
     <Content Include="Content\Faq_Category\Donations.css" />
     <Content Include="Content\Faq_Category\Faq_Category.css" />
+    <Content Include="Content\Tickets\ticket.css" />
     <Content Include="Content\Users\Profile.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />

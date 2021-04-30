@@ -1,42 +1,45 @@
 ﻿@model TiminsHospitalProjectV3.Models.ViewModels.ShowTicket
+@Styles.Render("~/Content/Tickets/ticket.css")
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<div class="body">
+    <h2>Details</h2>
 
-<div>
-    <h4>NewsItem</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Ticket.TicketTitle)
-        </dt>
+    <div>
+        <h4>NewsItem</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Ticket.TicketTitle)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Ticket.TicketTitle)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Ticket.TicketTitle)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Ticket.TicketBody)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Ticket.TicketBody)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Ticket.TicketBody)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Ticket.TicketBody)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Ticket.TicketDate)
-        </dt>
+            <dt>
+                @Html.DisplayNameFor(model => model.Ticket.TicketDate)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Ticket.TicketDate)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Ticket.TicketDate)
+            </dd>
 
-    </dl>
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Ticket.TicketId }) |
+        @Html.ActionLink("Back to List", "list")
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Ticket.TicketId }) |
-    @Html.ActionLink("Back to List", "list")
-</p>

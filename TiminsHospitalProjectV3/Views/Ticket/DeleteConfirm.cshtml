@@ -1,51 +1,53 @@
 ﻿@model TiminsHospitalProjectV3.Models.TicketDTO
+@Styles.Render("~/Content/Tickets/ticket.css")
 
 @{
     ViewBag.Title = "DeleteConfirm";
 }
 
-<h2>DeleteConfirm</h2>
+<div class="body">
+    <h2>DeleteConfirm</h2>
 
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>Ticket</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TicketTitle)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TicketTitle)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TicketBody)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TicketBody)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TicketDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TicketDate)
-        </dd>
-
-    </dl>
+    <h3>Are you sure you want to delete this?</h3>
     <div>
-        @using (Html.BeginForm("Delete", "Ticket", new { id = Model.TicketId }))
-        {
-            @Html.AntiForgeryToken()
+        <h4>Ticket</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.TicketTitle)
+            </dt>
 
-            <div class="form-actions no-color">
-                <input type="submit" value="Delete" class="btn btn-default" /> |
-                @Html.ActionLink("Back to List", "Index")
-            </div>
-        }
+            <dd>
+                @Html.DisplayFor(model => model.TicketTitle)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TicketBody)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TicketBody)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TicketDate)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TicketDate)
+            </dd>
+
+        </dl>
+        <div>
+            @using (Html.BeginForm("Delete", "Ticket", new { id = Model.TicketId }))
+            {
+                @Html.AntiForgeryToken()
+
+                <div class="form-actions no-color">
+                    <input type="submit" value="Delete" class="btn btn-default submit" /> |
+                    @Html.ActionLink("Back to List", "List")
+                </div>
+            }
+        </div>
     </div>
-    }
 </div>
