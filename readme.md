@@ -126,7 +126,7 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 - [x] Add, Update, Delete functionality is only available to admins
 
 #### Qualitative
-- [ ] Pages are styled and responsive
+- [X] Pages are styled and responsive
 - [ ] Code is commented
 
 #### To Add
