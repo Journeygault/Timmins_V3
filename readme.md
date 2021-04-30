@@ -124,6 +124,7 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 - [x] Users can update on the Ticket table
 - [x] Users can delete on the Ticket table
 - [x] Add, Update, Delete functionality is only available to admins
+- [x] Connected to Users Table allowing a ticket to be connected to a specific user.
 
 #### Qualitative
 - [X] Pages are styled and responsive
