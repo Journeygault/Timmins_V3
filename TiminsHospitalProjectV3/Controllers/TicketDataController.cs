@@ -44,7 +44,7 @@ namespace TiminsHospitalProjectV3.Controllers
         [Authorize(Roles = "Admin")]
         [ResponseType(typeof(Ticket))]
         [HttpPost]
-        public IHttpActionResult AddTicket(Ticket ticket)
+        public IHttpActionResult AddTicket([FromBody] Ticket ticket)
         {
             //Just checks to see if the model is valid
             if (!ModelState.IsValid)

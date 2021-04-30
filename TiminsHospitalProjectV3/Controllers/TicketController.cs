@@ -26,7 +26,9 @@ namespace TiminsHospitalProjectV3.Controllers
         {
             HttpClientHandler handler = new HttpClientHandler()
             {
-                AllowAutoRedirect = false
+                AllowAutoRedirect = false,
+                // Allows usage of cookies
+                UseCookies = false
             };
             client = new HttpClient(handler);
             //change this to match your own local port number
@@ -36,15 +38,35 @@ namespace TiminsHospitalProjectV3.Controllers
 
         }
 
+        private void GetApplicationCookie()
+        {
+            string token = "";
+
+            client.DefaultRequestHeaders.Remove("Cookie");
+            if (!User.Identity.IsAuthenticated) return;
+
+            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
+            if (cookie != null) token = cookie.Value;
+
+            Debug.WriteLine("Token Submitted is : " + token);
+            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
+
+            return;
+        }
+
         // GET: Tickets/List
         public ActionResult List()
         {
+            ListTicket ViewModel = new ListTicket();
+            ViewModel.isadmin = User.IsInRole("Admin"); //Checks to see if the user is an admin
+
             string url = "TicketData/GetTickets";
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
                 IEnumerable<TicketDTO> SelectedTickets = response.Content.ReadAsAsync<IEnumerable<TicketDTO>>().Result;
-                return View(SelectedTickets);
+                ViewModel.tickets = SelectedTickets;
+                return View(ViewModel);
             }
             else
             {
@@ -65,12 +87,14 @@ namespace TiminsHospitalProjectV3.Controllers
         [ValidateAntiForgeryToken()]
         public ActionResult Create(CreateTicket NewTicket)
         {
+            // Checking cookies to check if user is logged in admin
+            GetApplicationCookie();
 
-            Ticket newTicket = new Ticket();
-            newTicket.UserID = User.Identity.GetUserId();
-            newTicket.TicketDate = DateTime.Now;
-            newTicket.TicketTitle = NewTicket.TicketTitle;
-            newTicket.TicketBody = NewTicket.TicketBody;
+            //Ticket newTicket = new Ticket();
+            NewTicket.UserID = User.Identity.GetUserId();
+            NewTicket.TicketDate = DateTime.Now;
+            //newTicket.TicketTitle = NewTicket.TicketTitle;
+            //newTicket.TicketBody = NewTicket.TicketBody;
             //newTicket.UserID = NewTicket.UserID;
 
             Debug.WriteLine(User.Identity.GetUserId());
@@ -78,8 +102,8 @@ namespace TiminsHospitalProjectV3.Controllers
             //Debug.WriteLine(newTicket.UserID);
 
             string url = "TicketData/AddTicket";
-            Debug.WriteLine(jss.Serialize(newTicket));
-            HttpContent content = new StringContent(jss.Serialize(newTicket));
+            Debug.WriteLine(jss.Serialize(NewTicket));
+            HttpContent content = new StringContent(jss.Serialize(NewTicket));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
             HttpResponseMessage response = client.PostAsync(url, content).Result;
 
@@ -128,6 +152,7 @@ namespace TiminsHospitalProjectV3.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)
         {
             string url = "TicketData/FindTicket/" + id;
@@ -148,8 +173,10 @@ namespace TiminsHospitalProjectV3.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
+            GetApplicationCookie();
             string url = "TicketData/DeleteTicket/" + id;
             //post body is empty
             HttpContent content = new StringContent("");
@@ -169,6 +196,7 @@ namespace TiminsHospitalProjectV3.Controllers
 
         }
 
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             UpdateTicket ViewModel = new UpdateTicket();
@@ -189,13 +217,18 @@ namespace TiminsHospitalProjectV3.Controllers
         }
 
         // POST: Ticket/Edit/5
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         [ValidateAntiForgeryToken()]
 
         public ActionResult Edit(int id, Ticket TicketInfo)
         {
+            GetApplicationCookie();
 
             string url = "TicketData/UpdateTicket/" + id;
+            TicketInfo.UserID = User.Identity.GetUserId();
+            Debug.WriteLine(TicketInfo.UserID);
+
             Debug.WriteLine(jss.Serialize(TicketInfo));
             HttpContent content = new StringContent(jss.Serialize(TicketInfo));
             content.Headers.ContentType = new MediaTypeHeaderValue("application/json");

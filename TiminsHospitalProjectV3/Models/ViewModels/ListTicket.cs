@@ -5,8 +5,10 @@ using System.Web;
 
 namespace TiminsHospitalProjectV3.Models.ViewModels
 {
-    public class UpdateTicket
+    public class ListTicket
     {
-        public TicketDTO Ticket { get; set; }
+        public bool isadmin { get; set; }
+
+        public IEnumerable<TicketDTO> tickets { get; set; }
     }
 }

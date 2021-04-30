@@ -1,4 +1,4 @@
-﻿@model IEnumerable<TiminsHospitalProjectV3.Models.TicketDTO>
+﻿@model TiminsHospitalProjectV3.Models.ViewModels.ListTicket
 
 @{
     ViewBag.Title = "List";
@@ -12,25 +12,30 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.TicketTitle)
+            Ticket ID
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TicketBody)
+            Ticket Body
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TicketDate)
+            Ticket Date
+        </th>
+        @if (Model.isadmin)
+        {
+            <th>
+                Admin Commands
+            </th>
+        }
+        <th>
+            User ID
         </th>
         <th>
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.UserID)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.FirstName)
+            User First Name
         </th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model.tickets)
+    {
 <tr>
     <td>
         @Html.DisplayFor(modelItem => item.TicketTitle)
@@ -41,11 +46,14 @@
     <td>
         @Html.DisplayFor(modelItem => item.TicketDate)
     </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.TicketId }) |
-        @Html.ActionLink("Details", "Details", new { id = item.TicketId }) |
-        @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.TicketId })
-    </td>
+    @if (Model.isadmin)
+    {
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id = item.TicketId }) |
+            @Html.ActionLink("Details", "Details", new { id = item.TicketId }) |
+            @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.TicketId })
+        </td>
+    }
     <td>
         @Html.DisplayFor(modelItem => item.UserID)
     </td>
@@ -53,6 +61,6 @@
         @Html.DisplayFor(modelItem => item.User.FirstName)
     </td>
 </tr>
-}
+    }
 
 </table>
