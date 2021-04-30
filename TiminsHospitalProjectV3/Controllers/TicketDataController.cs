@@ -16,7 +16,12 @@ namespace TiminsHospitalProjectV3.Controllers
     public class TicketDataController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-        // GET: api/TicketData/GetTickets
+
+        /// <summary>
+        /// gets the list of tickets in the database
+        /// </summary>
+        /// <returns>The list of tickets in the database</returns>
+        /// <example>GET: api/TicketData/GetTickets</example>
         [ResponseType(typeof(IEnumerable<TicketDTO>))]
         public IHttpActionResult GetTickets()
         {
@@ -41,6 +46,12 @@ namespace TiminsHospitalProjectV3.Controllers
             return Ok(TicketDTOs);
         }
 
+        /// <summary>
+        ///     Adds a ticket to the database
+        /// </summary>
+        /// <param name="ticket">The Ticket being created</param>
+        /// <returns> A new ticket</returns>
+        /// <example>POST: api/TicketData/TicketData</example>
         [Authorize(Roles = "Admin")]
         [ResponseType(typeof(Ticket))]
         [HttpPost]
@@ -58,7 +69,12 @@ namespace TiminsHospitalProjectV3.Controllers
             return Ok(ticket.TicketId); ;
         }
 
-        // GET: api/TicketData/FindTicket/1
+        /// <summary>
+        ///     Finds a ticket in the database
+        /// </summary>
+        /// <param name="id">The id of the Ticket being searched for</param>
+        /// <returns> a ticket </returns>
+        /// <example>GET: api/TicketData/findticket/1 </example>
         [HttpGet]
         [ResponseType(typeof(TicketDTO))]
         public IHttpActionResult FindTicket(int id)
@@ -79,7 +95,11 @@ namespace TiminsHospitalProjectV3.Controllers
         }
 
         // GET: api/TicketData/DeleteTicket
-
+        /// <summary>
+        ///     Deletes a ticket
+        /// </summary>
+        /// <param name="id">The ID of the ticket being deleted</param>
+        /// <returns> Returns OK </returns>
         [HttpPost]
         public IHttpActionResult DeleteTicket(int id)
         {
@@ -97,6 +117,12 @@ namespace TiminsHospitalProjectV3.Controllers
             return Ok();
         }
 
+        /// <summary>
+        ///     Updates a ticket
+        /// </summary>
+        /// <param name="id">The ticket ID</param>
+        /// <param name="ticket">the ticket information to be updated </param>
+        /// <returns></returns>
         [ResponseType(typeof(void))]
         [HttpPost]
         public IHttpActionResult UpdateTicket(int id, [FromBody] Ticket ticket)
@@ -133,6 +159,11 @@ namespace TiminsHospitalProjectV3.Controllers
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        /// <summary>
+        /// Checks to see if the ticket exists
+        /// </summary>
+        /// <param name="id">The ID of the ticket being checked</param>
+        /// <returns></returns>
         private bool TicketExists(int id)
         {
             return db.Tickets.Count(e => e.TicketId == id) > 0;
