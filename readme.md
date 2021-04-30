@@ -123,13 +123,18 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 - [x] Users can read on the Ticket table
 - [x] Users can update on the Ticket table
 - [x] Users can delete on the Ticket table
+- [x] Add, Update, Delete functionality is only available to admins
 
 #### Qualitative
 - [ ] Pages are styled and responsive
 - [ ] Code is commented
 
 #### To Add
-- [ ] Different Priviledges for admins and users for Tickets
+
+NOTE: 
+-Journey & Franck helped explain the user roles, and how to access the user-roles/users table.
+-Steven & Journey helped debug project migration issues that were affecting the whole team.
+
 
 ---
 
