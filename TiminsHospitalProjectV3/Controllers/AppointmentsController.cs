@@ -413,7 +413,9 @@ namespace TiminsHospitalProjectV3.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-
+			
+			//pass along authentication credential in http request
+            GetApplicationCookie();
             //update the appointment
             string url = "AppointmentsData/DeleteAppointment/" + id;
             HttpContent content = new StringContent("");
