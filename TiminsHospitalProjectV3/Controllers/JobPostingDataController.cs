@@ -15,6 +15,7 @@ namespace TiminsHospitalProjectV3.Controllers
 {
     public class JobPostingDataController : ApiController
     {
+        //This variable is acts as a database access point
         private ApplicationDbContext db = new ApplicationDbContext();
 
         /// <summary>
@@ -25,8 +26,8 @@ namespace TiminsHospitalProjectV3.Controllers
         /// GET : api/jobpostingdata/getjobposts
         /// </example>
         [ResponseType(typeof(IEnumerable<JobPostingDto>))]
-        [Route("api/jobpostingdata/getjobposts")]
-        public IHttpActionResult GetJobPosts()
+        [Route("api/jobpostingdata/getjobpostings")]
+        public IHttpActionResult GetJobPostings()
         {
             List<JobPosting> JobPosts = db.JobPostings.ToList();
             List<JobPostingDto> JobPostsDtos = new List<JobPostingDto> { };
@@ -90,7 +91,7 @@ namespace TiminsHospitalProjectV3.Controllers
         /// </example>
         [ResponseType(typeof(JobPosting))]
         [HttpPost]
-        public IHttpActionResult AddJobPost([FromBody] JobPosting jobPosting)
+        public IHttpActionResult AddJobPosting([FromBody] JobPosting jobPosting)
         {
             //Will Validate according to data annotations specified on model
             if (!ModelState.IsValid)
@@ -112,11 +113,11 @@ namespace TiminsHospitalProjectV3.Controllers
         /// <param name="id">The post id</param>
         /// <returns>Information about the post, including job id, title, description, category, location, position type, salary range, date posted, email</returns>
         // <example>
-        // GET: api/jobpostingdata/FindPost/5
+        // GET: api/jobpostingdata/FindJobPosting/5
         // </example>
         [HttpGet]
         [ResponseType(typeof(JobPostingDto))]
-        public IHttpActionResult FindPost(int id)
+        public IHttpActionResult FindJobPosting(int id)
         {
             //Find the data
             JobPosting jobPosting = db.JobPostings.Find(id);
@@ -154,12 +155,13 @@ namespace TiminsHospitalProjectV3.Controllers
         /// <param name="jobPosting">A jobPosting object. Received as POST data.</param>
         /// <returns></returns>
         /// <example>
-        /// POST: api/jobpostingdata/UpdatePost/5
+        /// POST: api/jobpostingdata/UpdateJobPost/5
         /// FORM DATA: JobPosting JSON Object
         /// </example>
         [ResponseType(typeof(void))]
         [HttpPost]
-        public IHttpActionResult UpdatePost(int id, [FromBody] JobPosting jobPosting)
+        [Route("api/JobPostingData/UpdateJobPosting/{id}")]
+        public IHttpActionResult UpdateJobPosting(int id, [FromBody] JobPosting jobPosting)
         {
             Debug.WriteLine("id::" + jobPosting.JobId);
             if (!ModelState.IsValid)

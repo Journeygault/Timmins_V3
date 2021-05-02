@@ -1,9 +1,12 @@
 ﻿@model TiminsHospitalProjectV3.Models.ViewModels.ShowDepartment
+@Styles.Render("~/Content/Department/department.css")
+@Styles.Render("~/Content/JobPosting/jobposting.css")
+
 
 @{
     ViewBag.Title = "Details";
 }
-<h2>Department Details</h2>
+<h2>DEPARTMENT DETAILS</h2>
 <div>
 
     <hr />
@@ -19,41 +22,33 @@
     </dl>
 </div>
 
-
-@*@foreach (var JobPosting in Model.JobPostings)
-{
-    <div>
-        <p>Testimonial Content:@testimonial.testimonial_Content</p>
-        @Html.ActionLink("Edit", "UpdateTestimonial", "Testimonial", new { TestimonialId = testimonial.testimonial_Id, DepartmentId = Model.DepartmentDto.DepartmentId }, null) |
-        @Html.ActionLink("Delete", "DeleteConfirm", "Testimonial", new { DepartmentId = Model.DepartmentDto.DepartmentId, TestimonialId = testimonial.testimonial_Id }, null)
-    </div>
-}
-*@
+<hr/>
+<h2>ASSOCIATED JOB POSTINGS </h2>
 
 
-<table class="table">
+<table id="jobpostings">
     <tr>
 
         <th>
-           Department Name
+            Department Name
         </th>
         <th>
-            Job Category 
+            Job Category
         </th>
         <th>
-            Job Title 
+            Job Title
         </th>
         <th>
-            Job Description 
+            Job Description
         </th>
         <th>
-            Job Location 
+            Job Location
         </th>
         <th>
             Position Type
         </th>
         <th>
-            Email 
+            Email
         </th>
         <th>
             Salary Range
@@ -61,7 +56,7 @@
         <th>
             Date Posted
         </th>
-        <th></th>
+        
     </tr>
 
     @foreach (var item in Model.JobPostings)
@@ -95,11 +90,6 @@
             <td>
                 @Html.DisplayFor(modelItem => item.DatePosted)
             </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.JobId }) |
-                @Html.ActionLink("Details", "Details", new { id = item.JobId }) |
-                @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.JobId })
-            </td>
         </tr>
     }
 
@@ -107,5 +97,5 @@
 
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.Department.DepartmentId }) |
-    @Html.ActionLink("Back to List", "List")
+    @Html.ActionLink("Back to Departments List", "List")
 </p>

@@ -30,12 +30,14 @@ namespace TiminsHospitalProjectV3.Models
         public string PositionType { get; set; }
 
         [Required]
+        //[EmailAddress(ErrorMessage = "Invalid Email Address")]
         public string Email { get; set; }
 
         [Required]
         public string SalaryRange { get; set; }
 
         [Required]
+        //[RegularExpression("^(0[1-9]|[12][0-9]|3[01])[- /](0[1-9]|1[012])[- /](19|20)[0-9][0-9]$", ErrorMessage = "Enter a valid date")]
         public DateTime DatePosted { get; set; }
 
         // A job post is associated with one department

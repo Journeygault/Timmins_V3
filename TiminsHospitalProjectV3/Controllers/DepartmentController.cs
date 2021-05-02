@@ -35,11 +35,10 @@ namespace TiminsHospitalProjectV3.Controllers
 
         }
 
-        
-        // GET: Department/Create
         [HttpPost]
         [ValidateAntiForgeryToken()]
         [Authorize(Roles = "Admin")]
+        //Allows admin to create a department
         public ActionResult Create(Department DepartmentInfo)
         {
             Debug.WriteLine(DepartmentInfo.DepartmentName);
@@ -54,7 +53,7 @@ namespace TiminsHospitalProjectV3.Controllers
 
                 int departmentId = response.Content.ReadAsAsync<int>().Result;
 
-               return RedirectToAction("Details", new { id = departmentId });
+               return RedirectToAction("List");
 
             }
             else
@@ -65,13 +64,9 @@ namespace TiminsHospitalProjectV3.Controllers
 
         }
 
-        /*    // GET: Department
-            public ActionResult Index()
-            {
-                return View();
-            }*/
 
         // GET: Department/Details/5
+        //Allows admin to see a department's details along with the associated job postings
         [Authorize(Roles = "Admin")]
         public ActionResult Details(int id)
         {
@@ -103,6 +98,7 @@ namespace TiminsHospitalProjectV3.Controllers
 
         // GET: Department/List
         [Authorize(Roles = "Admin")]
+        //Allows admin to see a list of department
         public ActionResult List()
         {
             // Grab all departments
@@ -125,6 +121,7 @@ namespace TiminsHospitalProjectV3.Controllers
         }
 
         // GET: Department/Create
+        // only administrators get to this page
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
@@ -134,6 +131,7 @@ namespace TiminsHospitalProjectV3.Controllers
 
 
         // GET: Department/Edit/5
+        // only administrators get to this page
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
@@ -154,6 +152,7 @@ namespace TiminsHospitalProjectV3.Controllers
         }
 
         // POST: Department/Edit/5
+        //Allows admin to edit a department
         [HttpPost]
         [ValidateAntiForgeryToken()]
         [Authorize(Roles = "Admin")]
@@ -176,6 +175,7 @@ namespace TiminsHospitalProjectV3.Controllers
         }
 
         // GET: Department/Delete/5
+        //admin can confirm the deletion
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)
@@ -200,6 +200,7 @@ namespace TiminsHospitalProjectV3.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken()]
         [Authorize(Roles = "Admin")]
+        //Allows admin to delete a department
         public ActionResult Delete(int id)
         {
             string url = "departmentdata/deletedepartment/" + id;
@@ -219,6 +220,7 @@ namespace TiminsHospitalProjectV3.Controllers
             }
         }
 
+        //Redirects to the error view
         public ActionResult Error()
         {
             return View();

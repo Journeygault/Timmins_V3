@@ -1,9 +1,11 @@
 ﻿@model IEnumerable<TiminsHospitalProjectV3.Models.DepartmentDto>
-<h2>List of departments</h2>
+@Styles.Render("~/Content/Department/department.css")
+
+<h2>LIST OF HOSPITAL DEPARTMENTS</h2>
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
-<table class="table">
+<table id="departments">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.DepartmentName)
@@ -11,17 +13,18 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepartmentName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.DepartmentId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.DepartmentId }) |
-            @Html.ActionLink("Delete", "DeleteConfirm", new { id=item.DepartmentId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentName)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.DepartmentId },null) |
+                @Html.ActionLink("Details", "Details", new { id = item.DepartmentId }, null) |
+                @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.DepartmentId  }, null)
+            </td>
+        </tr>
+    }
 
 </table>

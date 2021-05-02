@@ -37,42 +37,8 @@ namespace TiminsHospitalProjectV3.Controllers
 
         }
 
-        /// <summary>
-        /// Grabs the authentication credentials which are sent to the Controller.
-        /// This is NOT considered a proper authentication technique for the WebAPI. It piggybacks the existing authentication set up in the template for Individual User Accounts. Considering the existing scope and complexity of the course, it works for now.
-        /// 
-        /// Here is a descriptive article which walks through the process of setting up authorization/authentication directly.
-        /// https://docs.microsoft.com/en-us/aspnet/web-api/overview/security/individual-accounts-in-web-api
-        /// </summary>
-        private void GetApplicationCookie()
-        {
-            string token = "";
-            //HTTP client is set up to be reused, otherwise it will exhaust server resources.
-            //This is a bit dangerous because a previously authenticated cookie could be cached for
-            //a follow-up request from someone else. Reset cookies in HTTP client before grabbing a new one.
-            client.DefaultRequestHeaders.Remove("Cookie");
-            if (!User.Identity.IsAuthenticated) return;
-
-            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
-            if (cookie != null) token = cookie.Value;
-
-            //collect token as it is submitted to the controller
-            //use it to pass along to the WebAPI.
-            Debug.WriteLine("Token Submitted is : " + token);
-            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
-
-            return;
-        }
-
-   /*     // GET: JobPosting
-        public ActionResult Index()
-        {
-            return View();
-        }
-*/
-       
-
         // GET: JobPosting/Create
+        // only administrators get to this page
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult Create()
@@ -86,6 +52,7 @@ namespace TiminsHospitalProjectV3.Controllers
         }
 
         // POST: JobPosting/Create
+        //Allows admin to create a job posting
         [HttpPost]
         [ValidateAntiForgeryToken()]
         [Authorize(Roles = "Admin")]
@@ -94,7 +61,7 @@ namespace TiminsHospitalProjectV3.Controllers
             try
             {
                 Debug.WriteLine(PostInfo.JobTitle);
-                string url = "jobpostingdata/addjobpost";
+                string url = "jobpostingdata/addjobposting";
                 Debug.WriteLine(jss.Serialize(PostInfo));
                 HttpContent content = new StringContent(jss.Serialize(PostInfo));
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/json");
@@ -118,13 +85,14 @@ namespace TiminsHospitalProjectV3.Controllers
 
 
         // GET: JobPosting/List
+        //Allows admin to see a list of job postings
         [Authorize(Roles = "Admin")]
         public ActionResult List()
         {
             // Grab all players
-            string url = "jobpostingdata/getjobposts";
+            string url = "jobpostingdata/getjobpostings";
             // Send off an HTTP request
-            // GET : /api/jobpostingdata/getjobposts
+            // GET : /api/jobpostingdata/getjobpostings
             // Retrieve response
             HttpResponseMessage response = client.GetAsync(url).Result;
             // If the response is a success, proceed
@@ -144,11 +112,12 @@ namespace TiminsHospitalProjectV3.Controllers
 
 
         // GET: Jobposting/Details/5
+        //Allows admin to see a job postings's details along with the associated departments
         [Authorize(Roles = "Admin")]
         public ActionResult Details(int id)
         {
             ShowJobPosting ViewModel = new ShowJobPosting();
-            string url = "jobpostingdata/findpost/" + id;
+            string url = "jobpostingdata/findjobposting/" + id;
          
             HttpResponseMessage response = client.GetAsync(url).Result;
             // If the response is a success, proceed
@@ -167,13 +136,16 @@ namespace TiminsHospitalProjectV3.Controllers
         }
 
         // GET: Jobposting/Edit/5
+        // only administrators get to this page
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
+
+
             UpdateJobPosting ViewModel = new UpdateJobPosting();
 
-            string url = "jobpostingdata/findpost/" + id;
+            string url = "jobpostingdata/findjobposting/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             //Can catch the status code (200 OK, 301 REDIRECT), etc.
             //Debug.WriteLine(response.StatusCode);
@@ -198,12 +170,13 @@ namespace TiminsHospitalProjectV3.Controllers
 
 
         // POST: Jobposting/Edit/5
+        //Allows admin to edit a job posting
         [HttpPost]
         [ValidateAntiForgeryToken()]
         [Authorize(Roles = "Admin")]
         public ActionResult Edit(int id, JobPosting JobInfo)
         {
-            string url = "jobpostingdata/updatepost/" + id;
+            string url = "jobpostingdata/UpdateJobPosting/" + id;
             Debug.WriteLine(jss.Serialize(JobInfo));
             Debug.WriteLine(JobInfo.JobId);
 
@@ -223,11 +196,12 @@ namespace TiminsHospitalProjectV3.Controllers
         }
 
         // GET: Jobposting/Delete/5
+        //admin can confirm the deletion
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public ActionResult DeleteConfirm(int id)
         {
-            string url = "jobpostingdata/findpost/" + id;
+            string url = "jobpostingdata/FindJobPosting/" + id;
             HttpResponseMessage response = client.GetAsync(url).Result;
             //Can catch the status code (200 OK, 301 REDIRECT), etc.
             //Debug.WriteLine(response.StatusCode);
@@ -244,6 +218,7 @@ namespace TiminsHospitalProjectV3.Controllers
         }
 
         // POST: Jobposting/Delete/5
+        //Allows admin to delete a job posting
         [HttpPost]
         [ValidateAntiForgeryToken()]
         [Authorize(Roles = "Admin")]
@@ -266,7 +241,7 @@ namespace TiminsHospitalProjectV3.Controllers
             }
         }
 
-
+        //Redirects to the error view
         public ActionResult Error()
         {
             return View();
