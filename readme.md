@@ -135,22 +135,42 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 
 ## Nisarg Chauhan
 
+- Please sign in using the admin account to access my pages from the navigation menu.
 ### Job Posting
 - [x] Admins can create a job post
 - [x] Admins can read a job post
 - [x] Admins can update a job post
 - [x] Admins can delete a job post
-- [ ] Department ID as foreign key
-- [ ] Style the page
 
 ### Department
 - [x] Admins can create a department
 - [x] Admins can read department details
 - [x] Admins can update department details
 - [x] Admins can delete a department
-- [ ] Style the page
 
----
+### CHANGES MADE FOR THE FINAL PROJECT
+- [X] Added a one-to-many relationship between department and jobpostings tables
+- [x] Changed method names according to the feedback provided for the MVP
+- [x] Only admins can access the pages
+- [x] Added ViewModels
+- [x] Styled the pages and Fixed the footer problem for the whole site.
+- [x] Department is associated with a particular job post.   
+- [x] On the department details page, all the associated job postings with that particular department are shown.     
+- [x] Added Commenting
+
+### People who assisted in Debugging my work:
+- Journey Gault, Mohamed Sakr, Adam Galeck, Steven Le
+
+### Screenshots
+#### JobPostings
+![image](https://user-images.githubusercontent.com/46188042/116824555-d8efd480-ab58-11eb-9680-7c66cc556b28.png)
+![image](https://user-images.githubusercontent.com/46188042/116824545-cf666c80-ab58-11eb-91e4-1e0305a4e2bf.png)
+![image](https://user-images.githubusercontent.com/46188042/116824552-d3928a00-ab58-11eb-8e1a-456dd8ef6c0f.png)
+![image](https://user-images.githubusercontent.com/46188042/116824562-df7e4c00-ab58-11eb-9c89-6425e132b3fd.png)
+
+#### Department
+![image](https://user-images.githubusercontent.com/46188042/116824580-fde44780-ab58-11eb-8da5-b502bddf82ce.png)
+![image](https://user-images.githubusercontent.com/46188042/116824584-0472bf00-ab59-11eb-87da-e8254291d773.png)
 
 ## Steven Le
 
