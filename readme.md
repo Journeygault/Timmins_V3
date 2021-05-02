@@ -163,19 +163,19 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 
 ### Screenshots
 #### JobPostings
-(1) List
+##### List
 ![image](https://user-images.githubusercontent.com/46188042/116824555-d8efd480-ab58-11eb-9680-7c66cc556b28.png)
-(2) Create
+##### Create
 ![image](https://user-images.githubusercontent.com/46188042/116824545-cf666c80-ab58-11eb-91e4-1e0305a4e2bf.png)
-(3) Edit
+##### Edit
 ![image](https://user-images.githubusercontent.com/46188042/116824552-d3928a00-ab58-11eb-8e1a-456dd8ef6c0f.png)
-(4) Delete
+##### Delete
 ![image](https://user-images.githubusercontent.com/46188042/116824562-df7e4c00-ab58-11eb-9c89-6425e132b3fd.png)
 
 #### Department
-(1) List
+##### List
 ![image](https://user-images.githubusercontent.com/46188042/116824580-fde44780-ab58-11eb-8da5-b502bddf82ce.png)
-(2) Details
+##### Details
 ![image](https://user-images.githubusercontent.com/46188042/116824584-0472bf00-ab59-11eb-87da-e8254291d773.png)
 
 ## Steven Le
