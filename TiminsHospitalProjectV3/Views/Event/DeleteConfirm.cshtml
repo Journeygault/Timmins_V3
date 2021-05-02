@@ -1,0 +1,82 @@
+﻿@model TiminsHospitalProjectV3.Models.EventDto
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Event</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventHasImage)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventHasImage)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PicExtension)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PicExtension)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventDisc)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventDisc)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EventHasOcured)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EventHasOcured)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UserID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserID)
+        </dd>
+
+    </dl>
+
+
+    @using (Html.BeginForm("Delete", "Event", new { id = Model.EventId }))
+    { 
+        @Html.AntiForgeryToken()
+
+    <div class="form-actions no-color">
+        <input type="submit" value="Delete" class="btn btn-default" /> |
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+    }
+</div>

@@ -1,0 +1,103 @@
+﻿@model TiminsHospitalProjectV3.Models.Appointment
+@Styles.Render("~/Content/Appointments/Details.css")
+
+@{
+    ViewBag.Title = "Details";
+    Array statuses = (TiminsHospitalProjectV3.Models.AppointmentStatus[])ViewData["listStatus"];
+}
+
+
+
+<div class="container" id="details-wrapper">
+    <h2> Appointment Details</h2>
+
+    <table class="table">
+
+        <tbody>
+            <tr>
+                <th scope="row">@Html.DisplayName("Patient"):</th>
+                <td>
+                    @Html.DisplayFor(modelItem => modelItem.PatientUser.FirstName)
+                    @Html.DisplayFor(modelItem => modelItem.PatientUser.LastName)
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayName("PHysician"):</th>
+                <td>
+                    Dr
+                    @Html.DisplayFor(modelItem => modelItem.PhysicianUser.FirstName)
+                    @Html.DisplayFor(modelItem => modelItem.PhysicianUser.LastName)
+                </td>
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayName("Sent On"):</th>
+                <td> @Html.DisplayFor(modelItem => Model.SentOn) </td>
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayName("Decision Made On"):</th>
+                <td> @Html.DisplayFor(modelItem => Model.DecisionMadeOn) </td>
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayName("Date and Time Requested"):</th>
+                <td> @Html.DisplayFor(modelItem => Model.RequestDatetime) </td>
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayNameFor(model => model.Status):</th>
+                <td> @Html.DisplayFor(modelItem => Model.Status) </td>
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayNameFor(model => model.Subject):</th>
+                <td> @Html.DisplayFor(modelItem => Model.Subject) </td>
+            </tr>
+            <tr>
+                <th scope="row">@Html.DisplayNameFor(model => model.Message):</th>
+                <td> @Html.DisplayFor(modelItem => Model.Message) </td>
+            </tr>
+
+        </tbody>
+    </table>
+    @if (User.IsInRole("Physician") && string.Equals("Pending", Model.Status.ToString()))
+    {
+        using (Html.BeginForm("ChangeStatus", "Appointments", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <h3>Update the status</h3>
+            @Html.HiddenFor(modelItem => modelItem.ID, new { Name = "id" })
+            <div class="form-group" >
+
+                <div class="col-md-5" id="dropdown-status">
+
+                    <select name="status" class="form-control">
+
+                        @foreach (var s in statuses)
+                        {
+                            if (Model.Status.ToString() == s.ToString())
+                            {
+                                <option value="@s.ToString()" selected>@s.ToString()</option>
+                            }
+                            else
+                            {
+                                <option value="@s.ToString()">@s.ToString()</option>
+                            }
+                        }
+                    </select>
+
+                    @Html.ValidationMessage("Status", "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-md-4">
+                    <input type="submit" value="Change the status" class="btn btn-default" id="btn-update"/>
+                </div>
+
+
+            </div>
+
+        }
+    }
+
+</div>
+<div class="link-wrapper">
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "List")
+</div>

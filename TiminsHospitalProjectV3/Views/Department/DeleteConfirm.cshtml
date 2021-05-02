@@ -1,0 +1,26 @@
+﻿@model TiminsHospitalProjectV3.Models.DepartmentDto
+@Styles.Render("~/Content/Department/department.css")
+
+<h2>ARE YOU SURE YOU WANT TO DELETE THIS DEPARTMENT?</h2>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.DepartmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DepartmentName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("Delete", "Department", new { id = Model.DepartmentId })) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "List")
+        </div>
+    }
+</div>

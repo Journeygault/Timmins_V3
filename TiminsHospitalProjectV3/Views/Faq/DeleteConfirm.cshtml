@@ -1,0 +1,40 @@
+﻿@model TiminsHospitalProjectV3.Models.FaqDto
+
+@{
+    ViewBag.Title = "DeleteConfirm";
+    //Layout = "~/Views/Shared/_AdminView.cshtml";
+}
+
+<h2>Delete Confirmation</h2>
+
+<h3>Are you sure you want to delete this FAQ?</h3>
+<div>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FaqQuestion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FaqQuestion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FaqAnswer)
+        </dt>
+
+        <dd>
+            @Html.Raw(Model.FaqAnswer)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm("Delete", "Faq", new { id = Model.FaqID })) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            @Html.ActionLink("Back to List", "List", "Faq")
+        </div>
+    }
+</div>

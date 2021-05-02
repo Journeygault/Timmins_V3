@@ -1,0 +1,34 @@
+﻿@model TiminsHospitalProjectV3.Models.ViewModels.ShowNewsItem
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2> @Html.DisplayFor(model => model.newsItem.Title)</h2>
+@{
+    //Use server rendering to determine an image
+    string pic = "/Content/NewsItems/default.jpg";
+    string alt = "No Profile Picture Provided.";
+    if (Model.newsItem.NewsItemHasPic)
+    {
+        pic = "/Content/NewsItems/" + Model.newsItem.NewsItemID + "." + Model.newsItem.NewsItemPicExtension;
+        alt = "Picture Of Event ";
+    }
+}
+<div>
+    <img src="@pic" alt="@alt" width="200" />
+    <hr />
+    <p>
+        <b>Publication Date:</b>  @Html.DisplayFor(model => model.newsItem.NewItemDate)
+    </p>
+
+    <br />
+
+    <p>
+        @Html.DisplayFor(model => model.newsItem.NewsBody)
+    </p>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.newsItem.NewsItemID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

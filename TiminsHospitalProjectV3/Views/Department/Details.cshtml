@@ -1,0 +1,101 @@
+﻿@model TiminsHospitalProjectV3.Models.ViewModels.ShowDepartment
+@Styles.Render("~/Content/Department/department.css")
+@Styles.Render("~/Content/JobPosting/jobposting.css")
+
+
+@{
+    ViewBag.Title = "Details";
+}
+<h2>DEPARTMENT DETAILS</h2>
+<div>
+
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Department.DepartmentId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Department.DepartmentName)
+        </dd>
+
+    </dl>
+</div>
+
+<hr/>
+<h2>ASSOCIATED JOB POSTINGS </h2>
+
+
+<table id="jobpostings">
+    <tr>
+
+        <th>
+            Department Name
+        </th>
+        <th>
+            Job Category
+        </th>
+        <th>
+            Job Title
+        </th>
+        <th>
+            Job Description
+        </th>
+        <th>
+            Job Location
+        </th>
+        <th>
+            Position Type
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Salary Range
+        </th>
+        <th>
+            Date Posted
+        </th>
+        
+    </tr>
+
+    @foreach (var item in Model.JobPostings)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.DepartmentName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobCategory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobTitle)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.JobLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PositionType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SalaryRange)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DatePosted)
+            </td>
+        </tr>
+    }
+
+</table>
+
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Department.DepartmentId }) |
+    @Html.ActionLink("Back to Departments List", "List")
+</p>

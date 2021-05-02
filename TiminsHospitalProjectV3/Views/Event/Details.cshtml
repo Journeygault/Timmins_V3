@@ -1,0 +1,59 @@
+﻿@model TiminsHospitalProjectV3.Models.ViewModels.ShowEvent
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>
+    @Html.DisplayFor(model => model.Event.Title)
+</h2>
+
+<div>
+    <h4>Event</h4>
+    @{
+        //Use server rendering to determine an image
+        string pic = "/Content/Events/default.jpg";
+        string alt = "No Profile Picture Provided.";
+        if (Model.Event.EventHasImage)
+        {
+            pic = "/Content/Events/" + Model.Event.EventId + "." + Model.Event.PicExtension;
+            alt = "Picture Of Event ";
+        }
+    }
+    <img src="@pic" alt="@alt" width="200" />
+    <hr />
+    
+
+    <hr />
+    <p>
+        <b>Publication Date:</b>  @Html.DisplayFor(model => model.Event.EventDate)
+
+    </p>
+
+    <br />
+
+    <p>
+        @Html.DisplayNameFor(model => model.Event.EventDisc)
+    </p>
+</div>
+<div>
+    <h4>Event Sponsers:</h4>
+    <div>
+        @foreach (var donation in Model.DonationToEvent)
+        {
+
+            @Html.ActionLink(
+                     donation.FistName,
+                     "Details",
+                     "donation",
+                     new { id = donation.EventId },
+                     new { })
+            <br />
+
+        }
+    </div>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Event.EventId }) |
+    @Html.ActionLink("Back to List", "List")
+</p>

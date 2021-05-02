@@ -1,0 +1,148 @@
+﻿@model TiminsHospitalProjectV3.Models.ViewModels.UpdateDonation
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>Donation</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Donation.DonationID)
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Donation.FistName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Donation.FistName, new { htmlAttributes = new { @class = "form-control", Name = "FirstName" } })
+                @Html.ValidationMessageFor(model => model.Donation.FistName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Donation.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Donation.LastName, new { htmlAttributes = new { @class = "form-control", Name = "LastName" } })
+                @Html.ValidationMessageFor(model => model.Donation.LastName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Donation.Email, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Donation.Email, new { htmlAttributes = new { @class = "form-control", Name = "Email" } })
+                @Html.ValidationMessageFor(model => model.Donation.Email, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Donation.PhoneNumber, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Donation.PhoneNumber, new { htmlAttributes = new { @class = "form-control", Name = "PhoneNumber" } })
+                @Html.ValidationMessageFor(model => model.Donation.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Donation.Address, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Donation.Address, new { htmlAttributes = new { @class = "form-control", Name = "Address" } })
+                @Html.ValidationMessageFor(model => model.Donation.Address, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Donation.Country, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Donation.Country, new { htmlAttributes = new { @class = "form-control", Name = "Country" } })
+                @Html.ValidationMessageFor(model => model.Donation.Country, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Donation.Zip, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Donation.Zip, new { htmlAttributes = new { @class = "form-control", Name = "Zip" } })
+                @Html.ValidationMessageFor(model => model.Donation.Zip, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Donation.Province, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Donation.Province, new { htmlAttributes = new { @class = "form-control", Name = "Province" } })
+                @Html.ValidationMessageFor(model => model.Donation.Province, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Donation.City, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Donation.City, new { htmlAttributes = new { @class = "form-control", Name = "City" } })
+                @Html.ValidationMessageFor(model => model.Donation.City, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Donation.Amount, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Donation.Amount, new { htmlAttributes = new { @class = "form-control", Name = "Amount" } })
+                @Html.ValidationMessageFor(model => model.Donation.Amount, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Donation.Date, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Donation.Date, new { htmlAttributes = new { @class = "form-control", Name = "Date" } })
+                @Html.ValidationMessageFor(model => model.Donation.Date, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Donation.CompanyName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Donation.CompanyName, new { htmlAttributes = new { @class = "form-control", Name = "Company Name" } })
+                @Html.ValidationMessageFor(model => model.Donation.CompanyName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Donation.DonationID, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <select name="CategoryID">
+                    @foreach (var item in Model.Allevents)
+                    {
+                        //Auto-selects the Category the Project is currently assigned to
+                        string selected = "";
+                        if (Model.Donation.DonationID == item.EventId)
+                        {
+                            selected = "";
+                        }
+                        <option value="@item.EventId" @selected>@item.Title</option>
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Save" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,23 @@
+﻿@model TiminsHospitalProjectV3.Models.ViewModels.ShowFaq
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h1>FAQ Detail</h1>
+
+<p>
+    <a href="/Faq/Create" class="btn btn-default btn-success">Create A New FAQ</a>
+</p>
+<hr />
+<div>
+    <h2>@Html.DisplayFor(model => model.Faq.FaqQuestion)</h2>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.Faq.FaqID }, new { @class = "text-warning" }) |
+        @Html.ActionLink("Delete", "Delete", new { id = Model.Faq.FaqID }, new { @class = "text-danger" })
+    </p>
+    <p>@Html.Raw(Model.Faq.FaqAnswer)</p>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "List", "Faq")
+</p>

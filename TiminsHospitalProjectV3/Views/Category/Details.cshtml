@@ -1,0 +1,22 @@
+﻿@model TiminsHospitalProjectV3.Models.ViewModels.ShowCategory
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<div>
+    <h2>
+        @Html.DisplayFor(model => model.Category.CategoryName)
+    </h2>
+    <hr />
+
+    @foreach (var faq in Model.CategoryFaqs)
+    {
+        <h3>@Html.DisplayFor(modelItem => faq.FaqQuestion)</h3>
+        <p>@Html.Raw(faq.FaqAnswer)</p>
+    }
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Category.CategoryID }) |
+    @Html.ActionLink("Back to List", "List", "Faq")
+</p>
