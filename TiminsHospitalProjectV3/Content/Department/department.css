@@ -1,0 +1,75 @@
+﻿
+h2 {
+    text-align: center;
+}
+
+#departments {
+    font-family: Arial, Helvetica, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+    #departments td, #departments th {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
+
+    #departments tr:nth-child(even) {
+        background-color: #f2f2f2;
+    }
+
+    #departments tr:hover {
+        background-color: #ddd;
+    }
+
+    #departments th {
+        padding-top: 12px;
+        padding-bottom: 12px;
+        text-align: left;
+        background-color: dodgerblue;
+        color: white;
+    }
+
+.button {
+    background-color: dodgerblue;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+}
+
+
+    .button:hover {
+        box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+    }
+
+/*Make the footer stick to the bottom if the content is less
+*/
+body {
+    height: 100vh;
+    margin: 0;
+}
+
+head {
+    min-height: 50px;
+}
+
+footer {
+    min-height: 50px;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    margin-top: auto;
+}

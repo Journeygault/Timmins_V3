@@ -1,0 +1,20 @@
+﻿h2 {
+    text-transform: uppercase;
+    margin-bottom: 1em;
+}
+
+label {
+    text-transform: capitalize;
+}
+
+h3 {
+    text-transform: capitalize;
+    margin-bottom: 2em;
+    text-align:center;
+    color:dimgray;
+}
+
+input#btn-create {
+    background-color: #326c90;
+    color: whitesmoke;
+}

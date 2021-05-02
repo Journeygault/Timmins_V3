@@ -1,0 +1,11 @@
+﻿h2 {
+    text-transform: uppercase;
+    margin-bottom: 1em;
+}
+label {
+    text-transform: capitalize;
+}
+input#btn-update {
+    background-color: #326c90;
+    color:whitesmoke;
+}

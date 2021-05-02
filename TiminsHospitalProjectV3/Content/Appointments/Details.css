@@ -1,0 +1,27 @@
+﻿h2 {
+    text-transform: uppercase;
+    margin-bottom: 1em;    
+}
+div#details-wrapper{
+    position:relative;
+    margin-top:3em;
+}
+th {
+    text-transform: capitalize;
+
+}
+
+h3 {
+    text-transform: capitalize;
+    margin-bottom: 1em;
+}
+
+form{
+    margin: 1em 0em;
+}
+div.form-group > div{
+    padding:0px;
+}
+div.link-wrapper{
+    margin-top:2em;
+}

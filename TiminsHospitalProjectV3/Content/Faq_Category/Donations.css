@@ -1,0 +1,11 @@
+﻿body {
+}
+.middle {
+    text-align: center;
+}
+.pre-line{
+    white-space: pre-line;
+}
+.justify{
+    justify-content: center;
+}

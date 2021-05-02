@@ -1,0 +1,53 @@
+﻿:root {
+    /*Color Types*/
+    --sweetBlue: #326c90;
+    --greyNav: #333333;
+    --turquoise: #56e79f;
+    --mellowViolet: #4f5487;
+    --palmPurple: #9973ab;
+    --bubbleBlue: #038dd0;
+    --olieOrange: #dc954b;
+    --glowGreen: #76b830;
+    --peachyPink: #f45556;
+    --errorPink: #ffadad;
+}
+body {
+}
+.ConfirmationButton {
+    -webkit-appearance: button;
+    cursor: pointer;
+    color: white;
+    background-color: var(--mellowViolet);
+    border-color: var(--mellowViolet);
+    display: inline-block;
+    margin-bottom: 2px;
+    font-weight: normal;
+    text-align: center;
+    white-space: nowrap;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    background-image: none;
+    border: 1px solid #333;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    border-radius: 0;
+    user-select: none;
+    font: inherit;
+    margin: 0;
+}
+.ConfirmationButton:hover{
+    background: var(--palmPurple);
+}
+#KeySearch{
+    display: inline-block;
+    border-radius: 0;
+}
+.middle{
+    text-align: center;
+}
+.reset:hover{
+    text-decoration: none;
+    color: var(--bubbleBlue);
+}
