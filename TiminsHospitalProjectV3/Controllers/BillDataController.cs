@@ -23,6 +23,7 @@ namespace TiminsHospitalProjectV3.Controllers
         // GET: api/BillData/GetBills
         [HttpGet]
         [ResponseType(typeof(IEnumerable<Bill>))]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult ListBills()
         {
             List<Bill> Bills = db.Bills.ToList();
@@ -86,6 +87,7 @@ namespace TiminsHospitalProjectV3.Controllers
 
         [HttpPost]
         [ResponseType(typeof(Bill))]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult DeleteBill (int id)
         {
             Bill bill = db.Bills.Find(id);
@@ -100,6 +102,7 @@ namespace TiminsHospitalProjectV3.Controllers
 
         [HttpPost]
         [ResponseType(typeof(void))]
+        [Authorize(Roles = "Admin")]
         public IHttpActionResult UpdateBill(int id, [FromBody] Bill bill)
         {
             if (!ModelState.IsValid)
@@ -114,6 +117,8 @@ namespace TiminsHospitalProjectV3.Controllers
             db.SaveChanges();
             return StatusCode(HttpStatusCode.NoContent);
         }
+
+        
 
     }
 }

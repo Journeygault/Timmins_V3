@@ -8,5 +8,6 @@ namespace TiminsHospitalProjectV3.Models.ViewModels
     public class ShowTicket
     {
         public TicketDTO Ticket { get; set; }
+
     }
 }

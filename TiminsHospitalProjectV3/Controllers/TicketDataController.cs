@@ -31,6 +31,8 @@ namespace TiminsHospitalProjectV3.Controllers
                     TicketTitle = specificTicket.TicketTitle,
                     TicketBody = specificTicket.TicketBody,
                     TicketDate = specificTicket.TicketDate,
+                    UserID = specificTicket.UserID,
+                    User = specificTicket.User
 
                 };
                 TicketDTOs.Add(NewTicket);
@@ -39,9 +41,10 @@ namespace TiminsHospitalProjectV3.Controllers
             return Ok(TicketDTOs);
         }
 
+        [Authorize(Roles = "Admin")]
         [ResponseType(typeof(Ticket))]
         [HttpPost]
-        public IHttpActionResult AddTicket([FromBody] Ticket ticket)
+        public IHttpActionResult AddTicket(Ticket ticket)
         {
             //Just checks to see if the model is valid
             if (!ModelState.IsValid)

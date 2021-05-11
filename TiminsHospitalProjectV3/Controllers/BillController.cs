@@ -27,9 +27,25 @@ namespace TiminsHospitalProjectV3.Controllers
 
             };
             client = new HttpClient(handler);
-            client.BaseAddress = new Uri("https://localhost:44346/api/");
+            client.BaseAddress = new Uri("http://hospitalproject-env.eba-fm6cqgtc.us-east-2.elasticbeanstalk.com/api/");
             client.DefaultRequestHeaders.Accept.Add(
                 new MediaTypeWithQualityHeaderValue("application/json"));
+        }
+
+        private void GetApplicationCookie()
+        {
+            string token = "";
+            client.DefaultRequestHeaders.Remove("Cookie");
+            if (!User.Identity.IsAuthenticated) return;
+
+            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
+            if (cookie != null) token = cookie.Value;
+
+            //collect token
+            Debug.WriteLine("Token Submitted is : " + token);
+            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
+
+            return;
         }
 
         /// <summary>
@@ -37,14 +53,57 @@ namespace TiminsHospitalProjectV3.Controllers
         /// </summary>
         /// <returns>Returns a list of the bills in the database</returns>
         // GET: Bill/List
-        public ActionResult List()
+        public ActionResult List(int pageNum = 0)
         {
+            ListBill ViewModel = new ListBill();
+            ViewModel.isadmin = User.IsInRole("Admin");
+
+            //grabbing all the bills
             string url = "billdata/ListBills";
+            //sending http request
+            //GET: /api/billdata/listbills
             HttpResponseMessage response = client.GetAsync(url).Result;
+            //if successful, fetch bill content into Bill
             if (response.IsSuccessStatusCode)
             {
                 IEnumerable<Bill> SelectedBills = response.Content.ReadAsAsync<IEnumerable<Bill>>().Result;
-                return View(SelectedBills);
+
+
+                //pagination
+
+                int BillCount = SelectedBills.Count();
+                //Number of bills per page
+                int PerPage = 1;
+
+                //determining the max number of pages
+                int maxPage = (int)Math.Ceiling((decimal)BillCount / PerPage) - 1;
+
+                //setting lower boundaries
+                if (maxPage < 0) maxPage = 0;
+                if (pageNum < 0) pageNum = 0;
+
+                //setting upper boundaries
+                if (pageNum > maxPage) pageNum = maxPage;
+
+                //record index of page start
+                int startIndex = PerPage * pageNum;
+
+                //generating html
+                ViewData["PageNum"] = pageNum;
+                ViewData["PageSummary"] = " " + (pageNum + 1) + " of " + (maxPage + 1) + " ";
+
+                //end of Pagination
+
+                //send another request to get bills according to pagination
+                url = "billdata/listbills/" + startIndex + "/" + PerPage;
+                response = client.GetAsync(url).Result;
+
+                //retrieving response
+                IEnumerable<Bill> SelectedBillPage = response.Content.ReadAsAsync<IEnumerable<Bill>>().Result;
+                ViewModel.bills = SelectedBillPage;
+
+                //return view
+                return View(ViewModel);
             }
             else
             {

@@ -35,7 +35,7 @@ namespace TiminsHospitalProjectV3.Controllers
 
             client = new HttpClient(handler);
             //change this to match your own local port number
-            client.BaseAddress = new Uri("https://localhost:44346/api/");
+            client.BaseAddress = new Uri("http://hospitalproject-env.eba-fm6cqgtc.us-east-2.elasticbeanstalk.com/api/");
             client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));
         }
@@ -234,7 +234,8 @@ namespace TiminsHospitalProjectV3.Controllers
         }
 
         // POST: Appointments/Create
-        [Authorize(Roles = "Patient,Physician")]
+        
+
         [ValidateAntiForgeryToken()]
         [HttpPost]
         public ActionResult Create(CreateViewAppointment viewAppointment)
@@ -412,7 +413,9 @@ namespace TiminsHospitalProjectV3.Controllers
         [HttpPost]
         public ActionResult Delete(int id)
         {
-
+			
+			//pass along authentication credential in http request
+            GetApplicationCookie();
             //update the appointment
             string url = "AppointmentsData/DeleteAppointment/" + id;
             HttpContent content = new StringContent("");

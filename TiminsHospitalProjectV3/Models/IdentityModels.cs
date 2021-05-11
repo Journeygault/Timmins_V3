@@ -6,6 +6,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using System.ComponentModel.DataAnnotations;
 
+using System;
+using System.Linq;
+using System.Web;
+using System.Configuration;
+
 namespace TiminsHospitalProjectV3.Models
 {
     // You can add profile data for the user by adding more properties to your ApplicationUser class, please visit https://go.microsoft.com/fwlink/?LinkID=317594 to learn more.
@@ -31,8 +36,15 @@ namespace TiminsHospitalProjectV3.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        /*
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
+        {
+        }
+        */
+
+        public ApplicationDbContext()
+            : base(AWSConnector.GetRDSConnectionString())
         {
         }
 
@@ -54,8 +66,10 @@ namespace TiminsHospitalProjectV3.Models
         public DbSet<Review> Reviews { get; set; }
         public DbSet<Bill> Bills { get; set; }
         public DbSet<BillPayment> Bill_Payments { get; set; }
-
+        public DbSet<JobPosting> JobPostings { get; set; }
+        public DbSet<Department> Departments { get; set; }
         public System.Data.Entity.DbSet<TiminsHospitalProjectV3.Models.BillDto> BillDtoes { get; set; }
 
     }
+
 }

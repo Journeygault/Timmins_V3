@@ -19,6 +19,7 @@ namespace TiminsHospitalProjectV3.Controllers
     {
         private JavaScriptSerializer jss = new JavaScriptSerializer();
         private static readonly HttpClient client;
+        private int showPer = 4; //declaring pagination variable
         static ReviewController()
         {
             HttpClientHandler handler = new HttpClientHandler()
@@ -28,21 +29,68 @@ namespace TiminsHospitalProjectV3.Controllers
                 UseCookies = false
             };
             client = new HttpClient(handler);
-            client.BaseAddress = new Uri("https://localhost:44346/api/");
+            client.BaseAddress = new Uri("http://hospitalproject-env.eba-fm6cqgtc.us-east-2.elasticbeanstalk.com/api/");
             client.DefaultRequestHeaders.Accept.Add(
             new MediaTypeWithQualityHeaderValue("application/json"));
         }
-
-
-        // GET: Review
-        public ActionResult List()
+        //getting cookie 
+        private void GetApplicationCookie()
         {
+            string token = "";
+            client.DefaultRequestHeaders.Remove("Cookie");
+            if (!User.Identity.IsAuthenticated) return;
+
+            HttpCookie cookie = System.Web.HttpContext.Current.Request.Cookies.Get(".AspNet.ApplicationCookie");
+            if (cookie != null) token = cookie.Value;
+
+            //collect token
+            Debug.WriteLine("Token Submitted is : " + token);
+            if (token != "") client.DefaultRequestHeaders.Add("Cookie", ".AspNet.ApplicationCookie=" + token);
+
+            return;
+        }
+
+
+        // GET: Review/List/{PageNum}
+        public ActionResult List(int pageNum = 0)
+        {
+            ListReviews ViewModel = new ListReviews();
             string url = "ReviewData/ListReviews";
             HttpResponseMessage response = client.GetAsync(url).Result;
             if (response.IsSuccessStatusCode)
             {
                 IEnumerable<Review> SelectedReviews = response.Content.ReadAsAsync<IEnumerable<Review>>().Result;
-                return View(SelectedReviews);
+                //pagination
+
+                int ReviewCount = SelectedReviews.Count();
+                //4 reviews per page
+                int PerPage = 4;
+
+                //determining the max number of pages
+                int maxPage = (int)Math.Ceiling((decimal)ReviewCount / PerPage) - 1;
+
+                //setting lower boundaries
+                if (maxPage < 0) maxPage = 0;
+                if (pageNum < 0) pageNum = 0;
+
+                //setting upper boundaries
+                if (pageNum > maxPage) pageNum = maxPage;
+
+                //record index of page start
+                int startIndex = PerPage * pageNum;
+
+                //generating html
+                ViewData["PageNum"] = pageNum;
+                ViewData["PageSummary"] = " " + (pageNum + 1) + " of " + (maxPage + 1) + " ";
+
+                //end of Pagination
+                url = "reviewdata/listreviews/" + startIndex + "/" + PerPage;
+                response = client.GetAsync(url).Result;
+
+                //retrieving the response of the request
+                IEnumerable<ReviewDto> SelectedReviewsPage = response.Content.ReadAsAsync<IEnumerable<ReviewDto>>().Result;
+                ViewModel.reviews = SelectedReviewsPage;
+                return View(ViewModel);
             }
             else
             {
@@ -91,6 +139,7 @@ namespace TiminsHospitalProjectV3.Controllers
         // POST: Review/Create
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize (Roles = "Patient, Admin")]
         public ActionResult Create(Review NewReview)
         {
             string url = "ReviewData/AddReview";
@@ -120,6 +169,7 @@ namespace TiminsHospitalProjectV3.Controllers
             }
         }
 
+        [Authorize (Roles = "Admin")]
         // GET: Review/Edit/5
         public ActionResult Edit(int id)
         {
@@ -143,6 +193,7 @@ namespace TiminsHospitalProjectV3.Controllers
         // POST: Review/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize (Roles = "Admin")]
         public ActionResult Edit(int id, Review ReviewInfo)
         {
             string url = "ReviewData/UpdateReview/" + id;
@@ -181,6 +232,7 @@ namespace TiminsHospitalProjectV3.Controllers
         // POST: Review/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken()]
+        [Authorize (Roles = "Admin")]
         public ActionResult Delete(int id, FormCollection collection)
         {
             string url = "ReviewData/DeleteReview/" + id;

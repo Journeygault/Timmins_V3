@@ -20,26 +20,39 @@
         <th>
             @Html.DisplayNameFor(model => model.TicketDate)
         </th>
-        <th></th>
+        <th>
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TicketTitle)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TicketBody)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TicketDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TicketId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TicketId }) |
-            @Html.ActionLink("Delete", "DeleteConfirm", new { id=item.TicketId })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.TicketTitle)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TicketBody)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.TicketDate)
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.TicketId }) |
+        @Html.ActionLink("Details", "Details", new { id = item.TicketId }) |
+        @Html.ActionLink("Delete", "DeleteConfirm", new { id = item.TicketId })
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.UserID)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.User.FirstName)
+    </td>
+</tr>
 }
 
 </table>

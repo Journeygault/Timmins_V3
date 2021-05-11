@@ -36,6 +36,10 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PublishDatabaseSettings>
+      <Objects>
+      </Objects>
+    </PublishDatabaseSettings>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -190,6 +194,8 @@
     <Compile Include="Controllers\BillDataController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\CategoryDataController.cs" />
+    <Compile Include="Controllers\DepartmentController.cs" />
+    <Compile Include="Controllers\DepartmentDataController.cs" />
     <Compile Include="Controllers\DonationController.cs" />
     <Compile Include="Controllers\DonationDataController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
@@ -201,6 +207,8 @@
     <Compile Include="Controllers\FaqController.cs" />
     <Compile Include="Controllers\FaqDataController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\JobPostingController.cs" />
+    <Compile Include="Controllers\JobPostingDataController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\NewsItemController.cs" />
     <Compile Include="Controllers\NewsItemDataController.cs" />
@@ -283,41 +291,64 @@
     <Compile Include="Migrations\202104240438594_donations-updates.designer.cs">
       <DependentUpon>202104240438594_donations-updates.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104282358094_user-in-ticket.cs" />
+    <Compile Include="Migrations\202104282358094_user-in-ticket.designer.cs">
+      <DependentUpon>202104282358094_user-in-ticket.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104291819429_JobPosting_table.cs" />
+    <Compile Include="Migrations\202104291819429_JobPosting_table.designer.cs">
+      <DependentUpon>202104291819429_JobPosting_table.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104291954458_journey-migration.cs" />
+    <Compile Include="Migrations\202104291954458_journey-migration.designer.cs">
+      <DependentUpon>202104291954458_journey-migration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AWSConnector.cs" />
     <Compile Include="Models\Bill.cs" />
     <Compile Include="Models\BillPayment.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\Department.cs" />
     <Compile Include="Models\Donation.cs" />
     <Compile Include="Models\Employee.cs" />
     <Compile Include="Models\Appointment.cs" />
     <Compile Include="Models\Faq.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\JobPosting.cs" />
     <Compile Include="Models\Job_Posting.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\NewsItem.cs" />
     <Compile Include="Models\Event.cs" />
     <Compile Include="Models\Review.cs" />
     <Compile Include="Models\Ticket.cs" />
+    <Compile Include="Models\ViewModels\CreateTicket.cs" />
+    <Compile Include="Models\ViewModels\ListBill.cs" />
     <Compile Include="Models\ViewModels\ListCategories.cs" />
     <Compile Include="Models\ViewModels\ListDonations.cs" />
     <Compile Include="Models\ViewModels\ListEvents.cs" />
     <Compile Include="Models\ViewModels\ListFaqs.cs" />
+    <Compile Include="Models\ViewModels\ListJobPostings.cs" />
     <Compile Include="Models\ViewModels\ListNewsItems.cs" />
+    <Compile Include="Models\ViewModels\ListReviews.cs" />
     <Compile Include="Models\ViewModels\ShowBill.cs" />
     <Compile Include="Models\ViewModels\ShowCategory.cs" />
+    <Compile Include="Models\ViewModels\ShowDepartment.cs" />
     <Compile Include="Models\ViewModels\ShowDonation.cs" />
     <Compile Include="Models\ViewModels\ShowEmployee.cs" />
     <Compile Include="Models\ViewModels\ShowEvent.cs" />
     <Compile Include="Models\ViewModels\ShowFaq.cs" />
+    <Compile Include="Models\ViewModels\ShowJobPosting.cs" />
     <Compile Include="Models\ViewModels\ShowJob_Posting.cs" />
     <Compile Include="Models\ViewModels\ShowNewsItem.cs" />
     <Compile Include="Models\ViewModels\ShowReview.cs" />
     <Compile Include="Models\ViewModels\ShowTicket.cs" />
+    <Compile Include="Models\ViewModels\UpdateBill.cs" />
     <Compile Include="Models\ViewModels\UpdateDonation.cs" />
     <Compile Include="Models\ViewModels\UpdateEmployee.cs" />
     <Compile Include="Models\ViewModels\UpdateEvent.cs" />
     <Compile Include="Models\ViewModels\UpdateFaq.cs" />
+    <Compile Include="Models\ViewModels\UpdateJobPosting.cs" />
     <Compile Include="Models\ViewModels\UpdateNewsItem.cs" />
     <Compile Include="Models\ViewModels\UpdateReview.cs" />
     <Compile Include="Models\ViewModels\UpdateTicket.cs" />
@@ -331,8 +362,6 @@
     <Content Include="Content\Appointments\Details.css" />
     <Content Include="Content\Appointments\Edit.css" />
     <Content Include="Content\Appointments\List.css" />
-    <Content Include="Content\bootstrap-theme.css" />
-    <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Employees\logo.png" />
@@ -566,9 +595,18 @@
     <Content Include="Views\Bill\DeleteConfirm.cshtml" />
     <Content Include="Views\Review\DeleteConfirm.cshtml" />
     <Content Include="Views\Donation\Confirmation.cshtml" />
+    <Content Include="Views\Department\Create.cshtml" />
+    <Content Include="Views\Department\DeleteConfirm.cshtml" />
+    <Content Include="Views\Department\Details.cshtml" />
+    <Content Include="Views\Department\Edit.cshtml" />
+    <Content Include="Views\Department\List.cshtml" />
+    <Content Include="Views\JobPosting\Create.cshtml" />
+    <Content Include="Views\JobPosting\DeleteConfirm.cshtml" />
+    <Content Include="Views\JobPosting\Details.cshtml" />
+    <Content Include="Views\JobPosting\Edit.cshtml" />
+    <Content Include="Views\JobPosting\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Content\NewsItems\" />
     <Folder Include="Views\EventData\" />
     <Folder Include="Views\ReviewData\" />
@@ -637,6 +675,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104240438594_donations-updates.resx">
       <DependentUpon>202104240438594_donations-updates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104282358094_user-in-ticket.resx">
+      <DependentUpon>202104282358094_user-in-ticket.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104291819429_JobPosting_table.resx">
+      <DependentUpon>202104291819429_JobPosting_table.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104291954458_journey-migration.resx">
+      <DependentUpon>202104291954458_journey-migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

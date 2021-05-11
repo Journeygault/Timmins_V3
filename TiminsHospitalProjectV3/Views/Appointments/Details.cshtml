@@ -98,6 +98,8 @@
 
 </div>
 <div class="link-wrapper">
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+     @if (Model.Status == TiminsHospitalProjectV3.Models.AppointmentStatus.Pending) {
+		@Html.ActionLink("Edit |", "Edit", new { id = Model.ID }) 
+    }
     @Html.ActionLink("Back to List", "List")
 </div>

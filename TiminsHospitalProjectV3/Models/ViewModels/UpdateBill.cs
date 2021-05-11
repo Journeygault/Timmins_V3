@@ -5,9 +5,9 @@ using System.Web;
 
 namespace TiminsHospitalProjectV3.Models.ViewModels
 {
-    public class UpdateTicket
+    public class UpdateBill
     {
-        public TicketDTO Ticket { get; set; }
-        public IEnumerable<ApplicationUser> UsersInRole { get; set; }
+        public bool isadmin { get; set; }
+        public BillDto Bill { get; set; }
     }
 }
