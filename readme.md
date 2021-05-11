@@ -43,7 +43,7 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 
 ---
 
-## Alexis Arevalo:
+## Alexis Arevalo
 
 ### FAQ & Category Features 
 
@@ -54,8 +54,8 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 - [x] Admins Are able to search for data that matches the input by FAQ Question or FAQ Answer.
 - [x] Admin Can Add new data into the database for FAQ and Category.
 - [x] Admin Can Edit new data into the database.
-        - When Adding or Editing FAQ data, the Admin has to select a given Category that is retrieved from the database.
-        - All FAQs are associated with a certain Category - Seen through a foreign key assigned in the FAQ table that links to a specific Category Id.
+- When Adding or Editing FAQ data, the Admin has to select a given Category that is retrieved from the database.
+- All FAQs are associated with a certain Category - Seen through a foreign key assigned in the FAQ table that links to a specific Category Id.
 - [x] Admin Can View the details about the specific data.
 - [x] Admin Can Delete data from the database.
 - [x] Validation is managed for all inputs with JS.
@@ -68,8 +68,8 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 - [x] Users Can see all the events they made a donation to.
 - [x] Admin Can see all the data that is retrieved from the database (except users card information).
 - [x] Admin Can Edit new data into the database.
-        - When Adding or Editing Donation data, the Admin has the option to select a given Event that is retrieved from the database. /- This is only done when a user confirms they've made a mistake on one of the inputs.
-        - All Donations are associated with a certain Event - Seen through a foreign key assigned in the Donation table that links to a specific Event Id.
+- When Adding or Editing Donation data, the Admin has the option to select a given Event that is retrieved from the database. - This is only done when a user confirms they've made a mistake on one of the inputs.
+- All Donations are associated with a certain Event - Seen through a foreign key assigned in the Donation table that links to a specific Event Id.
 - [ ] Admin Can Delete data from the database.
 - [ ] Admin Can View the details about the specific data.
 - [ ] Validation is managed for all inputs with JS.
@@ -80,7 +80,8 @@ This feature enable a Patient to book an appointment with a Physician and Vice V
 - [x] Redesigned the footer and header with styling CSS.
 - [x] Redesigned the Index page with styling CSS
 
-- @Jorneygault /- Assisted retrieving the database.
+- **Jorney Gault** - Assisted retrieving the database.
+
 ---
 
 ## Journey Gault

@@ -338,6 +338,11 @@
     <Content Include="Content\Employees\logo.png" />
     <Content Include="Content\Faq_Category\Donations.css" />
     <Content Include="Content\Faq_Category\Faq_Category.css" />
+    <Content Include="Content\PageLayout\Images\health-care_VKCF2FYI3D.jpg" />
+    <Content Include="Content\PageLayout\Images\Logo\image.png" />
+    <Content Include="Content\PageLayout\Images\main-image.png" />
+    <Content Include="Content\PageLayout\Images\photo-1511174511562-5f7f18b874f8.jpg" />
+    <Content Include="Content\PageLayout\Images\photo-1588186593114-e7b26b2890b5.jpg" />
     <Content Include="Content\Users\Profile.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />

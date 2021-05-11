@@ -4,14 +4,14 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Donations</h2>
 
 <div>
-    <h4>Donation</h4>
+    <h4>Details</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.events.Title)
+            Event Title
         </dt>
 
         <dd>
@@ -106,57 +106,19 @@
             @Html.DisplayFor(model => model.Donation.Date)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Donation.CardName)
-        </dt>
+        @if(Model != null && !String.IsNullOrEmpty(Model.Donation.CompanyName))
+         {
+            <dt>
+                @Html.DisplayNameFor(model => model.Donation.CompanyName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Donation.CardName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Donation.CardNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Donation.CardNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Donation.ExpiryDate)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Donation.ExpiryDate)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Donation.CVV)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Donation.CVV)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Donation.CardType)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Donation.CardType)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Donation.CompanyName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Donation.CompanyName)
-        </dd>
-
+            <dd>
+                @Html.DisplayFor(model => model.Donation.CompanyName)
+            </dd>
+         } 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Donation.DonationID }) |
-    @Html.ActionLink("Back to List", "List", "Donation")
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Donation.DonationID }, new { @class = "text-warning"}) |
+    @Html.ActionLink("Back to List", "List", "Donation", new { @class = "text-primary"})
 </p>

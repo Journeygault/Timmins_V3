@@ -12,14 +12,6 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Events.Title)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Events.Title)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.FistName)
         </dt>
 
@@ -162,7 +154,7 @@
 
         <div class="form-actions no-color">
             <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
+            @Html.ActionLink("Back to List", "List", "Donation")
         </div>
     }
 </div>

@@ -1,4 +1,17 @@
-﻿body {
+﻿:root {
+    /*Color Types*/
+    --sweetBlue: #326c90;
+    --greyNav: #333333;
+    --turquoise: #56e79f;
+    --mellowViolet: #4f5487;
+    --palmPurple: #9973ab;
+    --bubbleBlue: #038dd0;
+    --olieOrange: #dc954b;
+    --glowGreen: #76b830;
+    --peachyPink: #f45556;
+    --errorPink: #ffadad;
+}
+body {
 }
 .middle {
     text-align: center;
@@ -8,4 +21,8 @@
 }
 .justify{
     justify-content: center;
+}
+.th-color{
+    background: var(--sweetBlue);
+    color: white;
 }

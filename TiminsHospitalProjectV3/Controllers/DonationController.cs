@@ -177,7 +177,7 @@ namespace TiminsHospitalProjectV3.Controllers
                 DonationDto SelectedDonations = response.Content.ReadAsAsync<DonationDto>().Result;
                 ViewModel.Donation = SelectedDonations;
 
-                url = "EventData/GetCategories";
+                url = "EventData/GetEvents";
                 response = client.GetAsync(url).Result;
                 IEnumerable<EventDto> DonationsEvent = response.Content.ReadAsAsync<IEnumerable<EventDto>>().Result;
                 ViewModel.Allevents = DonationsEvent;
